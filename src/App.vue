@@ -1,13 +1,13 @@
 <script setup>
+import { RouterLink } from 'vue-router';
 import Header from './components/header.vue';
 import Footer from './components/footer.vue';
-import landingspage from './components/landingspage.vue';
 </script>
 
 <template>
   <div id="app">
     <Header />
-    <landingspage />
+    <router-view></router-view>
     <Footer />
   </div>
 </template>
