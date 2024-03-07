@@ -107,7 +107,7 @@ import { RouterLink } from 'vue-router';
 .input-icon::before {
   content: url('../../public/search.svg'); /* Replace with your icon path */
   position: absolute;
-  right: 10px; /* Adjust as needed */
+  right: -115px; /* Adjust as needed */
   top: 50%;
   transform: translateY(-50%);
 }
