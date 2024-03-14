@@ -5,11 +5,11 @@
 <template>
     <footer>
         <div class="footer">
-            <div>
+            <div class="newletter">
                 <div>
                     <p class="abonneer">Abonneer op onze nieuwsbrief</p>
                 </div>
-                <div class="newsletter">
+                <div class="newsletter_input">
                     <div class="likenandsubscribe">
                         <input type="text" placeholder="Vul hier je email adres in" class="emailinput"/>
                         <button class="subscribe">Abonneer   
@@ -19,7 +19,7 @@
                         </button>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="526" height="2" viewBox="0 0 526 2" fill="none" class="line">
-                        <path d="M0 1H526" stroke="white"/>
+                        <path d="M0 1H526" stroke="#F0F2F1"/>
                     </svg>
                 </div>
             </div>
@@ -28,8 +28,31 @@
 </template>
 
 <style scoped>
+.footer {
+  background-color: #2B5740;
+  color: #F0F2F1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+}
 
 .newsletter {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    align-self: left;
+}
+
+.abonneer {
+    display: flex;
+    color: #F0F2F1;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.newsletter_input {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,11 +74,15 @@
     min-width: 250px;
 }
 
+.emailinput::placeholder {
+    color: #F0F2F1;
+}
+
 .subscribe {
     border: none;
     border-radius: 5px;
     background: none;
-    color: white;
+    color: #F0F2F1;
     margin: 0;
     padding: 0;
 }

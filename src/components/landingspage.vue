@@ -96,11 +96,16 @@
         margin: 0;
     }
 
+    .landingspage__text p {
+        color: #090D0B;
+    }
+
     .landingspage__text .number {
         font-size: 100px;
         font-weight: 900;
         margin: 0;
         padding: 0;
+        color: #809A8C;
     }
 
     .text {
