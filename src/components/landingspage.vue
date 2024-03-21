@@ -48,14 +48,10 @@
 </template>
 
 <style scoped>
-    body {
-        margin: 0 !important;
-        padding: 0;
-        box-sizing: border-box;
-    }
 
     .landingspage__top {
         height: 100%;
+        
     }
 
     .top-content {
@@ -65,12 +61,13 @@
         align-items: flex-start; /* align children to the left */
         align-content: center;
         height: 30vw;
+        max-width: 1280px;
+        margin: 2em;
     }
 
     .text-content {
         text-align: left;
-        padding: 0;
-        margin: 0 !important;
+        margin: 0 6em;
     }
 
     .top-content img {
@@ -93,7 +90,10 @@
         align-content: center;
         height: 100%;
         padding: 0;
-        margin: 0;
+        margin: 0 auto;
+        padding: 2rem;
+        text-align: center;
+        max-width: 1280px;
     }
 
     .landingspage__text p {
@@ -108,6 +108,13 @@
         color: #809A8C;
     }
 
+    .img_segment {
+
+        padding: 0;
+        padding: 2rem;
+        text-align: center;
+    }
+
     .text {
         display: flex;
         flex-direction: column;
@@ -115,14 +122,15 @@
         align-items: left;
         align-content: center;
         text-align: left;
-        padding: 1em;
-        margin: 0;
+        margin: 0 auto;
+        padding: 2rem;
         background: url("../public/Images/bg.jpeg");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
         height: 100%;
-        border-radius: 20px;
+        border-radius: 20px;    
+        max-width: 1280px;
     }
 
     .text h2 {

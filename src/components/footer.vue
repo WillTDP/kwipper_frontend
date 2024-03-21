@@ -28,7 +28,12 @@
 </template>
 
 <style scoped>
-.footer {
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+footer {
   background-color: #2B5740;
   color: #F0F2F1;
   display: flex;
@@ -36,6 +41,7 @@
   align-items: center;
   height: 200px;
   width: 100%;
+  
 }
 
 .newsletter {
