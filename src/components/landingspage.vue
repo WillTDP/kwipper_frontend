@@ -6,10 +6,12 @@
         <div class="landingspage__top">
             <div class="top-content">
                 <div class="text-content">
-                    <h1>logo</h1>
+                    <h1 class="logo">
+                        <img src="/logo.svg" alt="Kwipper Logo" >
+                    </h1>
                     <h2 class="h2">Een wereld van <b style="color: yellow;">materiaal</b> binnen <b style="color: yellow;">handbereik!</b></h2>
                 </div>
-                <img src="../../public/Images/splash.png" alt="landingspage-header" />
+                <img src="../../public/Images/splash.png" alt="landingspage-header" class="splash"/>
             </div>
         </div>
         <div class="landingspage__text">
@@ -48,7 +50,6 @@
 </template>
 
 <style scoped>
-
     .landingspage__top {
         height: 100%;
         
@@ -63,14 +64,28 @@
         height: 30vw;
         max-width: 1280px;
         margin: 2em;
+        padding: 0;
     }
 
     .text-content {
         text-align: left;
         margin: 0 6em;
+        padding: 0;
+        z-index: 2; /* Adjust this value as needed */
+        position: relative; /* z-index only works on positioned elements */
+        display: flex;
+        flex-direction: column;
     }
 
-    .top-content img {
+    .logo {
+        width: 521.67px;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .splash {
         position: absolute;
         display: flex;
         align-items: top;
@@ -79,7 +94,7 @@
         left: 0;
         width: 100%;
         height: auto;
-        z-index: -1;
+        z-index: 1;
     }
 
     .landingspage__text {
@@ -109,7 +124,6 @@
     }
 
     .img_segment {
-
         padding: 0;
         padding: 2rem;
         text-align: center;

@@ -9,7 +9,7 @@ import { RouterLink } from 'vue-router';
         <div class="header">
             <div class="first_block">
                 <div class="header__logo">
-                    <router-link to="/"><img src="../assets/logo.png" alt="Kwipper logo" class="logo" /></router-link>
+                    <router-link to="/"><img src="/logo.svg" alt="Kwipper logo" class="logo" /></router-link>
                 </div>
                 <div class="links">
                     <router-link active-class="active" class="link materiaal" to="/materiaal">Materiaal</router-link>
@@ -51,6 +51,13 @@ import { RouterLink } from 'vue-router';
 
 .header__logo {
     padding: 1.5em;
+    display: flex;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    display: flex;
 }
 
 .first_block {
