@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import login from './components/User/login.vue
+import login from './components/User/login.vue'
 import signup from './components/User/signup.vue'
 import landingspage from './components/landingspage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
