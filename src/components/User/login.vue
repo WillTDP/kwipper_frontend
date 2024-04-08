@@ -9,14 +9,16 @@
     </div>
     <h1 class="h1">Login</h1>
     <form class="login">
+      <label for="username">E-mailadres</label>
       <input type="text" placeholder="Username" />
+      <label for="password">Wachtwoord</label>
       <input type="password" placeholder="Password" />
       <a href="#">Wachtwoord vergeten?</a>
       <div>
         <input type="checkbox" id="remember" name="remember" value="remember">
         <label for="remember" class="remember_label">Remember me</label>
       </div>
-      <button type="submit">Login</button>
+      <button type="submit" class="login_btn">Login</button>
     </form>
   </div>
 </template>
@@ -27,7 +29,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 50vh;
+    margin-top: 2em;
+    margin-bottom: 2em;
   }
 
   .green_rect {
@@ -57,7 +60,7 @@
     font-size: 32px;
   }
 
-  .remember_label {
+  label {
     color: black;
   }
 
@@ -65,7 +68,9 @@
     margin-bottom: 10px;
   }
 
-  button {
+  .login_btn {
     margin-top: 10px;
+    background-color: #2B5740;
+    color: #F0F2F1;
   }
 </style>
