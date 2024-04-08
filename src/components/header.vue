@@ -35,9 +35,6 @@ import { RouterLink } from 'vue-router';
 
 <style scoped>
 .header {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     box-sizing: border-box; /* Include padding and border in element's total width and height */
     display: flex;
@@ -45,7 +42,6 @@ import { RouterLink } from 'vue-router';
     align-items: center;
     padding: 1em;
     background-color: #2B5740;
-    z-index: 1000; /* This ensures the header is always on top of other elements */
     height: 64px;
 }
 
