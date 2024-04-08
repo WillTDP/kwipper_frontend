@@ -9,14 +9,18 @@
     </div>
     <h1 class="h1">Login</h1>
     <form class="login">
-      <label for="username">E-mailadres</label>
-      <input type="text" placeholder="Username" />
-      <label for="password">Wachtwoord</label>
-      <input type="password" placeholder="Password" />
+      <div class="inputfield">
+        <label for="username">E-mailadres</label>
+        <input class="textbox" type="text" placeholder="Username" />
+      </div>
+      <div class="inputfield">
+        <label for="password">Wachtwoord</label>
+        <input class="textbox" type="password" placeholder="Password" />
+      </div>
       <a href="#">Wachtwoord vergeten?</a>
       <div>
         <input type="checkbox" id="remember" name="remember" value="remember">
-        <label for="remember" class="remember_label">Remember me</label>
+        <label for="remember" class="remember_label">Ingelogd blijven</label>
       </div>
       <button type="submit" class="login_btn">Login</button>
     </form>
@@ -60,12 +64,22 @@
     font-size: 32px;
   }
 
+  .inputfield {
+    display: flex;
+    flex-direction: column;
+    margin-top: 18px;
+  }
+
   label {
     color: black;
   }
 
-  input {
-    margin-bottom: 10px;
+  .textbox {
+    width: 360px;
+    height: 38px; 
+    border: 1px solid #2B5740;
+    border-radius: 10px;
+    margin-top: 8px;
   }
 
   .login_btn {
