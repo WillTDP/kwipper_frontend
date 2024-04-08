@@ -81,7 +81,7 @@ const handleSubmit = () => {
   }
 
   .h1 {
-    color: #090D0B;
+    color: #2B5740;
     font-size: 32px;
   }
 
@@ -96,11 +96,12 @@ const handleSubmit = () => {
   }
 
   .textbox {
-    width: 360px;
+    width: 350px;
     height: 38px; 
     border: 1px solid #2B5740;
     border-radius: 10px;
     margin-top: 8px;
+    padding-left: 10px;
   }
 
   .forgot_password {
