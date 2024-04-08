@@ -1,5 +1,13 @@
-<script setup >
+<script setup>
+import { ref } from 'vue';
 
+const username = ref('');
+const password = ref('');
+
+const handleSubmit = () => {
+  // Handle form submission
+  console.log(username.value, password.value);
+};
 </script>
 
 <template>
@@ -8,14 +16,14 @@
       <img src="/logo.svg" alt="logo" />
     </div>
     <h1 class="h1">Login</h1>
-    <form class="login">
+    <form class="login" @submit.prevent="handleSubmit">
       <div class="inputfield">
         <label for="username">E-mailadres</label>
-        <input class="textbox" type="text" placeholder="Username" />
+        <input class="textbox" type="text" v-model="username" placeholder="Voorbeeld@email.com" />
       </div>
       <div class="inputfield">
         <label for="password">Wachtwoord</label>
-        <input class="textbox" type="password" placeholder="Password" />
+        <input class="textbox" type="password" v-model="password" placeholder="Wachtwoord" />
       </div>
       <a href="#">Wachtwoord vergeten?</a>
       <div>
