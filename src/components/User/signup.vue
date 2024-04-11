@@ -1,6 +1,7 @@
 <script setup>
 /*https://dev.to/yogeshgalav7/how-to-build-multi-step-form-in-vuejs-4n5b*/
 import { ref } from 'vue';
+import multistepform from './multistepform.vue';
 
 const form = ref({
     first_name: '',
