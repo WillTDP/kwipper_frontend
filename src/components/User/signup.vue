@@ -1,44 +1,36 @@
 <script setup>
 /*https://dev.to/yogeshgalav7/how-to-build-multi-step-form-in-vuejs-4n5b*/
+
 import { ref } from 'vue';
 import multistepform from './multistepform.vue';
 
-const form = ref({
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone: '',
-    password: '',
-    role: '',
-    what_jeugdbeweging: '',
-    jb_name: '',
-    group_number: '',
-    verenigiging_name: '',
-    has_ondnr: '',
-    ondnr: '',
-    straatnaam: '',
-    huisnummer: '',
-    postcode: '',
-    gemeente: ''
-});
-
-const handleSubmit = async () => {
-    // Call your API to create the user
-    // You can access the form data with `form.value`
-};
+const steps = ref([
+    {'step_no':1,'step_valid':false,'step_skip':false},
+    {'step_no':2,'step_valid':false,'step_skip':true},
+    {'step_no':3,'step_valid':false,'step_skip':false},
+]);
 </script>
 
 <template>
     <div>
-        <form @submit.prevent="handleSubmit">
+        <multistepform>
+            <template #header>
+                <h1 style="color:#090D0B">Get Started -></h1>
+            </template>
+            <template v-slot:footer>
+                <button class="btn btn-primary" 
+                type="submit">Get OTP</button>
+            </template>
+            /steps slots
+         </multistepform>
+        <!----<form @submit.prevent="handleSubmit">
             <input v-model="form.first_name" placeholder="First Name" />
             <input v-model="form.last_name" placeholder="Last Name" />
             <input v-model="form.email" placeholder="Email" />
             <input v-model="form.phone" placeholder="Phone" />
             <input v-model="form.password" type="password" placeholder="Password" />
-            <!-- Add the rest of the form fields here -->
             <button type="submit">Sign Up</button>
-        </form>
+        </form>-->
     </div>
 </template>
 
