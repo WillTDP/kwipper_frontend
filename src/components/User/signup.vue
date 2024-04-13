@@ -2,7 +2,12 @@
 /*https://dev.to/yogeshgalav7/how-to-build-multi-step-form-in-vuejs-4n5b*/
 
 import { ref } from 'vue';
+import { watch } from 'vue';
 import multistepform from './multistepform.vue';
+
+let username = ref('');
+let email = ref('');
+let password = ref('');
 
 const steps = ref([
     {'step_no':1,'step_valid':false,'step_skip':false},
@@ -12,13 +17,40 @@ const steps = ref([
 
 const multiStepForm = ref(null);
 
-const validateStep = (stepIndex) => {
-    // run validation of step
-    // if step is valid then
-    steps.value[stepIndex].step_valid = true;
-    multiStepForm.value.submitStep();
-    // else show errors
+const validateStep = (step) => {
+    if (step === 1) {
+        if (!username.value || !email.value) {
+            steps.value[step - 1].step_valid = false;
+            console.log('Step 1 is not valid');
+            return false; // Prevent moving to the next step
+        } else {
+            steps.value[step - 1].step_valid = true;
+        }
+    } else if (step === 2) {
+        if (!password.value) {
+            steps.value[step - 1].step_valid = false;
+            console.log('Step 2 is not valid');
+            return false; // Prevent form submission
+        } else {
+            steps.value[step - 1].step_valid = true;
+        }
+    }
+    console.log(`Step ${step} is valid`);
+    return true;
 }
+
+let currentStep = ref(1);
+
+const nextStep = () => {
+  if (validateStep(currentStep.value)) {
+    currentStep.value++;
+  }
+  else {
+    //console log message with error
+    console.log('Please fill all the fields');
+  }
+}
+
 
 const submitForm = () => {
     // api call to submit all data via post request
@@ -31,44 +63,37 @@ const submitForm = () => {
 <template>
     <div>
         <multistepform
-        ref="multiStepForm"
-        :steps="steps"
-        @onComplete="submitForm"
-        @validateStep="validateStep">
+            ref="multiStepForm"
+            :steps="steps"
+            @onComplete="submitForm"
+            @validateStep="validateStep">
             <template #header>
                 <h1 style="color:#090D0B">Get Started -></h1>
             </template>
 
             <template v-slot:step1>
-                <div>
+                <div v-if="currentStep === 1">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
+                    <input type="text" id="username" name="username" v-model="username" required>
 
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="text" id="email" name="email" v-model="email" required>
                 </div>
             </template>
 
             <template v-slot:step2>
-                <div>
+                <div v-if="currentStep === 2">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" v-model="password" required>
                 </div>
             </template>
 
             <template v-slot:footer>
                 <button class="btn btn-primary" 
-                type="submit">Get OTP</button>
+                                type="button" 
+                                @click="nextStep">Next Step</button>
             </template>
         </multistepform>
-        <!----<form @submit.prevent="handleSubmit">
-            <input v-model="form.first_name" placeholder="First Name" />
-            <input v-model="form.last_name" placeholder="Last Name" />
-            <input v-model="form.email" placeholder="Email" />
-            <input v-model="form.phone" placeholder="Phone" />
-            <input v-model="form.password" type="password" placeholder="Password" />
-            <button type="submit">Sign Up</button>
-        </form>-->
     </div>
 </template>
 
