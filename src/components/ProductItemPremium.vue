@@ -26,7 +26,7 @@ const props = defineProps({
         flex-direction: column;
         margin-bottom: 2%;
         position: relative;
-        background-color: #F0F2F1;
+        background-color: red;
     }
 
     .product-text {
