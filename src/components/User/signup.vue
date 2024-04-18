@@ -17,6 +17,13 @@ const steps = ref([
             <template #header>
                 <h1 style="color:#090D0B">Get Started -></h1>
             </template>
+            <template v-slot:step1>
+                <input v-model="form.first_name" placeholder="First Name" />
+                <input v-model="form.last_name" placeholder="Last Name" />
+                <input v-model="form.email" placeholder="Email" />
+                <input v-model="form.phone" placeholder="Phone" />
+                <input v-model="form.password" type="password" placeholder="Password" />
+            </template>
             <template v-slot:footer>
                 <button class="btn btn-primary" 
                 type="submit">Get OTP</button>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
     steps: {
@@ -12,9 +12,15 @@ const props = defineProps({
     }
 });
 
+const emit = defineEmits(['validateStep']);
+
 const activeStepIndex = ref(0);
 
 const submitStep = () => {
+    if (!props.steps[activeStepIndex.value]?.step_valid) {
+        emit('validateStep', activeStepIndex.value);
+        return false;
+    }
     if (activeStepIndex.value === props.steps.length) {
         // final step
         props.onComplete();
