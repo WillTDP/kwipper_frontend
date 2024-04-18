@@ -12,7 +12,7 @@ const props = defineProps({
             <img :src="product.imageUrl">
             <div class="product-text">    
                 <h3 class="product-name">{{ product.name }}</h3>
-                <p class="product-price">€{{ product.price }}</p>
+                <p v-if="product && product.item" id="price" class="product-price">€{{ product.item.price }} per dag</p>  
             </div>
         </router-link>
     </div>

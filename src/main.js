@@ -13,7 +13,7 @@ const routes = [
         { path: '/footer', component: footer },
         { path: '/header', component: header },
         { path: '/materiaal', component: materiaalpagina },
-        { path: '/materiaaldetail', component: materiaaldetail }
+        { path: '/products/:id', component: materiaaldetail }
 ]
 
 const router = createRouter({
