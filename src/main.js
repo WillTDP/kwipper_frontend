@@ -12,7 +12,7 @@ const routes = [
         { path: '/', component: landingspage },
         { path: '/footer', component: footer },
         { path: '/header', component: header },
-        { path: '/materiaalpagina', component: materiaalpagina },
+        { path: '/materiaal', component: materiaalpagina },
         { path: '/materiaaldetail', component: materiaaldetail }
 ]
 
