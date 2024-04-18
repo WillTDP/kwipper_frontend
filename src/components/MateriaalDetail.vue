@@ -1,3 +1,16 @@
+<script setup>
+import { reactive, onMounted } from 'vue';
+import { products } from '../fake-data.js';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+let product = reactive({});
+
+onMounted(() => {
+  product = products.find((p) => p.id === route.params.id);
+});
+</script>
+
 <template>
     <div id="page-wrap">
         <div id="img-wrap">
@@ -13,19 +26,6 @@
         </div>
     </div>
 </template>
-
-<script>
-import { products } from '../fake-data.js';
-
-export default { 
-    name:'ProductDetailPage',
-    data() {
-        return {
-            product: products.find((p) => p.id === this.$route.params.id),
-        };
-    }
-};
-</script>
 
 <style scoped>
   #page-wrap {
