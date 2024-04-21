@@ -180,6 +180,7 @@ const stateText = computed(() => getStateText(product));
 
   #add-to-cart {
     width: 100%;
-    color: green;
+    color: #F0F2F1;
+    background-color: #4EA385;
   }
 </style>
