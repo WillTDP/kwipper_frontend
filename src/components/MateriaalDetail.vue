@@ -2,7 +2,7 @@
 import { reactive, onMounted, computed, ref } from 'vue';
 import { products } from '../fake-data.js';
 import { useRoute } from 'vue-router';
-import '@fortawesome/fontawesome-free/css/all.css'
+import StarRating from './StarRating.vue';
 
 const route = useRoute();
 let product = reactive({});
@@ -39,15 +39,7 @@ const getStateText = (product) => {
 
 const stateText = computed(() => getStateText(product));
 
-let readOnly = ref(true); // Initialize readOnly state
 
-let rating = computed(() => product.seller ? product.seller.averageRating : 0);
-
-function setRating(n) {
-  if (!readOnly.value) {
-    product.seller.averageRating = n;
-  }
-}
 </script>
 
 <template>
@@ -66,9 +58,7 @@ function setRating(n) {
           <div class="score_name">
             <h2 class="seller_name">{{ product.seller.name }} </h2>
             <p>Review score: {{ product.seller.averageRating }}</p>
-            <span v-for="n in 5" :key="n" class="star" @click="!readOnly && setRating(n)">
-              <i :class="n <= rating ? 'fas fa-star' : 'far fa-star'"></i>
-            </span>
+            <StarRating :rating="Number(product.seller.averageRating)" :readOnly="true" class="star" />   
           </div>
           <div class="score_location">
             <p>Location: {{ product.seller.location }}</p>
