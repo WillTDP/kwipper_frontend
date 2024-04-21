@@ -1,7 +1,8 @@
 <script setup>
-import { reactive, onMounted, computed } from 'vue';
+import { reactive, onMounted, computed, ref } from 'vue';
 import { products } from '../fake-data.js';
 import { useRoute } from 'vue-router';
+import '@fortawesome/fontawesome-free/css/all.css'
 
 const route = useRoute();
 let product = reactive({});
@@ -12,7 +13,6 @@ onMounted(() => {
     for (let key in foundProduct) {
       product[key] = foundProduct[key];
     }
-    console.log(product);
   }
 });
 
@@ -38,23 +38,42 @@ const getStateText = (product) => {
 };
 
 const stateText = computed(() => getStateText(product));
+
+let readOnly = ref(true); // Initialize readOnly state
+
+let rating = computed(() => product.seller ? product.seller.averageRating : 0);
+
+function setRating(n) {
+  if (!readOnly.value) {
+    product.seller.averageRating = n;
+  }
+}
 </script>
 
 <template>
     <div id="page-wrap">
       <div class="top_img_element">
           <div id="img-wrap">
-              <h1>{{ product.name }}</h1>
+            <div class="titlewrap">
+              <h1 class="title">{{ product.name }}</h1>
+              <a href="/*">flag</a>
+            </div>
               <img v-bind:src="product.imageUrl">
           </div>
       </div>
       <div class="middle_detail_element">
         <div v-if="product && product.seller">
-          <h2>{{ product.seller.name }} </h2>
-          <p>Review score: {{ product.seller.averageRating }}</p>
-          <p>Location: {{ product.seller.location }}</p>
+          <div class="score_name">
+            <h2 class="seller_name">{{ product.seller.name }} </h2>
+            <p>Review score: {{ product.seller.averageRating }}</p>
+            <span v-for="n in 5" :key="n" class="star" @click="!readOnly && setRating(n)">
+              <i :class="n <= rating ? 'fas fa-star' : 'far fa-star'"></i>
+            </span>
+          </div>
+          <div class="score_location">
+            <p>Location: {{ product.seller.location }}</p>
+          </div>
         </div>
-            <h3>{{ product.email }}</h3>
             <h3 v-if="product && product.item" id="price">€{{ product.item.price }} per dag</h3>
             <p v-if="product && product.item">{{ product.item.available ? 'Beschikbaar' : 'Niet Beschikbaar' }}</p>  
       </div>
@@ -82,11 +101,22 @@ const stateText = computed(() => getStateText(product));
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #888;
   }
 
   #img-wrap {
     text-align: center;
+  }
+
+  .titlewrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 32px;
   }
 
   img {
@@ -96,6 +126,19 @@ const stateText = computed(() => getStateText(product));
   .middle_detail_element {
     padding: 16px;
     position: relative;
+  }
+
+  .seller_name {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .score_name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
   }
 
   .bottom_detail_element {
