@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { products } from '../fake-data.js';
+import { products } from '../../fake-data.js'
 import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
 

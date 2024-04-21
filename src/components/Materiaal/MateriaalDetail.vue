@@ -1,8 +1,8 @@
 <script setup>
 import { reactive, onMounted, computed, ref } from 'vue';
-import { products } from '../fake-data.js';
+import { products } from '../../fake-data.js'
 import { useRoute } from 'vue-router';
-import StarRating from './StarRating.vue';
+import StarRating from './Parts/StarRating.vue';
 
 const route = useRoute();
 let product = reactive({});
