@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, computed } from 'vue';
 import { products } from '../fake-data.js';
 import { useRoute } from 'vue-router';
 
@@ -15,6 +15,29 @@ onMounted(() => {
     console.log(product);
   }
 });
+
+const getStateText = (product) => {
+  if (product && product.item && product.item.staat) {
+    switch (product.item.staat) {
+      case '1':
+        return 'Beschadigd';
+      case '2':
+        return 'Defect';
+      case '3':
+        return 'Matig';
+      case '4':
+        return 'Goed';
+      case '5':
+        return 'Perfect';
+      default:
+        return 'Onbekend';
+    }
+  } else {
+    return '';
+  }
+};
+
+const stateText = computed(() => getStateText(product));
 </script>
 
 <template>
@@ -26,8 +49,11 @@ onMounted(() => {
           </div>
       </div>
       <div class="middle_detail_element">
-            <h2>{{ product.Seller }} </h2>
-            <p>Review score: {{ product.averageRating }}</p>
+        <div v-if="product && product.seller">
+          <h2>{{ product.seller.name }} </h2>
+          <p>Review score: {{ product.seller.averageRating }}</p>
+          <p>Location: {{ product.seller.location }}</p>
+        </div>
             <h3>{{ product.email }}</h3>
             <h3 v-if="product && product.item" id="price">€{{ product.item.price }} per dag</h3>
             <p v-if="product && product.item">{{ product.item.available ? 'Beschikbaar' : 'Niet Beschikbaar' }}</p>  
@@ -35,6 +61,11 @@ onMounted(() => {
       <div class="bottom_detail_element">
         <h4>Beschrijving</h4>
         <p>{{ product.description }}</p>
+        <div v-if="product && product.item">
+          <p>stock: {{ product.item.stock }}</p>
+          <p>Staat: {{ stateText }}</p>
+          <p>Waarborg: {{ product.item.waarborg }} per product</p>
+        </div>
         <button id="add-to-cart">Toevoegen aan winkelmandje</button>
       </div>
     </div>

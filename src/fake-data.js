@@ -7,6 +7,12 @@ import campImage6 from './assets/seniorentent.png';
 import campImage7 from './assets/verlengkabel.png';
 import campImage8 from './assets/zeil.png';
 
+///Staat 1 = Beschadigd
+///Staat 2 = Defect
+///Staat 3 = Matig
+///Staat 4 = Goed
+///Staat 5 = Perfect
+
 export const products = [{
   id: '123',
   name: 'fouragetent',
@@ -14,12 +20,17 @@ export const products = [{
     price: '30',
     stock: 2,
     waarborg: '150.00',
+    available: true,
+    staat: "5",
   },
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel enim quam. Mauris nisl tellus, fringilla sed cursus eu, convallis non diam. Mauris quis fringilla nunc. Aenean leo lacus, lobortis sit amet venenatis a, aliquet tristique erat. Etiam laoreet mauris ut dapibus tincidunt. Pellentesque non ex at nisl ornare aliquam sed non ante. Nam lobortis magna id massa cursus, sit amet condimentum metus facilisis. Donec eu tortor at est tempor cursus et sed velit. Morbi rutrum elementum est vitae fringilla. Phasellus dignissim purus turpis, ac varius enim auctor vulputate. In ullamcorper vestibulum mauris. Nulla malesuada pretium mauris, lobortis eleifend dolor iaculis vitae.',
   imageUrl: campImage1,
-  averageRating: '5.0',
-  Seller: 'Chiro Kuringen',
-  email: 'chirokuringen@gmail.com',
+  seller: {
+    name: 'Chiro Kuringen',
+    email: 'chirokuringen@gmail.com',
+    location: 'Hasselt, Kuringen',
+    averageRating: '5.0',
+  },
   premium: true,
 }, {
   id: '234',
@@ -29,12 +40,16 @@ export const products = [{
     stock: 5,
     waarborg: '50.00',
     available: true,
+    staat: "4",
   },
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel enim quam. Mauris nisl tellus, fringilla sed cursus eu, convallis non diam. Mauris quis fringilla nunc. Aenean leo lacus, lobortis sit amet venenatis a, aliquet tristique erat. Etiam laoreet mauris ut dapibus tincidunt. Pellentesque non ex at nisl ornare aliquam sed non ante. Nam lobortis magna id massa cursus, sit amet condimentum metus facilisis. Donec eu tortor at est tempor cursus et sed velit. Morbi rutrum elementum est vitae fringilla. Phasellus dignissim purus turpis, ac varius enim auctor vulputate. In ullamcorper vestibulum mauris. Nulla malesuada pretium mauris, lobortis eleifend dolor iaculis vitae.',
   imageUrl: campImage2,
-  averageRating: '5.0',
-  Seller: 'Scouts en Gidsen Sint-Brixius-Rode',
-  email: 'scoetevanroi@gmail.com',
+  seller: {
+    name: 'Scouts en Gidsen Sint-Brixius-Rode',
+    email: 'scoetevanroi@gmail.com',
+    location: 'Sint-Brixius-Rode, Meise',
+    averageRating: '5.0',
+  },
   premium: false,
 }, {
   id: '345',
@@ -44,12 +59,17 @@ export const products = [{
     stock: 3,
     waarborg: '100.00',
     available: false,
+    staat: "3",
   },
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel enim quam. Mauris nisl tellus, fringilla sed cursus eu, convallis non diam. Mauris quis fringilla nunc. Aenean leo lacus, lobortis sit amet venenatis a, aliquet tristique erat. Etiam laoreet mauris ut dapibus tincidunt. Pellentesque non ex at nisl ornare aliquam sed non ante. Nam lobortis magna id massa cursus, sit amet condimentum metus facilisis. Donec eu tortor at est tempor cursus et sed velit. Morbi rutrum elementum est vitae fringilla. Phasellus dignissim purus turpis, ac varius enim auctor vulputate. In ullamcorper vestibulum mauris. Nulla malesuada pretium mauris, lobortis eleifend dolor iaculis vitae.',
   imageUrl: campImage3,
-  Seller: 'Chiro Kuringen',
-  email: 'chirokuringen@gmail.com',
-  averageRating: '5.0',
+  seller: {
+    name: 'Chiro Kuringen',
+    email: 'chirokuringen@gmail.com',
+    location: 'Hasselt, Kuringen',
+    averageRating: '5.0',
+  } ,
+  premium: false,
 }, {
   id: '456',
   name: 'quechua rugtas',
@@ -58,10 +78,18 @@ export const products = [{
     stock: 1,
     waarborg: '20.00',
     available: true,
+    staat: "2",
   },
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel enim quam. Mauris nisl tellus, fringilla sed cursus eu, convallis non diam. Mauris quis fringilla nunc. Aenean leo lacus, lobortis sit amet venenatis a, aliquet tristique erat. Etiam laoreet mauris ut dapibus tincidunt. Pellentesque non ex at nisl ornare aliquam sed non ante. Nam lobortis magna id massa cursus, sit amet condimentum metus facilisis. Donec eu tortor at est tempor cursus et sed velit. Morbi rutrum elementum est vitae fringilla. Phasellus dignissim purus turpis, ac varius enim auctor vulputate. In ullamcorper vestibulum mauris. Nulla malesuada pretium mauris, lobortis eleifend dolor iaculis vitae.',
   imageUrl: campImage4,
-  averageRating: '5.0',
+  seller: {
+    name: 'Scouts en Gidsen Nieuwenrode',
+    email: 'scoutsengidsennieuwenrode@gmail.com',
+    location: 'Nieuwenrode, Kapelle-op-den-Bos',
+    averageRating: '4.0',
+  },
+  premium: true,
+
 }, {
   id: '567',
   name: 'quechua tent',
