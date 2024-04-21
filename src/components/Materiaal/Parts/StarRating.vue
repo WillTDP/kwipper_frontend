@@ -36,6 +36,6 @@ function setRating(n) {
     display: flex;
     flex-direction: row;
     color: #f0c14b;
-    font-size: 1.5em;
+    font-size: 1m;
 }
 </style>
