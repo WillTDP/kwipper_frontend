@@ -55,10 +55,18 @@ const closePopup = () => {
 
 const confirmationShown = ref(false);
 
+// Define your form data as a reactive variable
+const formData = ref({
+  name: '',
+  email: '',
+  message: '',
+});
+
 const SendMessage = () => {
   // Simulate an API call with a 2 second delay
   new Promise((resolve) => {
     setTimeout(() => {
+      console.log('Data sent:', formData.value);
       resolve('Success');
     }, 2000);
   })
@@ -140,15 +148,15 @@ const SendMessage = () => {
           <h3>Bericht</h3>
           <div class="textfield">
             <label for="Name">Name</label>
-            <input type="text" name="Name" placeholder="Name">
+            <input type="text" name="Name" placeholder="Name" v-model="formData.name">
           </div>
           <div class="textfield">
             <label for="Email">Email</label>
-            <input type="email" name="Email" placeholder="Email">
+            <input type="email" name="Email" placeholder="Email" v-model="formData.email">
           </div>
           <div class="textfield">
             <label for="message">Je Bericht</label>
-            <textarea name="message" id="message" cols="30" rows="10"></textarea>
+            <textarea name="message" id="message" cols="30" rows="10"  v-model="formData.message"></textarea>
           </div>
           <button @click="SendMessage">Verstuur</button>
         </div>
