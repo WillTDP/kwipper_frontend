@@ -27,7 +27,7 @@ watchEffect(() => {
     <div class="popup" v-if="showPopup">
         <div class="popup_inner">
             <slot></slot>
-            <button class="button_close" @click="TogglePopup()">close</button>
+            <!----<button class="button_close" @click="TogglePopup()">close</button>-->
         </div>
     </div>
 </template>
@@ -51,6 +51,7 @@ watchEffect(() => {
         flex-direction: column;
         background: white;
         padding: 20px;
+        margin: 10px;
         border-radius: 10px;
     }
 </style>

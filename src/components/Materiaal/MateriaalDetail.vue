@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 import StarRating from './Parts/StarRating.vue';
 import Popup from './Parts/Popup.vue';
 
+
 const route = useRoute();
 let product = reactive({});
 
@@ -44,6 +45,29 @@ const showPopup = ref(false);
 
 const openPopup = () => {
   showPopup.value = true;
+};
+
+const closePopup = () => {
+  showPopup.value = false;
+  confirmationShown.value = false; // reset the confirmation state when closing the popup
+};
+
+
+const confirmationShown = ref(false);
+
+const SendMessage = () => {
+  // Simulate an API call with a 2 second delay
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('Success');
+    }, 2000);
+  })
+  .then(() => {
+    confirmationShown.value = true; // switch to the confirmation layout after successful request
+  })
+  .catch((error) => {
+    console.error('Failed to send data:', error);
+  });
 };
 
 </script>
@@ -111,9 +135,28 @@ const openPopup = () => {
         </div>
         <button id="add-to-cart">Toevoegen aan winkelmandje</button>
       </div>
-      <Popup :showPopup="showPopup" @update:showPopup="showPopup = $event"
-      >
-        <h2>mopup</h2>
+      <Popup :showPopup="showPopup" @update:showPopup="showPopup = $event">
+        <div v-if="!confirmationShown" class="inputbox">        
+          <h3>Bericht</h3>
+          <div class="textfield">
+            <label for="Name">Name</label>
+            <input type="text" name="Name" placeholder="Name">
+          </div>
+          <div class="textfield">
+            <label for="Email">Email</label>
+            <input type="email" name="Email" placeholder="Email">
+          </div>
+          <div class="textfield">
+            <label for="message">Je Bericht</label>
+            <textarea name="message" id="message" cols="30" rows="10"></textarea>
+          </div>
+          <button @click="SendMessage">Verstuur</button>
+        </div>
+        <div v-else>
+          <h3>Bedankt voor je bericht!</h3>
+          <p>We nemen zo snel mogelijk contact met je op.</p>
+          <button class="button_close" @click="closePopup()">close</button>
+        </div>
       </Popup>
     </div>
 </template>
@@ -245,5 +288,26 @@ const openPopup = () => {
     width: 100%;
     color: #F0F2F1;
     background-color: #4EA385;
+  }
+  .inputbox {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .textfield {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  button {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background-color: #1C98D6;
+    color: #F0F2F1;
+    cursor: pointer;
   }
 </style>
