@@ -4,12 +4,16 @@ import App from './App.vue'
 import footer from './components/footer.vue'
 import header from './components/header.vue'
 import landingspage from './components/landingspage.vue'
+import materiaaldetail from './components/Materiaal/MateriaalDetail.vue'
+import materiaalpagina from './components/Materiaal/ProductsPage.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
         { path: '/', component: landingspage },
         { path: '/footer', component: footer },
-        { path: '/header', component: header }
+        { path: '/header', component: header },
+        { path: '/materiaal', component: materiaalpagina },
+        { path: '/products/:id', component: materiaaldetail }
 ]
 
 const router = createRouter({

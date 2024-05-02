@@ -1,7 +1,11 @@
-# Vue 3 + Vite
+This is the frontend for our bachelor thesis called Kwipper. Feel free to take a little peek.
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Our goal is to make it cheaper and more sustainable for people to go on vacations, organise events and much more.
 
-## Recommended IDE Setup
+In this repository you can see our little front-end. Feel free to take a look.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Greetings, William, Zegher & Jarno
+
+Thomas More - Belgium
+
+🎪🏕️⛺
