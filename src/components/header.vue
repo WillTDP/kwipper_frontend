@@ -42,8 +42,13 @@ function checkMobile() {
                 </div>
             </div>
             <div class="menu-login">
-                <div v-if="state.mobile">
-                    <p>menu</p>
+                <div v-if="state.mobile" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="18" viewBox="0 0 31 18" fill="none">
+                        <rect width="31" height="3.6" rx="1.8" fill="#D9D9D9"/>
+                        <rect y="7.2002" width="31" height="3.6" rx="1.8" fill="#D9D9D9"/>
+                        <rect y="14.3999" width="31" height="3.6" rx="1.8" fill="#D9D9D9"/>
+                    </svg>
+                    <p class="menu-txt">Menu</p>
                 </div>
                 <div class="login">
                     <router-link class="login_txt" to="/login">Inloggen</router-link>
@@ -59,7 +64,6 @@ function checkMobile() {
 <style scoped>
 header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     background-color: #2B5740;
     height: 64px;
@@ -86,7 +90,7 @@ header {
 .second_block {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 150%;
 }
 
@@ -156,7 +160,6 @@ header {
 .login {
     display: flex;
     align-items: center;
-    padding: 1em;
 }
 
 .login_txt {
@@ -181,6 +184,7 @@ header {
         display: flex;
         flex-direction: column-reverse;
         align-items: center;
+        justify-content: center;
         width: 90%;
     }
 
@@ -189,6 +193,7 @@ header {
         flex-direction: column;
         align-items: center;
         width: 100%;
+        padding-bottom: 1em;
     }
 
     .input-icon {
@@ -209,6 +214,20 @@ header {
         justify-content: space-between;
         align-items: center;
         width: 100%;
+    }
+
+    .menu-button {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        gap: 1em;
+    }
+
+    .menu-txt {
+        color: #F0F2F1;
+        font-weight: medium;
+        font-size: 16px;
     }
 
     .logo {
