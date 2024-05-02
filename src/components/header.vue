@@ -1,18 +1,21 @@
 <script setup>
-import { RouterLink } from 'vue-router';
-import { reactive, onMounted, onBeforeUnmount } from 'vue';
+import { RouterLink, useRoute } from 'vue-router';
+import { reactive, onMounted, onBeforeUnmount, watch } from 'vue';
 import headerpopupmobile from './headerpopupmobile.vue';
 
+const route = useRoute()
+
 const state = reactive({
-  mobile: window.innerWidth < 811
+  mobile: window.innerWidth < 811, // Initialize mobile state
+  showPopup: false // Initialize showPopup state
 });
 
 onMounted(() => {
-  window.addEventListener('resize', checkMobile);
+  window.addEventListener('resize', checkMobile); // Add event listener for window resize
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', checkMobile);
+  window.removeEventListener('resize', checkMobile); // Remove event listener for window resize
 });
 
 function checkMobile() {
@@ -21,8 +24,36 @@ function checkMobile() {
 
 function togglePopup() {
   state.showPopup = !state.showPopup;
+
+  // Check if the popup is shown
+  if (state.showPopup) {
+    // If shown, add event listener for clicks outside the popup
+    document.addEventListener('click', handleClickOutside);
+  }
+
+  console.log(state.showPopup);
 }
 
+function handleClickOutside(event) {
+    let targetElement = event.target;
+    // Check if the clicked element or any of its ancestors have the class 'header-popup'
+    while (targetElement) {
+        if (targetElement.classList && (targetElement.classList.contains('header-popup') || targetElement.classList.contains('menu-button'))) {
+            // Click occurred inside the 'header-popup' component, do nothing
+            console.log("click inside");
+            return;
+        }
+        targetElement = targetElement.parentNode;
+    }
+    // Click occurred outside the 'header-popup' component, close the popup
+    state.showPopup = false;
+    console.log("click outside");
+    document.removeEventListener('click', handleClickOutside);
+}
+
+watch(route, () => {
+  state.showPopup = false
+})
 
 </script>
 
@@ -46,7 +77,7 @@ function togglePopup() {
                 </div>
             </div>
             <div class="menu-login">
-                <div v-if="state.mobile" class="menu-button" @click="togglePopup">
+                <div v-if="state.mobile" class="menu-button" @click="togglePopup($event)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="31" height="18" viewBox="0 0 31 18" fill="none">
                         <rect width="31" height="3.6" rx="1.8" fill="#D9D9D9"/>
                         <rect y="7.2002" width="31" height="3.6" rx="1.8" fill="#D9D9D9"/>
@@ -79,7 +110,7 @@ function togglePopup() {
             </div>
         </div>
     </header>
-    <headerpopupmobile v-if="state.showPopup" />
+    <headerpopupmobile v-if="state.showPopup"/>
 </template>
 
 <style scoped>

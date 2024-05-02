@@ -14,12 +14,13 @@ import { RouterLink } from 'vue-router';
 <style scoped>
 
 .header-popup {
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background-color: #2B5740;
-    height: 100%;
+    height: auto;
     width: 185px;
     gap: 1em;
     padding: 1em;
@@ -27,6 +28,7 @@ import { RouterLink } from 'vue-router';
     text-align: left;
     align-items: flex-start;
     justify-content: flex-start;
+    z-index: 10;
 }
 
 .Home {
@@ -51,7 +53,7 @@ import { RouterLink } from 'vue-router';
     
 }
 
-@media screen and (min-width: 720px) and (max-width: 810px){
+@media screen and (min-width: 720px) and (max-width: 811px){
     .header-popup {
         padding-left: 2.5em;
     }
