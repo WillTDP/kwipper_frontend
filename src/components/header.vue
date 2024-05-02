@@ -261,6 +261,7 @@ header {
     width: 34px;
     height: 34px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 811px) {
@@ -316,6 +317,7 @@ header {
         text-align: center;
         align-items: center;
         gap: 1em;
+        cursor: pointer;
     }
 
     .menu-txt {
