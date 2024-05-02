@@ -5,9 +5,9 @@ import { RouterLink } from 'vue-router';
 
 <template>
     <div class="header-popup">
-        <router-link to="/" class="Home">Home</router-link>
-        <router-link to="/materiaal" class="Catalogus">Catalogus</router-link>
-        <router-link to="/verhuurder" class="Verhuurder">Word verhuurder</router-link>
+        <router-link to="/" class="link">Home</router-link>
+        <router-link to="/materiaal" class="link">Catalogus</router-link>
+        <router-link to="/verhuurder" class="link">Word verhuurder</router-link>
     </div>
 </template>
 
@@ -19,30 +19,21 @@ import { RouterLink } from 'vue-router';
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    right: 0;
     background-color: #2B5740;
     height: auto;
     width: 185px;
     gap: 1em;
     padding: 1em;
     padding-left: 1.5em;
-    text-align: left;
-    align-items: flex-start;
-    justify-content: flex-start;
+    text-align: right;
+    align-items: flex-end;
+    justify-content: flex-end;
     z-index: 10;
     border-radius: 0 0 6px 6px;
 }
 
-.Home {
-    text-decoration: none;
-    color: #F0F2F1;
-}
-
-.Catalogus {
-    text-decoration: none;
-    color: #F0F2F1;
-}
-
-.Verhuurder {
+.link {
     text-decoration: none;
     color: #F0F2F1;
 }
