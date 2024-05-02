@@ -71,3 +71,23 @@ export const cartItems = [
   products[2],
   products[3],
 ];
+
+export const user = {
+  name: 'Jarno',
+  email: 'ckc@outlok.com',
+  location: 'Hasselt',
+  jeugdbeweging: 'Chiro Klaarstraat',
+}
+
+export const categorie = {
+  name: 'Categorie',
+  items: [
+    'Tenten',
+    'Werkmateriaal',
+    'Keukengerief',
+    'Kampeeruitrusting',
+    'Outdoor-activiteiten',
+    'Feest- en evenementuitrusting',
+    'elektronica',
+    'Andere',]
+}
