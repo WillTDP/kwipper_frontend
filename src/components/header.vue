@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import { reactive, onMounted, onBeforeUnmount } from 'vue';
+import headerpopupmobile from './headerpopupmobile.vue';
 
 const state = reactive({
   mobile: window.innerWidth < 811
@@ -18,6 +19,9 @@ function checkMobile() {
   state.mobile = window.innerWidth < 811;
 }
 
+function togglePopup() {
+  state.showPopup = !state.showPopup;
+}
 
 
 </script>
@@ -42,8 +46,8 @@ function checkMobile() {
                 </div>
             </div>
             <div class="menu-login">
-                <div v-if="state.mobile" class="menu-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="18" viewBox="0 0 31 18" fill="none">
+                <div v-if="state.mobile" class="menu-button" @click="togglePopup">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="18" viewBox="0 0 31 18" fill="none">
                         <rect width="31" height="3.6" rx="1.8" fill="#D9D9D9"/>
                         <rect y="7.2002" width="31" height="3.6" rx="1.8" fill="#D9D9D9"/>
                         <rect y="14.3999" width="31" height="3.6" rx="1.8" fill="#D9D9D9"/>
@@ -75,6 +79,7 @@ function checkMobile() {
             </div>
         </div>
     </header>
+    <headerpopupmobile v-if="state.showPopup" />
 </template>
 
 <style scoped>
