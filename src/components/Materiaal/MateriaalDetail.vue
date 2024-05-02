@@ -144,26 +144,40 @@ const SendMessage = () => {
         <button id="add-to-cart">Toevoegen aan winkelmandje</button>
       </div>
       <Popup :showPopup="showPopup" @update:showPopup="showPopup = $event">
-        <div v-if="!confirmationShown" class="inputbox">        
-          <h3>Bericht</h3>
-          <div class="textfield">
-            <label for="Name">Name</label>
-            <input type="text" name="Name" placeholder="Name" v-model="formData.name">
+        <div v-if="!confirmationShown">  
+          <div class="top_mss">      
+            <p class="mss_title">Bericht</p>
+            <div class="button_close" @click="closePopup()">x</div>
           </div>
-          <div class="textfield">
-            <label for="Email">Email</label>
-            <input type="email" name="Email" placeholder="Email" v-model="formData.email">
+          <div class="textfield-box">
+            <div class="textfield">
+              <label for="Name">Naam</label>
+              <input type="text" name="Name" placeholder="Name" v-model="formData.name">
+            </div>
+            <div class="textfield">
+              <label for="Email">E-mail</label>
+              <input type="email" name="Email" placeholder="Email" v-model="formData.email">
+            </div>
+            <div class="textfield">
+              <label for="message">Je Bericht</label>
+              <textarea name="message" id="message" cols="30" rows="10"  v-model="formData.message"></textarea>
+            </div>
+            <button @click="SendMessage">Verstuur</button>
           </div>
-          <div class="textfield">
-            <label for="message">Je Bericht</label>
-            <textarea name="message" id="message" cols="30" rows="10"  v-model="formData.message"></textarea>
-          </div>
-          <button @click="SendMessage">Verstuur</button>
         </div>
-        <div v-else>
-          <h3>Bedankt voor je bericht!</h3>
-          <p>We nemen zo snel mogelijk contact met je op.</p>
-          <button class="button_close" @click="closePopup()">close</button>
+        <div v-else >
+          <div class="top_mss">
+            <p class="mss_title">Bericht</p>
+            <div class="button_close" @click="closePopup()">x</div>
+          </div>
+          <div class="confirmation-box">
+            <h3>Bedankt voor je bericht!</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="106" height="107" viewBox="0 0 106 107" fill="none">
+                <path d="M32.21 43.6C32.21 41.667 30.643 40.1 28.71 40.1C26.777 40.1 25.21 41.667 25.21 43.6H32.21ZM25.21 103C25.21 104.933 26.777 106.5 28.71 106.5C30.643 106.5 32.21 104.933 32.21 103H25.21ZM68.2461 23.206L64.8478 22.3683L64.8445 22.3817L68.2461 23.206ZM63.3041 43.6L59.9025 42.7757C59.6498 43.8189 59.8896 44.9203 60.5532 45.7639C61.2168 46.6075 62.2308 47.1 63.3041 47.1V43.6ZM101.605 56.272L98.2442 55.2935L98.2438 55.2947L101.605 56.272ZM90.0898 95.872L93.4502 96.8505L93.4506 96.8492L90.0898 95.872ZM4 93.1H0.5H4ZM13.884 43.6V47.1V43.6ZM27.524 43.6V47.1H27.5258L27.524 43.6ZM36.3701 38.1055L33.2395 36.5405L33.2348 36.55L36.3701 38.1055ZM53.4201 4L53.4635 0.500269C52.1221 0.483632 50.8893 1.2351 50.2895 2.43496L53.4201 4ZM25.21 43.6V103H32.21V43.6H25.21ZM64.8445 22.3817L59.9025 42.7757L66.7056 44.4243L71.6476 24.0303L64.8445 22.3817ZM63.3041 47.1H92.116V40.1H63.3041V47.1ZM92.116 47.1C93.1061 47.1 94.0829 47.3309 94.969 47.7747L98.1035 41.5157C96.2447 40.5848 94.1947 40.1 92.116 40.1V47.1ZM94.969 47.7747C95.8551 48.2184 96.6264 48.863 97.2216 49.6578L102.825 45.4622C101.579 43.7979 99.9623 42.4466 98.1035 41.5157L94.969 47.7747ZM97.2216 49.6578C97.8167 50.4526 98.2192 51.3758 98.3968 52.3542L105.284 51.1039C104.913 49.058 104.071 47.1264 102.825 45.4622L97.2216 49.6578ZM98.3968 52.3542C98.5744 53.3326 98.5222 54.3389 98.2442 55.2935L104.965 57.2505C105.546 55.2542 105.656 53.1498 105.284 51.1039L98.3968 52.3542ZM98.2438 55.2947L86.729 94.8947L93.4506 96.8492L104.965 57.2493L98.2438 55.2947ZM86.7293 94.8935C86.3419 96.2239 85.5345 97.3914 84.4294 98.2216L88.6337 103.818C90.9503 102.078 92.64 99.6329 93.4502 96.8505L86.7293 94.8935ZM84.4294 98.2216C83.3243 99.0518 81.981 99.5 80.6011 99.5V106.5C83.4984 106.5 86.317 105.559 88.6337 103.818L84.4294 98.2216ZM80.6011 99.5H13.884V106.5H80.6011V99.5ZM13.884 99.5C12.1927 99.5 10.5695 98.8271 9.37183 97.6275L4.41809 102.573C6.92764 105.087 10.3325 106.5 13.884 106.5V99.5ZM9.37183 97.6275C8.17397 96.4277 7.5 94.7992 7.5 93.1H0.5C0.5 96.6521 1.90873 100.06 4.41809 102.573L9.37183 97.6275ZM7.5 93.1V53.5H0.5V93.1H7.5ZM7.5 53.5C7.5 51.8008 8.17397 50.1723 9.37183 48.9725L4.41809 44.0268C1.90873 46.5402 0.5 49.9479 0.5 53.5H7.5ZM9.37183 48.9725C10.5695 47.7729 12.1927 47.1 13.884 47.1V40.1C10.3325 40.1 6.92764 41.5132 4.41809 44.0268L9.37183 48.9725ZM13.884 47.1H27.524V40.1H13.884V47.1ZM27.5258 47.1C30.017 47.0987 32.458 46.4013 34.5743 45.0868L30.881 39.1404C29.8718 39.7672 28.7086 40.0994 27.5221 40.1L27.5258 47.1ZM34.5743 45.0868C36.6907 43.7723 38.3981 41.8931 39.5055 39.661L33.2348 36.55C32.7056 37.6167 31.8902 38.5136 30.881 39.1404L34.5743 45.0868ZM39.5007 39.6705L56.5507 5.56504L50.2895 2.43496L33.2395 36.5405L39.5007 39.6705ZM53.3767 7.49973C55.179 7.52209 56.9531 7.95208 58.5667 8.75783L61.694 2.49527C59.1359 1.2178 56.3223 0.535727 53.4635 0.500269L53.3767 7.49973ZM58.5667 8.75783C60.1802 9.5636 61.5917 10.7244 62.6952 12.154L68.2363 7.87654C66.4885 5.61244 64.2522 3.77273 61.694 2.49527L58.5667 8.75783ZM62.6952 12.154C63.7987 13.5835 64.5658 15.2448 64.9387 17.0137L71.7881 15.57C71.1981 12.7706 69.984 10.1406 68.2363 7.87654L62.6952 12.154ZM64.9387 17.0137C65.3115 18.7827 65.2804 20.6132 64.8478 22.3684L71.6444 24.0436C72.329 21.266 72.3782 18.3693 71.7881 15.57L64.9387 17.0137Z" fill="#2B5740"/>
+            </svg>
+            <p>We nemen zo snel mogelijk contact met je op.</p>
+            <button class="button_close" @click="closePopup()">close</button>
+          </div>
         </div>
       </Popup>
     </div>
@@ -295,9 +309,34 @@ const SendMessage = () => {
   #add-to-cart {
     width: 100%;
     color: #F0F2F1;
-    background-color: #4EA385;
+    background-color: #2B5740;
   }
-  .inputbox {
+
+  .top_mss {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #2B5740;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .mss_title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #F0F2F1;
+  }
+
+  .button_close {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #F0F2F1;
+  }
+  
+  .textfield-box {
+    margin: 10px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -314,8 +353,16 @@ const SendMessage = () => {
     padding: 8px;
     border: none;
     border-radius: 6px;
-    background-color: #1C98D6;
+    background-color: #2B5740;
     color: #F0F2F1;
     cursor: pointer;
+  }
+
+  .confirmation-box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    padding: 16px;
   }
 </style>
