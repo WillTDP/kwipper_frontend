@@ -63,16 +63,22 @@
             class="product-item"
             v-bind:key="product.id" 
             >
-            <img v-bind:src="product.imageUrl">    
-            <h3 class="product-name">{{ product.name }}</h3>
-            <p class="product-price">€{{ product.price }}</p>
-            <p class="product-description">{{ product.description }}</p>
-            <img class="vector-4" src="https://c.animaapp.com/rqXPDOkF/img/vector-13.svg" />
-            <p>{{ user.jeugdbeweging }}</p>
-            <router-link v-bind:to="'/products/' + product.id">
-                <button class="button-details">Details</button>
-            </router-link>
-            
+                <img v-bind:src="product.imageUrl" class="product-image">    
+                <div class="item-info">
+                    <h3 class="product-name">{{ product.name }}</h3>
+                    <p class="product-price">€{{ product.price }}</p>
+                    <p class="product-description">{{ product.description }}</p>
+                </div>
+                
+                <div class="product-locatie">
+                    <img class="vector-4" src="https://c.animaapp.com/rqXPDOkF/img/vector-13.svg" />
+                    <p>{{ user.jeugdbeweging }}</p>
+                </div>
+                
+                <router-link v-bind:to="'/products/' + product.id">
+                    <button class="button-details">Details</button>
+                </router-link>
+                
             </div>
         </div>
     </div>
@@ -385,6 +391,7 @@
     height: 100%;
     float: right;
     margin-top: 50px;
+    margin-bottom: 10%;
 }
 
 .product-container h1 {
@@ -394,16 +401,33 @@
 
 .grid-wrap {
     
-    border-radius: 12px;
+    
     justify-content: space-between;
     margin-top: 16px;
-    background-color: #f0f2f1;
+    margin-right: 10%;
+    
 }
 
-.grid-wrap img{
+.product-image{
     border-radius: 12px;
     margin: 50px;
+    float: left;
+    height: 183px;
+    width: 183px;
 }
+
+.product-item{
+    background-color: #f0f2f1;
+    border-radius: 12px;
+}
+
+.item-info{
+    
+    position: relative;
+    width: 60%;
+}
+
+
 
 .button-details{
     background-color: #1C98D6;
@@ -418,32 +442,6 @@
     font-size: 32px;
 }
 
-.particulier-profiel .group-14 {
-  position: absolute;
-  width: 905px;
-  height: 240px;
-  top: 426px;
-  left: 460px;
-}
 
-.particulier-profiel .overlap-7 {
-  position: relative;
-  width: 899px;
-  height: 240px;
-  background-color: #f0f2f1;
-  border-radius: 12px;
-}
-
-.particulier-profiel .text-wrapper-26 {
-  position: absolute;
-  top: 28px;
-  left: 255px;
-  font-family: "Amazing Slab Trial-Medium", Helvetica;
-  font-weight: 500;
-  color: #2b5740;
-  font-size: 32px;
-  letter-spacing: 0;
-  line-height: normal;
-}
 
 </style>
