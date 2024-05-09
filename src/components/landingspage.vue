@@ -9,7 +9,7 @@
                     <h1 class="logo">
                         <img src="/logo.svg" alt="Kwipper Logo" >
                     </h1>
-                    <h2 class="h2">Een wereld van <b style="color: yellow;">materiaal</b> binnen <b style="color: yellow;">handbereik!</b></h2>
+                    <h2 class="h2subtext">Een wereld van <b style="color: yellow;">materiaal</b> binnen <b style="color: yellow;">handbereik!</b></h2>
                 </div>
                 <img src="../../public/Images/splash.png" alt="landingspage-header" class="splash"/>
             </div>
@@ -83,6 +83,11 @@
         padding: 0;
         margin: 0;
         display: flex;
+    }
+
+    .h2subtext {
+        font-size: 24px;
+        color: #F0F2F1;
     }
 
     .splash {

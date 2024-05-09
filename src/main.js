@@ -4,9 +4,10 @@ import App from './App.vue'
 import footer from './components/footer.vue'
 import header from './components/header.vue'
 import landingspage from './components/landingspage.vue'
-import materiaaldetail from './components/MateriaalDetail.vue'
-import materiaalpagina from './components/ProductsPage.vue'
+import materiaaldetail from './components/Materiaal/MateriaalDetail.vue'
+import materiaalpagina from './components/Materiaal/ProductsPage.vue'
 import profilepagina from './components/ProfilePage.vue'
+import verhuurder from './components/VerhuurPage.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
