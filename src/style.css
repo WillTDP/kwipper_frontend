@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'Amazing Slab Medium';
+  src: url('/fonts/Amazing-Slab-Medium-trial.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
