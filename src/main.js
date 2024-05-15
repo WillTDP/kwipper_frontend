@@ -16,7 +16,7 @@ const routes = [
         { path: '/header', component: header },
         { path: '/materiaal', component: materiaalpagina },
         { path: '/materiaaldetail', component: materiaaldetail },
-        { path: '/profile', component: profilepagina },
+        { path: '/user', component: profilepagina },
 ]
 
 const router = createRouter({

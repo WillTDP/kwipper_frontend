@@ -66,7 +66,7 @@
                 <img v-bind:src="product.imageUrl" class="product-image">    
                 <div class="item-info">
                     <h3 class="product-name">{{ product.name }}</h3>
-                    <p class="product-price">€{{ product.price }}</p>
+                    <p class="product-price">€ {{ product.item.price }}</p>
                     <p class="product-description">{{ product.description }}</p>
                 </div>
                 
