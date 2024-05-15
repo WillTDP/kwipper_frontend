@@ -183,13 +183,18 @@ export const user = {
 
 export const categorie = {
   name: 'Categorie',
-  items: [
-    'Tenten',
-    'Werkmateriaal',
-    'Keukengerief',
-    'Kampeeruitrusting',
-    'Outdoor-activiteiten',
-    'Feest- en evenementuitrusting',
-    'elektronica',
-    'Andere',]
+  items: {
+    keukenmateriaal: [
+      'Kookpotten',
+      'Service',
+      'Bestek'
+    ], Legermateriaal: [
+      'Legertenten',
+      'Seniortenten',
+      'Patrouilletenten'
+    ], Kampmateriaal: [
+      'Gasbakken',
+      'Verlengtafels'
+    ]
+  }
 }
