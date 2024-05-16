@@ -5,15 +5,24 @@ import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
 import filtermenuMobile from './filtermenu-mobile.vue';
 
-const productsRef = ref(products);
+let selectedCategory = ref(null);
 
-const nonPremiumProducts = computed(() => productsRef.value.filter(product => !product.premium));
-const premiumProducts = computed(() => productsRef.value.filter(product => product.premium));
+const filterProducts = (category) => {
+  selectedCategory.value = category;
+};
+
+const nonPremiumProducts = computed(() => {
+  return products.filter(product => !product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
+});
+
+const premiumProducts = computed(() => {
+  return products.filter(product => product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
+});
 </script>
 
 <template>
   <div id="page-wrap">
-      <filtermenuMobile />
+      <filtermenuMobile @filter="filterProducts" />
       <div class="grid-wrap">
         <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
