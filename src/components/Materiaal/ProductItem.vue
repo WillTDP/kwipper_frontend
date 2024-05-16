@@ -21,7 +21,7 @@ const props = defineProps({
 <style scoped>
     .product-item {
         align-items: center;
-        border-radius: 8px;
+        border-radius: 9px;
         display: flex;
         flex-direction: column;
         margin-bottom: 2%;
@@ -50,6 +50,10 @@ const props = defineProps({
         width: 200px;
         margin-bottom: 0;
         padding-bottom: 0;
+        border-radius: 9px;
+    }
 
+    .product-price{
+        color: black;
     }
 </style>

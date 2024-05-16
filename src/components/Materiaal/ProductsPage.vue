@@ -1,11 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { products } from '../../fake-data.js'
+import { products, categorie } from '../../fake-data.js'
 import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
 
 
 const productsRef = ref(products);
+const categorieRef = ref(categorie);
 
 const nonPremiumProducts = computed(() => productsRef.value.filter(product => !product.premium));
 const premiumProducts = computed(() => productsRef.value.filter(product => product.premium));
@@ -36,7 +37,7 @@ const premiumProducts = computed(() => productsRef.value.filter(product => produ
             <img class="vector" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
           </div>
           <div class="start-datum">
-            <input type="date" class="search-item" name="searchbar" placeholder="">  
+            <input type="date" class="search-item"  name="searchbar">  
             
           </div>
           <div class="eind-datum">
@@ -58,12 +59,24 @@ const premiumProducts = computed(() => productsRef.value.filter(product => produ
         </div>
       </div>
     </div>
-  <div id="page-wrap">
+  <div class="container">
+    <div class="category">
+      <li v-for="item in categorieRef">
+        {{ item.name }} {{ item.items }}
+      </li>
+    </div>
+    <div id="page-wrap">
+      
       <div class="grid-wrap">
         <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
       </div>
+        
+    </div>
+
   </div>
+    
+  
 </template>
 
 <style scoped>
@@ -74,12 +87,6 @@ const premiumProducts = computed(() => productsRef.value.filter(product => produ
     margin-left: 18%;
   }
 
-  .grid-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 16px;
-  }
   .box {
     width:100%;
     display: flex;
@@ -87,15 +94,7 @@ const premiumProducts = computed(() => productsRef.value.filter(product => produ
     margin-top: 2%;
   }
 
-   .group {
-    
-    width: 1219px;
-    height: 179px;
-    top: 0;
-    left: 0;
-  }
-
-   .overlap-group {
+  .overlap-group {
     position: relative;
     width: 1203px;
     height: 179px;
@@ -121,21 +120,20 @@ const premiumProducts = computed(() => productsRef.value.filter(product => produ
     outline: none;
     flex-grow: 1;
     width: 100%;
-    color: white;
+    color: black;
     font-family: "Inter", Helvetica;
   }
 
    .search-item-limited {
-    font-size: 1rem;
     background: none;
     border: none;
     outline: none;
     flex-grow: 1;
     width: 70%;
-    color: white;
-  }
+    color: black;
+  }  
 
-   .div {
+  .div {
     position: absolute;
     top: 100px;
     left: 222px;
@@ -267,7 +265,8 @@ const premiumProducts = computed(() => productsRef.value.filter(product => produ
     border-radius: 6px;
   }
 
-   .img {
+  
+  .img {
     position: absolute;
     width: 13px;
     height: 14px;
@@ -338,5 +337,28 @@ const premiumProducts = computed(() => productsRef.value.filter(product => produ
     height: 13px;
     top: 6px;
     left: 88px;
+  }
+
+  .container  {
+    width: 63%;
+    margin: auto;
+    margin-bottom: 10%;
+  }
+
+  .category {
+    width: 187px;
+    height: 646px;
+    background-color: #f0f2f1;
+    border-radius: 9px;
+    float: left;
+    margin-right: 2%;
+  }
+
+  .grid-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 16px;
+    float: none;
   }
 </style>
