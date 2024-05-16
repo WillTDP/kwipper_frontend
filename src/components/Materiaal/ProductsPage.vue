@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import { products } from '../../fake-data.js'
 import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
+import filtermenuMobile from './filtermenu-mobile.vue';
 
 const productsRef = ref(products);
 
@@ -12,6 +13,7 @@ const premiumProducts = computed(() => productsRef.value.filter(product => produ
 
 <template>
   <div id="page-wrap">
+      <filtermenuMobile />
       <div class="grid-wrap">
         <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
