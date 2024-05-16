@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, reactive ,computed, onMounted, onUnmounted } from 'vue';
 import { products } from '../../fake-data.js'
 import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
@@ -18,11 +18,26 @@ const nonPremiumProducts = computed(() => {
 const premiumProducts = computed(() => {
   return products.filter(product => product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
 });
+const state = reactive({
+  mobile: window.innerWidth < 811, // Initialize mobile state
+});
+
+function checkMobile() {
+  state.mobile = window.innerWidth < 811;
+}
+
+onMounted(() => {
+  window.addEventListener('resize', checkMobile);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile);
+});
 </script>
 
 <template>
   <div id="page-wrap">
-      <filtermenuMobile @filter="filterProducts" />
+      <filtermenuMobile @filter="filterProducts" v-if="state.mobile" />
       <div class="grid-wrap">
         <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
