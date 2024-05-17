@@ -1,6 +1,5 @@
 <script setup>
 import { ref, reactive ,computed, onMounted, onUnmounted } from 'vue';
-import { ref, computed } from 'vue';
 import { products } from '../../fake-data.js'
 import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
@@ -37,22 +36,12 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <filterMenumobile />
-  <div class="container">
-    <div class="category">
-      <li v-for="item in categorieRef">
-        {{ item.name }} {{ item.items }}
-      </li>
-    </div>
-    <div id="page-wrap">
-      
+  <div id="page-wrap">
+      <filtermenuMobile @filter="filterProducts" v-if="state.mobile" />
       <div class="grid-wrap">
         <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
       </div>
-        
-    </div>
-
   </div>
     
   
@@ -61,20 +50,7 @@ onUnmounted(() => {
 <style scoped>
   
 
-  .container  {
-    width: 63%;
-    margin: auto;
-    margin-bottom: 10%;
-  }
-
-  .category {
-    width: 187px;
-    height: 646px;
-    background-color: #f0f2f1;
-    border-radius: 9px;
-    float: left;
-    margin-right: 2%;
-  }
+  
 
   .grid-wrap {
     display: flex;
