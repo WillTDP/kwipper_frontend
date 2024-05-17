@@ -22,6 +22,7 @@ export const products = [{
     waarborg: '150.00',
     available: true,
     staat: "5",
+    art_category: 'tent, kampeermateriaal, legertenten', 
   },
   description: 'Transformeer jullie kamp-ervaring met onze praktische fourage tenten! 🏕️ Groot en uitgerust, is deze tent ideaal voor allerlei activiteiten, van gezellige kampvuren tot boeiende workshops. Ook geschikt voor langdurige kampen. Regen/windbestendig.',
   imageUrl: campImage1,

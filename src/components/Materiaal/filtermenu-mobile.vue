@@ -1,313 +1,182 @@
-<script>
+<script setup>
+    import { ref, defineEmits } from 'vue';
+    const isPressed1 = ref(false);
+    const isPressed2 = ref(false);
 
+    const emit = defineEmits();
+
+    const toggleButton1 = () => {
+        if (isPressed1.value) {
+            isPressed1.value = false;
+        } else {
+            isPressed1.value = true;
+            isPressed2.value = false;
+        }
+        };
+
+        const toggleButton2 = () => {
+        if (isPressed2.value) {
+            isPressed2.value = false;
+        } else {
+            isPressed1.value = false;
+            isPressed2.value = true;
+        }
+    };
+
+    const filter = (category) => {
+        emit('filter', category);
+        isPressed1.value = false;
+        isPressed2.value = false;
+    };
 </script>
 
 <template>
-    <h1 class="head-title">Ik ben op zoek naar...</h1>
-  <div class="box">
-      <div class="group">
-        <div class="overlap-group">
-          <div class="text-wrapper">Zoeken</div>
-          <div class="div">Soort contract</div>
-          <div class="text-wrapper-2">Prijs</div>
-          <div class="text-wrapper-3">Huren van..</div>
-          <div class="text-wrapper-4">Huren tot..</div>
-          <div class="text-wrapper-5">Locatie</div>
-          <div class="text-wrapper-6">Conditie</div>
-          <div class="text-wrapper-7">Sorteren op</div>
-          <div class="zoekbalk">
-            <input type="text" class="search-item" name="searchbar" placeholder="Naar wat ben je op zoek?">
-          </div>
-          
-          <div class="contractbalk">
-            <input type="text" class="search-item" name="searchbar" placeholder="">
-          </div>
-          <div class="prijsbalk">
-            <input type="text" class="search-item-limited" name="searchbar" placeholder="">
-            <img class="vector" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
-          </div>
-          <div class="start-datum">
-            <input type="date" class="search-item"  name="searchbar">  
-            
-          </div>
-          <div class="eind-datum">
-            <input type="date" class="search-item" name="searchbar" placeholder="">
-            
-          </div>
-          <div class="conditiebalk">
-            <input type="text" class="search-item-limited" name="searchbar" placeholder="">
-            <img class="vector-2" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
-          </div>
-          <div class="locatiebalk">
-            <input type="text" class="search-item-limited" name="searchbar" placeholder="">
-            <img class="vector-3" src="https://c.animaapp.com/w3XHq8Z1/img/vector-5.svg" />
-          </div>
-          <div class="sorteerbalk">
-            <input type="text" class="search-item-limited" name="searchbar" placeholder="">
-            <img class="vector-4" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
-          </div>
+    <div class="filtermenu-mobile">
+        <div class="filtermenu">
+            <div class="filtermenu-item">
+                <div class="filter-button" @click="toggleButton1">
+                    <p>Filters</p>
+                    <svg :class="{ 'rotate': isPressed1 }" xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                        <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 7V8H9V7H7Z" fill="#F0F2F1"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="filtermenu-item">
+                <div class="filter-button" @click="toggleButton2">
+                    <p>Categorieën</p>
+                    <svg :class="{ 'rotate': isPressed2 }" xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                        <path d="M7.29289 8.70711C7.68342 9.09763 8.31658 9.09763 8.70711 8.70711L15.0711 2.34315C15.4616 1.95262 15.4616 1.31946 15.0711 0.928932C14.6805 0.538408 14.0474 0.538408 13.6569 0.928932L8 6.58579L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L7.29289 8.70711ZM7 7V8H9V7H7Z" fill="#F0F2F1"/>
+                    </svg>
+                </div>               
+            </div>
         </div>
-      </div>
+        <div class="filter-menu-categories" v-if="isPressed1">
+            <div class="segment">
+                <p class="title">Locatie</p>
+                <input type="text"></input>
+            </div>
+            <div class="segment">
+                <p class="title">Soort Contact</p>
+                <input type="text"></input>
+            </div>
+            <div class="segment">
+                <p class="title">Prijs</p>
+                <input type="text"></input>
+            </div>
+            <div class="segment">
+                <p class="title">Afstand</p>
+                <input type="text"></input>
+            </div>
+            <div class="segment">
+                <p class="title">Huren van</p>
+                <input type="text"></input>
+            </div>
+            <div class="segment">
+                <p class="title">Huren tot</p>
+                <input type="text"></input>
+            </div>
+        </div>
+        <div class="filter-menu-categories" v-if="isPressed2">
+            <div class="segment">
+                <p class="title">Keukenmateriaal</p>
+                <p class="link" @click="filter('Kookpotten')">Kookpotten</p>
+                <p class="link">Servies</p>
+                <p class="link">Bestek</p>
+            </div>
+            <div class="segment">
+                <p class="title">Legermateriaal</p>
+                <p class="link" @click="filter('legertenten')">Legertenten</p>
+                <p class="link">Seniortenten</p>
+                <p class="link">Patrouilletenten</p>
+            </div>
+            <div class="segment">
+                <p class="title">Kampmateriaal</p>
+                <p class="link">Gasbakken</p>
+                <p class="link">Tenten</p>
+                <p class="link">Verlengtafels</p>
+            </div>
+            <div class="segment">
+                <p class="title">Keukenmateriaal</p>
+                <p class="link">Kookpotten</p>
+                <p class="link">Servies</p>
+                <p class="link">Bestek</p>
+            </div>
+        </div>
     </div>
+
 </template>
 
 <style scoped>
-    .head-title{
-    font-size: 48px;
-    font-family: "Bitter-ExtraBold", Helvetica;
-    color: #2b5740;
-    margin-left: 18%;
-  }
+.filtermenu-mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #2B5740;
+}
 
-  .box {
-    width:100%;
+.filtermenu {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2em;
+    width: 100%;
+    max-width: 1280px;
+    padding-left: 2.5em;
+}
+
+.filtermenu-item {
     display: flex;
     justify-content: center;
-    margin-top: 2%;
-  }
+    align-items: center;
+    gap: 1em;
+}
 
-  .overlap-group {
-    position: relative;
-    width: 1203px;
-    height: 179px;
-    background-color: #f0f2f1;
-    border-radius: 9px;
-  }
+.filter-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    color: #F0F2F1;
+}
 
-   .text-wrapper {
-    position: absolute;
-    top: 38px;
-    left: 222px;
-    font-family: "Inter", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 12px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
+.rotate {
+  transition: transform 0.3s ease;
+  transform: rotate(180deg);
+}
 
-   .search-item {
-    background: none;
-    border: none;
-    outline: none;
-    flex-grow: 1;
+.filter-menu-categories {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;;
+    gap: 1em;
     width: 100%;
-    color: black;
-    font-family: "Inter", Helvetica;
-  }
+    max-width: 320px;
+    background-color: #2B5740;
+    padding-bottom: 2em;
+}
 
-   .search-item-limited {
-    background: none;
-    border: none;
-    outline: none;
-    flex-grow: 1;
-    width: 70%;
-    color: black;
-  }  
+.segment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 0;
+    margin: 0;
+}
 
-  .div {
-    position: absolute;
-    top: 100px;
-    left: 222px;
-    font-family: "Inter", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 12px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
+.title {
+    color: #F0F2F1;
+    font-weight: 700;
+}
 
-   .text-wrapper-2 {
-    position: absolute;
-    top: 100px;
-    left: 352px;
-    font-family: "Inter", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 12px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
+.link {
+    color: #F0F2F1;
+    font-weight: 500;
+}
 
-   .text-wrapper-3 {
-    left: 485px;
-    position: absolute;
-    top: 100px;
-    font-family: "Inter", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 12px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-
-   .text-wrapper-4 {
-    left: 612px;
-    position: absolute;
-    top: 100px;
-    font-family: "Inter", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 12px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-
-   .text-wrapper-5 {
-    position: absolute;
-    top: 39px;
-    left: 743px;
-    font-family: "Inter", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 12px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-
-   .text-wrapper-6 {
-    position: absolute;
-    top: 100px;
-    left: 743px;
-    font-family: "Inter", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 12px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-
-   .text-wrapper-7 {
-    position: absolute;
-    top: 100px;
-    left: 872px;
-    font-family: "Inter", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 12px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-
-   .zoekbalk {
-    width: 512px;
-    top: 54px;
-    position: absolute;
-    height: 23px;
-    left: 222px;
-    background-color: #d9d9d9;
-    border-radius: 6px;
-  }
-
-   .contractbalk {
-    width: 122px;
-    top: 115px;
-    position: absolute;
-    height: 23px;
-    left: 222px;
-    background-color: #d9d9d9;
-    border-radius: 6px;
-  }
-
-   .prijsbalk {
-    position: absolute;
-    width: 122px;
-    height: 23px;
-    top: 115px;
-    left: 352px;
-    background-color: #d9d9d9;
-    border-radius: 6px;
-  }
-
-   .vector {
-    position: absolute;
-    width: 14px;
-    height: 13px;
-    top: 6px;
-    left: 97px;
-  }
-
-   .start-datum {
-    position: absolute;
-    width: 122px;
-    height: 23px;
-    top: 115px;
-    left: 482px;
-    background-color: #d9d9d9;
-    border-radius: 6px;
-  }
-
-  
-  .img {
-    position: absolute;
-    width: 13px;
-    height: 14px;
-    top: 4px;
-    left: 100px;
-  }
-
-  .eind-datum {
-    position: absolute;
-    width: 122px;
-    height: 23px;
-    top: 115px;
-    left: 612px;
-    background-color: #d9d9d9;
-    border-radius: 6px;
-    
-  }
-
-   .conditiebalk {
-    position: absolute;
-    width: 122px;
-    height: 23px;
-    top: 115px;
-    left: 742px;
-    background-color: #d9d9d9;
-    border-radius: 6px;
-  }
-
-   .vector-2 {
-    position: absolute;
-    width: 14px;
-    height: 13px;
-    top: 6px;
-    left: 100px;
-  }
-
-   .locatiebalk {
-    position: absolute;
-    width: 252px;
-    height: 23px;
-    top: 54px;
-    left: 742px;
-    background-color: #d9d9d9;
-    border-radius: 6px;
-  }
-
-   .vector-3 {
-    position: absolute;
-    width: 11px;
-    height: 12px;
-    top: 5px;
-    left: 219px;
-  }
-
-   .sorteerbalk {
-    position: absolute;
-    width: 122px;
-    height: 23px;
-    top: 115px;
-    left: 872px;
-    background-color: #d9d9d9;
-    border-radius: 6px;
-  }
-
-   .vector-4 {
-    position: absolute;
-    width: 14px;
-    height: 13px;
-    top: 6px;
-    left: 88px;
-  }
+input {
+    width: 125px;
+}
 </style>

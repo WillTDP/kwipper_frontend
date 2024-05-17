@@ -1,16 +1,39 @@
 <script setup>
+import { ref, reactive ,computed, onMounted, onUnmounted } from 'vue';
 import { ref, computed } from 'vue';
-import { products, categorie } from '../../fake-data.js'
+import { products } from '../../fake-data.js'
 import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
-import filterMenumobile from './filtermenu-mobile.vue';
+import filtermenuMobile from './filtermenu-mobile.vue';
 
+let selectedCategory = ref(null);
 
-const productsRef = ref(products);
-const categorieRef = ref(categorie);
+const filterProducts = (category) => {
+  selectedCategory.value = category;
+};
 
-const nonPremiumProducts = computed(() => productsRef.value.filter(product => !product.premium));
-const premiumProducts = computed(() => productsRef.value.filter(product => product.premium));
+const nonPremiumProducts = computed(() => {
+  return products.filter(product => !product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
+});
+
+const premiumProducts = computed(() => {
+  return products.filter(product => product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
+});
+const state = reactive({
+  mobile: window.innerWidth < 811, // Initialize mobile state
+});
+
+function checkMobile() {
+  state.mobile = window.innerWidth < 811;
+}
+
+onMounted(() => {
+  window.addEventListener('resize', checkMobile);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile);
+});
 </script>
 
 <template>
