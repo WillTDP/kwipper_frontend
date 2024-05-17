@@ -5,7 +5,7 @@ import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
 import filtermenuMobile from './filtermenu-mobile.vue';
 import filtermenuDesktop from './filtermenu-desktop.vue';
-import apiseervice from '/apiService.js';
+import apiService from '/apiService.js';
 
 let selectedCategory = ref(null);
 
