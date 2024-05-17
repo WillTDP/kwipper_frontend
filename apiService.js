@@ -14,4 +14,7 @@ export default {
   fetchData() {
     return apiClient.get('/api/v1/user');
   },
+  getUserById(){
+    return apiClient.get('/api/v1/user/:id');
+  }
 };

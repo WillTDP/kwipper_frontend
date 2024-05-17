@@ -1,12 +1,22 @@
 <script setup>
-    import { ref, computed } from 'vue';
-    import { user } from '../fake-data.js';
-    import { products } from '../fake-data.js';
-    import { cartItems } from '../fake-data.js';
+    import { ref, computed, onMounted } from 'vue';
+    import {  products, cartItems } from '../fake-data.js';
+    import apiService from '../../apiService';
 
-    //failed attempt to show only the first 3 items from the product array, will try again later
-    //const userRef = ref(user);
-    //const top3 = computed(() => user.slice(0, 3));
+    const user = ref(null);
+
+    const getUserById = async () => {
+      try {
+        const response = await apiService.getUserById();
+        user.value = '0';
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+  onMounted(() => {
+    getUserById();
+  });
 
 </script>
 
@@ -23,7 +33,7 @@
             <img class="star-4" src="https://c.animaapp.com/rqXPDOkF/img/star-5.svg" />
             </div>
             <div class="text-wrapper">{{ user.email }}</div>
-            <div class="div">{{ user.location }}</div>
+            <div class="div">{{ user.gemeente }}</div>
             <img class="group" src="https://c.animaapp.com/rqXPDOkF/img/group-423@2x.png" />
             <img class="map-pin" src="https://c.animaapp.com/rqXPDOkF/img/map-pin.svg" />
         </div>
@@ -32,7 +42,7 @@
         <div class="text-wrapper-20">Verfijn je resultaten</div>
         <div class="group-7">
           <div class="text-wrapper-21">Categoriën</div>
-          <p class="text-wrapper-22">(die {{user.jeugdbeweging}} gebruikt)</p>
+          <p class="text-wrapper-22">(die {{user.jb_name}} gebruikt)</p>
         </div>
         <div class="text-wrapper-23">Tenten</div>
         <div class="text-wrapper-24">Gasvuren</div>
@@ -55,8 +65,9 @@
         </div>
       </div>
     </div>
+    
     <div class="product-container">
-        <h1>{{ user.jeugdbeweging }}'s inventaris</h1>
+        <h1>{{ user.jb_name }}'s inventaris</h1>
         <div class="grid-wrap">
             <div 
             v-for="product in cartItems"
@@ -72,7 +83,7 @@
                 
                 <div class="product-locatie">
                     <img class="vector-4" src="https://c.animaapp.com/rqXPDOkF/img/vector-13.svg" />
-                    <p>{{ user.jeugdbeweging }}</p>
+                    <p>{{ user.jb_name }}</p>
                 </div>
                 
                 <router-link v-bind:to="'/products/' + product.id">

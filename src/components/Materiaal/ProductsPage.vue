@@ -68,7 +68,7 @@ onMounted(() => {
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
       </div>
   </div>
-  <div v-if="data"> <pre>{{ data }}</pre></div>
+  
   
 </template>
 
