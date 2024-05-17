@@ -5,7 +5,7 @@ import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
 import filtermenuMobile from './filtermenu-mobile.vue';
 import filtermenuDesktop from './filtermenu-desktop.vue';
-import apiService from '/apiService';
+import apiService from '../../../apiService';
 
 let selectedCategory = ref(null);
 
@@ -43,27 +43,20 @@ onUnmounted(() => {
   window.removeEventListener('resize', checkDesktop);
 });
 
-export const dataMixin = {
-  data() {
-    return {
-      data: null,
-    };
-  },
-  created() {
-    // Fetch data when the component is created
-    this.fetchData();
-  },
-  methods: {
-    async fetchData() {
-      try {
-        const response = await apiService.fetchData();
-        this.data = response.data;
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    },
-  },
+const data = ref(null);
+
+const fetchData = async () => {
+  try {
+    const response = await apiService.fetchData();
+    data.value = response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 };
+
+onMounted(() => {
+  fetchData();
+});
 </script>
 
 <template>
@@ -75,7 +68,7 @@ export const dataMixin = {
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
       </div>
   </div>
-    
+  <div v-if="data"> <pre>{{ data }}</pre></div>
   
 </template>
 
