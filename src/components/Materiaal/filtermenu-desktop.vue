@@ -1,10 +1,8 @@
 <script>
     import { ref, defineEmits } from 'vue';
     import {  categorie } from '../../fake-data.js'
-
-    const emit = defineEmits();
-    emit('filter', category);
     const categorieRef = ref(categorie);
+    
 </script>
 <template>
     <h1 class="head-title">Ik ben op zoek naar...</h1>
