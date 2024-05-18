@@ -5,17 +5,17 @@
 
     const user = ref(null);
 
-    const getUserById = async () => {
+    const getUserById = async (id) => {
       try {
-        const response = await apiService.getUserById();
-        user.value = '0';
+        const response = await apiService.getUserById(id);
+        user.value = response.data.data.user;
       } catch (error) {
         console.error('Error fetching user:', error);
       }
     };
 
   onMounted(() => {
-    getUserById();
+    getUserById(1);
   });
 
 </script>
