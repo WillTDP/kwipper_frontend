@@ -15,13 +15,13 @@
     };
 
   onMounted(() => {
-    getUserById('663cd59343958025a43d38b0');
+    getUserById(cd59343958025a43d38b0);
   });
 
 </script>
 
 <template>
-    <div class="particulier-profiel">
+    <div class="particulier-profiel" v-if="user">
         <div class="overlap">
             <div class="overlap-group">
             <div class="rectangle"></div>

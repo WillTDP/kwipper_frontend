@@ -15,6 +15,6 @@ export default {
     return apiClient.get('/api/v1/user');
   },
   getUserById(id){
-    return apiClient.get('/api/v1/user/full/${id}');
+    return apiClient.get('/api/v1/user/full/663${id}');
   }
 };
