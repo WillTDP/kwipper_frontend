@@ -9,7 +9,7 @@ import categorymenuDesktop from './Parts/categorymenu-desktop.vue';
 import ProductTrending from './ProductTrending.vue';
 import apiService from '../../../apiService';
 
-let selectedCategory = ref(null);
+let selectedCategory = ref("");
 
 const filterProducts = (category) => {
   selectedCategory.value = category;
@@ -64,6 +64,13 @@ onMounted(() => {
 <template>
   <div id="page-wrap">
     <filtermenuMobile @filter="filterProducts" v-if="state.mobile" />
+      <div v-if="selectedCategory" class="selected">
+        <p>Selected Category: </p>
+        <div class="filter">
+          <p @click="selectedCategory = null" class="x">x</p>
+          <p> {{ selectedCategory }}</p>
+        </div>
+      </div>
     <filtermenuDesktop @filter="filterProducts" v-if="state.desktop" />
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/>
@@ -98,7 +105,63 @@ onMounted(() => {
     justify-content: space-between;
     float: right;
     width: 51%;
+    margin-top: 16px;
     
-    
+  }
+
+  .selected {
+    margin: 16px;
+    font-size: 16px;
+    color: #2B5740;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;    
+    margin: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 32px;
+    background-color: #F0F2F1;
+    border-radius: 32px;
+  }
+
+  .x {
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .selected {
+    margin: 16px;
+    font-size: 16px;
+    color: #2B5740;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;    
+    margin: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 32px;
+    background-color: #F0F2F1;
+    border-radius: 32px;
+  }
+
+  .x {
+    cursor: pointer;
+    font-weight: 600;
   }
 </style>
