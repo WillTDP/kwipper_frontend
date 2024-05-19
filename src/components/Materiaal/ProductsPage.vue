@@ -38,7 +38,13 @@ onUnmounted(() => {
 <template>
   <div id="page-wrap">
       <filtermenuMobile @filter="filterProducts" v-if="state.mobile" />
-      <div v-if="selectedCategory" class="selected">Selected Category: {{ selectedCategory }}</div>
+      <div v-if="selectedCategory" class="selected">
+        <p>Selected Category: </p>
+        <div class="filter">
+          <p @click="selectedCategory = null" class="x">x</p>
+          <p> {{ selectedCategory }}</p>
+        </div>
+      </div>
       <div class="grid-wrap">
         <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
@@ -56,8 +62,29 @@ onUnmounted(() => {
 
   .selected {
     margin: 16px;
-    font-size: 24px;
+    font-size: 16px;
     color: #2B5740;
     display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;    
+    margin: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 32px;
+    background-color: #F0F2F1;
+    border-radius: 32px;
+  }
+
+  .x {
+    cursor: pointer;
+    font-weight: 600;
   }
 </style>
