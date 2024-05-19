@@ -5,6 +5,8 @@ import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
 import filtermenuMobile from './filtermenu-mobile.vue';
 import filtermenuDesktop from './filtermenu-desktop.vue';
+import categorymenuDesktop from './Parts/categorymenu-desktop.vue';
+import ProductTrending from './ProductTrending.vue';
 import apiService from '../../../apiService';
 
 let selectedCategory = ref(null);
@@ -61,28 +63,42 @@ onMounted(() => {
 
 <template>
   <div id="page-wrap">
-      <filtermenuMobile @filter="filterProducts" v-if="state.mobile" />
-      <filtermenuDesktop @filter="filterProducts" v-if="state.desktop" />
+    <filtermenuMobile @filter="filterProducts" v-if="state.mobile" />
+    <filtermenuDesktop @filter="filterProducts" v-if="state.desktop" />
+    <div class="grid-container">
+      <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/>
       <div class="grid-wrap">
+        <ProductTrending />
         <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
       </div>
+    </div>
   </div>
-  
+  <!-- code to simply showcase all user date, meant for temporary testing so don't pay too much attention to it
+  <div v-if="data">
+      <pre>{{ data }}</pre>
+  </div>
+  -->
+
   
 </template>
 
 <style scoped>
   
 
-  
+  .grid-container {
+    display: flex;
+    justify-content: center;
+    
+  }
 
   .grid-wrap {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 16px;
-    float: none;
+    float: right;
+    width: 51%;
+    
     
   }
 </style>

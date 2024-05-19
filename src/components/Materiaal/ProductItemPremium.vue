@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps } from 'vue';
+import productRating from './Parts/StarRating.vue';
 
 const props = defineProps({
   product: Object,
@@ -8,12 +9,19 @@ const props = defineProps({
 
 <template>
     <div class="product-item">
+        
         <router-link :to="'/products/' + product.id">
-            <img :src="product.imageUrl">
+            <div class="image-container">
+                <img class="verhuurder" src="https://c.animaapp.com/rqXPDOkF/img/rectangle-260@2x.png" />
+                <p class="product-owner">Chiro Kuringen Centrum</p>
+                <productRating class="product-rating" />
+                <img :src="product.imageUrl" alt="Product Image">
+            </div>
+            
             <div class="product-text-container">
                 <div class="product-text">
                     <h3 class="product-name">{{ product.name }}</h3>
-                    <p v-if="product && product.item" id="price" class="product-price">€{{ product.item.price }} per dag</p>
+                    <p v-if="product && product.item" id="price" class="product-price">Vanaf €{{ product.item.price }} per dag</p>
                 </div>   
                 <div class="product-button">
                     <router-link v-bind:to="'/products/' + product.id">
@@ -33,26 +41,54 @@ const props = defineProps({
         border-radius: 9px;
         display: flex;
         flex-direction: column;
-        margin-bottom: 2%;
+        margin: 1%;
         position: relative;
         background-color: #f0f2f1;
     }
 
+    .image-container {
+        position: relative;
+        width: 460px; /* Set the width of the image container */
+        height: 200px; /* Set the height of the image container */
+    }
+
+    .verhuurder {
+        position: absolute;
+        border-radius: 50%;
+        top: 10px;
+        left: 10px;
+        z-index: 10;
+        height: 60px;
+        width: 60px;
+    }
+
+    .product-owner {
+        position: absolute;
+        
+        left: 80px;
+        z-index: 10;
+        color: white;
+    }
+
+    .product-rating {
+        position: absolute;
+        top: 40px; /* Adjust as necessary */
+        left: 80px; /* Adjust as necessary */
+        z-index: 10;
+    }
+
     .product-text-container {
+        display: flex;
+        justify-content: space-between; /* Distribute space between text and button */
         padding-left: 8px;
         padding-right: 8px;
-        padding-top: 0px;
-        margin-top: -10px;
-        margin-top: -10px;
-        width: 100%;
         line-height: 0.5;
         
     }
 
     .product-text{
-        float:left; 
         display:inline;
-        width: 49%;
+        width: auto;
     }
 
     .product-name {
@@ -76,15 +112,18 @@ const props = defineProps({
     .button-details{
         background-color: #FF4D00;
         color: white;
-        position: absolute;
-        right: 8px;
-        margin-top: 10px;
+        width: 120px;
+        height: 30px;
+        padding: 0;
     }
 
+    
+
     .product-button{
-        float:left; 
-        display:inline;
-        width: 49%;
+        display: flex;
+        justify-content: center; /* Center button horizontally */
+        align-items: center; /* Center button vertically */
+        width: auto; /* Adjust width as necessary */
         
     }
 

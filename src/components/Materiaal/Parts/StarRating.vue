@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 const props = defineProps({
     rating: {
         type: Number,
-        default: 0,
+        default: 4,
     },
     readOnly: {
         type: Boolean,
@@ -24,18 +24,33 @@ function setRating(n) {
 </script>
 
 <template>
-    <div>
+    <div class="star-container">
         <span v-for="n in 5" :key="n" class="star" @click="setRating(n)">
-            <i :class="n <= ratingValue ? 'fas fa-star' : 'far fa-star'" :aria-label="`Star ${n}`"></i>
+            <i :class="[
+                n <= ratingValue ? 'fas fa-star' : 'fas fa-star'
+                , (n === 5 && n > ratingValue) ? 'white-star' : ''
+                ]" :aria-label="`Star ${n}`"></i>
         </span>
     </div>
 </template>
 
 <style scoped>
+.star-container {
+  display: flex;
+  gap: 5px;
+}
+
 .star {
-    display: flex;
-    flex-direction: row;
-    color: #f0c14b;
-    font-size: 1m;
+  cursor: pointer;
+  color: #f0c14b;
+  font-size: 1rem;
+}
+
+.white-star {
+  color: white;
+}
+
+.star i {
+  pointer-events: none;
 }
 </style>

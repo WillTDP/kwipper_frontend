@@ -17,6 +17,7 @@ const routes = [
         { path: '/materiaal', component: materiaalpagina },
         { path: '/materiaaldetail', component: materiaaldetail },
         { path: '/user', component: profilepagina },
+        
 ]
 
 const router = createRouter({

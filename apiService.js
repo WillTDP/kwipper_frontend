@@ -9,12 +9,20 @@ const apiClient = axios.create({
   },
 });
 
+const apiClient2 = axios.create({
+    baseURL: 'http://localhost:3000/', // zet hier de webservice url
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
 export default {
   // Example function to fetch data from your API
   fetchData() {
-    return apiClient.get('/api/v1/user');
+    return apiClient1.get('/api/v1/user');
+    //return apiClient2.get('/api/v1/user');
   },
   getUserById(id){
-    return apiClient.get('/api/v1/user/full/663${id}');
+    return apiClient.get('/api/v1/user/full/${id}');
   }
 };

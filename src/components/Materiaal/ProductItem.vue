@@ -8,15 +8,15 @@ const props = defineProps({
 
 <template>
     <div class="product-item">
-        <router-link :to="'/products/' + product.id">
-            <img :src="product.imageUrl">
-            <div class="product-text">    
-                <h3 class="product-name">{{ product.name }}</h3>
-                <p v-if="product && product.item" id="price" class="product-price">€{{ product.item.price }} per dag</p>  
-            </div>
-        </router-link>
+      <router-link :to="'/products/' + product.id">
+        <img :src="product.imageUrl" alt="Product Image">
+        <div class="product-text">
+          <h3 class="product-name">{{ product.name }}</h3>
+          <p v-if="product && product.item" id="price" class="product-price">Vanaf €{{ product.item.price }} per dag</p>
+        </div>
+      </router-link>
     </div>
-</template>
+  </template>
 
 <style scoped>
     .product-item {
@@ -24,7 +24,7 @@ const props = defineProps({
         border-radius: 9px;
         display: flex;
         flex-direction: column;
-        margin-bottom: 2%;
+        margin: 1%;
         position: relative;
         background-color: #F0F2F1;
     }

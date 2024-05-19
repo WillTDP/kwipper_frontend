@@ -15,7 +15,7 @@
     };
 
   onMounted(() => {
-    getUserById(cd59343958025a43d38b0);
+    getUserById();
   });
 
 </script>
