@@ -98,7 +98,7 @@ const stateText = computed(() => getStateText(product));
   }
 
   .top_img_element {
-    display: flex;
+    display: block;
     flex-direction: column;
     align-items: center;
   }
