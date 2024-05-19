@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 import StarRating from './Parts/StarRating.vue';
 import Popup from './Parts/Popup.vue';
 
+  
 
 const route = useRoute();
 let product = reactive({});
