@@ -174,6 +174,7 @@
 .link {
     color: #F0F2F1;
     font-weight: 500;
+    cursor: pointer;
 }
 
 input {
