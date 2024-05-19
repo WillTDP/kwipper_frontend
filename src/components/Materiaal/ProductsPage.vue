@@ -5,7 +5,7 @@ import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
 import filtermenuMobile from './filtermenu-mobile.vue';
 
-let selectedCategory = ref(null);
+let selectedCategory = ref("");
 
 const filterProducts = (category) => {
   selectedCategory.value = category;
@@ -38,6 +38,7 @@ onUnmounted(() => {
 <template>
   <div id="page-wrap">
       <filtermenuMobile @filter="filterProducts" v-if="state.mobile" />
+      <div v-if="selectedCategory" class="selected">Selected Category: {{ selectedCategory }}</div>
       <div class="grid-wrap">
         <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
@@ -51,5 +52,12 @@ onUnmounted(() => {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 16px;
+  }
+
+  .selected {
+    margin: 16px;
+    font-size: 24px;
+    color: #2B5740;
+    display: flex;
   }
 </style>

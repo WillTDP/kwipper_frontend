@@ -79,20 +79,20 @@
         <div class="filter-menu-categories" v-if="isPressed2">
             <div class="segment">
                 <p class="title">Keukenmateriaal</p>
-                <p class="link" @click="filter('Kookpotten')">Kookpotten</p>
-                <p class="link">Servies</p>
-                <p class="link">Bestek</p>
+                <p class="link" @click="filter('kookpotten')">Kookpotten</p>
+                <p class="link" @click="filter('servies')">Servies</p>
+                <p class="link" @click="filter('bestek')">Bestek</p>
             </div>
             <div class="segment">
                 <p class="title">Legermateriaal</p>
                 <p class="link" @click="filter('legertenten')">Legertenten</p>
-                <p class="link">Seniortenten</p>
-                <p class="link">Patrouilletenten</p>
+                <p class="link" @cliek="filter('seniortenten')">Seniortenten</p>
+                <p class="link" @click="filter('patrouilletenten')">Patrouilletenten</p>
             </div>
             <div class="segment">
                 <p class="title">Kampmateriaal</p>
-                <p class="link">Gasbakken</p>
-                <p class="link">Tenten</p>
+                <p class="link" @click="filter('gasbakken')" >Gasbakken</p>
+                <p class="link" @click="filter('tent')">Tenten</p>
                 <p class="link">Verlengtafels</p>
             </div>
             <div class="segment">
