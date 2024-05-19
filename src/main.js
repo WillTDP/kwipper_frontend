@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import footer from './components/footer.vue'
-import header from './components/header.vue'
+import login from './components/User/login.vue'
+import signup from './components/User/signup.vue'
 import landingspage from './components/landingspage.vue'
 import materiaaldetail from './components/Materiaal/MateriaalDetail.vue'
 import materiaalpagina from './components/Materiaal/ProductsPage.vue'
@@ -11,8 +11,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
         { path: '/', component: landingspage },
-        { path: '/footer', component: footer },
-        { path: '/header', component: header },
         { path: '/materiaal', component: materiaalpagina },
         { path: '/verhuurder', component: verhuurder },
         { path: '/products/:id', component: materiaaldetail }
