@@ -28,7 +28,7 @@ export async function createAssortment(assortmentData) {
 export default {
   // Example function to fetch data from your API
   fetchData() {
-    return apiClient.get('/api/v1/user');
+    return apiClient.get('/api/v1/two');
     //return apiClient2.get('/api/v1/two');
   },
   getUserById(id){
