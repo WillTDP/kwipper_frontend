@@ -1,30 +1,34 @@
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, onMounted, ref } from 'vue';
 import productRating from './Parts/StarRating.vue';
 
+import apiService from '../../../apiService';
+
+
 const props = defineProps({
-  product: Object,
+  
+  item: Object,
 });
 </script>
 
 <template>
-    <div class="product-item">
+    <div class="product-item" >
         
-        <router-link :to="'/products/' + product.id">
+        <router-link :to="'/products/' + item._id">
             <div class="image-container">
                 <img class="verhuurder" src="https://c.animaapp.com/rqXPDOkF/img/rectangle-260@2x.png" />
                 <p class="product-owner">Chiro Kuringen Centrum</p>
                 <productRating class="product-rating" />
-                <img :src="product.imageUrl" alt="Product Image">
+                <img src="../../assets/fouragetent.png" alt="materiaal foto">
             </div>
             
-            <div class="product-text-container">
+            <div class="product-text-container" >
                 <div class="product-text">
-                    <h3 class="product-name">{{ product.name }}</h3>
-                    <p v-if="product && product.item" id="price" class="product-price">Vanaf €{{ product.item.price }} per dag</p>
+                    <h3 class="product-name">{{ item.item.art_name }}</h3>
+                    <p  id="price" class="product-price">Vanaf €{{ item.item.price }} per dag</p>
                 </div>   
                 <div class="product-button">
-                    <router-link v-bind:to="'/products/' + product.id">
+                    <router-link v-bind:to="'/products/' + item._id">
                         <button class="button-details">Bekijk</button>
                     </router-link> 
                 </div>
@@ -33,6 +37,7 @@ const props = defineProps({
             
         </router-link>
     </div>
+    
 </template>
 
 <style scoped>

@@ -11,6 +11,7 @@ import verhuurder from './components/VerhuurPage.vue'
 import zoekertjespage from './components/PlaatsZoekertje.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
+import VCalendar from 'v-calendar';
 import 'v-calendar/style.css';
 
 // Use plugin defaults (optional)

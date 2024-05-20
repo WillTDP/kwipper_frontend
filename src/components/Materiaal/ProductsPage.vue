@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive ,computed, onMounted, onUnmounted } from 'vue';
+import { ref, reactive ,computed, onMounted, onUnmounted, watchEffect } from 'vue';
 import { products } from '../../fake-data.js'
 import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
@@ -10,6 +10,8 @@ import ProductTrending from './ProductTrending.vue';
 import apiService from '../../../apiService';
 
 let selectedCategory = ref("");
+
+const data = ref(null);
 
 const filterProducts = (category) => {
   selectedCategory.value = category;
@@ -22,6 +24,25 @@ const nonPremiumProducts = computed(() => {
 const premiumProducts = computed(() => {
   return products.filter(product => product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
 });
+
+const PremiumItems = (data) => {
+  if (!data || !data.data || !data.data.twoAssortment) {
+    // Check if data is valid and contains the necessary structure
+    return [];
+  }
+  
+  return data.data.twoAssortment.filter(item => item.item && item.item.premium === true);
+};
+
+const nonPremiumItems = (data) => {
+  if (!data || !data.data || !data.data.twoAssortment) {
+    // Check if data is valid and contains the necessary structure
+    return [];
+  }
+  
+  return data.data.twoAssortment.filter(item => item.item && item.item.premium === false);
+};
+
 const state = reactive({
   mobile: window.innerWidth < 811, // Initialize mobile state
   desktop: window.innerWidth > 811 // Initialize desktop state
@@ -45,19 +66,24 @@ onUnmounted(() => {
   window.removeEventListener('resize', checkDesktop);
 });
 
-const data = ref(null);
+
 
 const fetchData = async () => {
   try {
     const response = await apiService.fetchData();
+    console.log('API Response:', response.data);
     data.value = response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
 
-onMounted(() => {
-  fetchData();
+
+
+fetchData();
+
+watchEffect(() => {
+  console.log('Data changed:', data.value); // Log when data changes
 });
 </script>
 
@@ -74,10 +100,10 @@ onMounted(() => {
     <filtermenuDesktop @filter="filterProducts" v-if="state.desktop" />
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/>
-      <div class="grid-wrap">
+      <div class="grid-wrap" v-if="data">
         <ProductTrending />
-        <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
-        <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
+        <ProductItemPremium v-for="item in data.data.twoAssortment" :key="item._id" :item="item"/>
+        <ProductItem v-for="item in data.data.twoAssortment" :key="item._id" :item="item" />
       </div>
     </div>
   </div>

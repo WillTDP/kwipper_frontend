@@ -8,7 +8,7 @@
     <div class="box">
         <div class="top-box">
             <label class="container">
-                <input type="radio" name="radio" value="0" v-model="selectedRadioButton" @click="handleRadioClickFree">
+                <input type="radio" name="test" value="0" v-model="selectedRadioButton" @click="handleRadioClickFree">
                 <span class="checkmark"></span>
             </label>
             <p id="gratis">Gratis</p>
