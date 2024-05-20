@@ -9,7 +9,6 @@ const props = defineProps({
 
 <template>
     <div class="product-item">
-        
         <router-link :to="'/products/' + product.id">
             <div class="image-container">
                 <img class="verhuurder" src="https://c.animaapp.com/rqXPDOkF/img/rectangle-260@2x.png" />
@@ -103,6 +102,7 @@ const props = defineProps({
         margin-bottom: 0;
         padding-bottom: 0;
         border-radius: 9px;
+        object-fit: cover; 
     }
 
     .product-price{
@@ -127,4 +127,17 @@ const props = defineProps({
         
     }
 
+    /* Responsive styles for screens smaller than 600px */
+    @media (max-width: 600px) {
+        .image-container {
+            width: 100%; /* Set the width of the image container to 100% */
+            max-width: 95vw; /* Set the maximum width of the image container to 100% */
+            height: auto; /* Set the height of the image container to auto */
+        }
+
+        img {
+            max-width: 100%; /* Set the maximum width of the image to 100% */
+            object-fit: cover; /* Ensure images don't stretch */
+        }
+    }
 </style>

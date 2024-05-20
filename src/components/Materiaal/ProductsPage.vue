@@ -164,4 +164,17 @@ onMounted(() => {
     cursor: pointer;
     font-weight: 600;
   }
+
+  @media (max-width: 811px) {
+    .grid-wrap {
+      width: 95%;
+    }
+
+    .grid-container {
+      flex-direction: column;
+    }
+    ProductItemPremium {
+      width: auto;
+    }
+  }
 </style>
