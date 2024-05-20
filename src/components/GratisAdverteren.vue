@@ -1,12 +1,14 @@
 <script setup>
-
+    function handleRadioClickFree(){
+        console.log('Radio button free clicked!');
+    };
 </script>
 
 <template>
     <div class="box">
         <div class="top-box">
             <label class="container">
-                <input type="radio" name="radio">
+                <input type="radio" name="radio" value="0" v-model="selectedRadioButton" @click="handleRadioClickFree">
                 <span class="checkmark"></span>
             </label>
             <p id="gratis">Gratis</p>

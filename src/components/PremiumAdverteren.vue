@@ -1,12 +1,16 @@
 <script setup>
+    
+    
 
+    
+  
 </script>
 
 <template>
     <div class="box">
         <div class="top-box">
             <label class="container">
-                <input type="radio" name="radio">
+                <input type="radio" name="radio" value="10" v-model="selectedRadioButton" @click="handleRadioClickPremium">
                 <span class="checkmark"></span>
             </label>
             <p id="gratis">Premium</p>

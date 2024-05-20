@@ -6,6 +6,8 @@
     import 'v-calendar/style.css';
     import adverteergratis from './GratisAdverteren.vue'
     import adverteerpremium from './PremiumAdverteren.vue'
+
+    
     
 </script>
 
@@ -33,24 +35,44 @@
                         </div>
                     </div>
                 </div>
+                
+                
+            </div>
+            <div class="cell-display">
+                
+                <div class="tip" id="camera-tip">
+                        
+                    <i class="fa-solid fa-camera"></i>
+                    <p>Gebruik minimaal 4 foto's</p>
+                </div>
+            </div>
+        </div>
+        <div class="table-display">
+            <div class="cell-display">
+                
                 <div class="div4">
                     <h1>Details</h1>
                     <h2>Titel</h2>
                     <input type="text" class="input-simple" placeholder="Aanpasbare titel:">
                     <h2>Beschrijving</h2>
                     <input type="text" class="input-description" placeholder="descriptie">
+                    <h2>Categorie</h2>
+                    <select class="conditie" name="Conditie">
+                        <option value="Kookpotten">Kookpotten</option>
+                        <option value="Servies">Servies</option>
+                        <option value="Bestek">Bestek</option>
+                        <option value="Legertenten">Legertenten</option>
+                        <option value="Seniortenten">Seniortenten</option>
+                        <option value="Patrouilletenten">Patrouilletenten</option>
+                        <option value="Gasbakken">Gasbakken</option>
+                        <option value="Tenten">Tenten</option>
+                        <option value="Verlengtafels">Verlengtafels</option>
+                    </select>
                 </div>
                 
             </div>
             <div class="cell-display">
-                <div class="div3">
-                    <div class="tip">
-                        
-                        <i class="fa-solid fa-camera"></i>
-                        <p>Gebruik minimaal 4 foto's</p>
-                    </div>
-                    
-                </div>
+                
                 <div class="div4">
                     <div class="tip">
                         
@@ -115,7 +137,7 @@
                 </div>
                 <div class="div4">
                     <h1>Beschikbaarheid</h1>
-                    <Calendar borderless />
+                    <Calendar borderless class="Date-picker"/>
                 </div>
                 
             </div>
@@ -156,7 +178,7 @@
             </div>
         </div><div class="cell-display2">
             <div class="div3">
-                <h1>Totaal: €</h1>
+                <h1>Totaal: € </h1>
                 <button class="post">Zet online</button>
                 <button class="preview">Bekijk preview</button>
             </div>
@@ -165,6 +187,9 @@
 </template>
 
 <style scoped>
+
+
+
     .header-title {
         font-size: 48px;
         font-family: "Bitter-ExtraBold", Helvetica;
@@ -193,6 +218,10 @@
         padding: 40px;
     }
     
+    #camera-tip {
+        top: 0;
+        position: relative;
+    }
 
     .tip {
         background-color: #FFE4A1;
@@ -236,6 +265,7 @@
         grid-gap: 2px; /* Gap between grid items */
         height: 300px;
         width: 300px;
+        margin-left: 2px;
     }
 
     .image {
@@ -277,6 +307,8 @@
         height: 160px;
         vertical-align: top;
     }
+
+    
 
     .conditie {
         border: none;
