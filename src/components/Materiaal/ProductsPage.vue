@@ -3,10 +3,10 @@ import { ref, reactive ,computed, onMounted, onUnmounted } from 'vue';
 import { products } from '../../fake-data.js'
 import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
-import filtermenuMobile from './filtermenu-mobile.vue';
-import filtermenuDesktop from './filtermenu-desktop.vue';
+import filtermenuMobile from './Parts/filtermenu-mobile.vue';
+import filtermenuDesktop from './Parts/filtermenu-desktop.vue';
 import categorymenuDesktop from './Parts/categorymenu-desktop.vue';
-import ProductTrending from './ProductTrending.vue';
+import ProductTrending from './Parts/ProductTrending.vue';
 import apiService from '../../../apiService';
 
 let selectedCategory = ref("");
@@ -104,7 +104,6 @@ onMounted(() => {
     flex-wrap: wrap;
     justify-content: space-between;
     float: right;
-    width: 51%;
     margin-top: 16px;
     
   }
@@ -168,11 +167,16 @@ onMounted(() => {
   @media (max-width: 811px) {
     .grid-wrap {
       width: 95%;
+      flex-wrap: wrap;
+      padding: 6px;
     }
 
     .grid-container {
-      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 0px;
     }
+
+
     ProductItemPremium {
       width: auto;
     }

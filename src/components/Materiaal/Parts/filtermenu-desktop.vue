@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { categorie } from '../../fake-data.js';
+import { categorie } from '../../../fake-data.js';
 
 const categorieRef = ref(categorie);
 </script>

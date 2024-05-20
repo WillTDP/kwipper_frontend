@@ -24,9 +24,9 @@ const props = defineProps({
         border-radius: 9px;
         display: flex;
         flex-direction: column;
-        margin: 1%;
         position: relative;
         background-color: #F0F2F1;
+        margin: 1%;
     }
 
     .product-text {
@@ -55,5 +55,24 @@ const props = defineProps({
 
     .product-price{
         color: black;
+    }
+
+    @media screen and (max-width: 768px){
+        .product-item {
+            width: 100%;
+            max-width: 183px;
+            padding: 0;
+            align-items: normal;
+        }
+
+        img {
+            height: 100%;
+            max-height: 109px;
+            width: 100%;
+            max-width: 183px;
+            object-fit: cover; /* Ensure images don't stretch */
+        }
+
+      
     }
 </style>

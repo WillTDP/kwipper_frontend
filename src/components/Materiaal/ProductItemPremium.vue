@@ -40,9 +40,9 @@ const props = defineProps({
         border-radius: 9px;
         display: flex;
         flex-direction: column;
-        margin: 1%;
         position: relative;
         background-color: #f0f2f1;
+        margin: 1%;
     }
 
     .image-container {
@@ -63,7 +63,6 @@ const props = defineProps({
 
     .product-owner {
         position: absolute;
-        
         left: 80px;
         z-index: 10;
         color: white;
@@ -117,8 +116,6 @@ const props = defineProps({
         padding: 0;
     }
 
-    
-
     .product-button{
         display: flex;
         justify-content: center; /* Center button horizontally */
@@ -137,6 +134,7 @@ const props = defineProps({
 
         img {
             max-width: 100%; /* Set the maximum width of the image to 100% */
+            height: auto; /* Set the height of the image to auto */
             object-fit: cover; /* Ensure images don't stretch */
         }
     }
