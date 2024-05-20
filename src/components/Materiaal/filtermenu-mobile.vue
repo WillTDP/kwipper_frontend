@@ -69,11 +69,11 @@
             </div>
             <div class="segment">
                 <p class="title">Huren van</p>
-                <input type="text"></input>
+                <input type="date"></input>
             </div>
             <div class="segment">
                 <p class="title">Huren tot</p>
-                <input type="text"></input>
+                <input type="date"></input>
             </div>
         </div>
         <div class="filter-menu-categories" v-if="isPressed2">
