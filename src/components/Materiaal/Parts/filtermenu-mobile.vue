@@ -86,7 +86,7 @@
             <div class="segment">
                 <p class="title">Legermateriaal</p>
                 <p class="link" @click="filter('legertenten')">Legertenten</p>
-                <p class="link" @cliek="filter('seniortenten')">Seniortenten</p>
+                <p class="link" @click="filter('seniorentent')">Seniortenten</p>
                 <p class="link" @click="filter('patrouilletenten')">Patrouilletenten</p>
             </div>
             <div class="segment">

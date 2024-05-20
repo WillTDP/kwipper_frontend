@@ -22,6 +22,7 @@ const nonPremiumProducts = computed(() => {
 const premiumProducts = computed(() => {
   return products.filter(product => product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
 });
+
 const state = reactive({
   mobile: window.innerWidth < 811, // Initialize mobile state
   desktop: window.innerWidth > 811 // Initialize desktop state
