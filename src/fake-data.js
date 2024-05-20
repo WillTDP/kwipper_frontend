@@ -87,7 +87,7 @@ export const products = [{
     waarborg: '20.00',
     available: true,
     staat: "2",
-    art_category: 'rugzak, kampeermateriaal',
+    art_category: 'rugzak, kampeermateriaal, quechua',
   },
   description: 'Onze Quechua rugzakken zijn ideaal voor dagtochten en lange wandelingen. Ze bieden voldoende ruimte en comfort, zodat je al je benodigdheden gemakkelijk kunt meenemen.',
   imageUrl: campImage4,

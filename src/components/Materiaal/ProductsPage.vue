@@ -75,8 +75,9 @@ onMounted(() => {
     <filtermenuDesktop @filter="filterProducts" v-if="state.desktop" />
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/>
+      <ProductTrending v-if="state.mobile" @filter="filterProducts"/>
       <div class="grid-wrap">
-        <ProductTrending />
+        <ProductTrending v-if="state.desktop"/>
         <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
       </div>
