@@ -27,8 +27,13 @@ const categorieRef = ref(categorie);
           <input type="text" class="input" placeholder="">
         </div>
         
-        <div class="input-wrapper">
-          <input type="text" class="input-limited" placeholder="">
+        <div class="input-wrapper price">
+          <select class="input-limited" placeholder="">
+            <option value="10">$10</option>
+            <option value="20">$20</option>
+            <option value="30">$30</option>
+            <!-- Add more options as needed -->
+          </select>
           <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
         </div>
         
