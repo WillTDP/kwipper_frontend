@@ -40,15 +40,15 @@ const props = defineProps({
         border-radius: 9px;
         display: flex;
         flex-direction: column;
-        position: relative;
         background-color: #f0f2f1;
         margin: 1%;
+        max-height: 240px;
     }
 
     .image-container {
         position: relative;
-        width: 460px; /* Set the width of the image container */
-        height: 200px; /* Set the height of the image container */
+        width: 423px; /* Set the width of the image container */
+        height: 181px; /* Set the height of the image container */
     }
 
     .verhuurder {
@@ -96,8 +96,8 @@ const props = defineProps({
     }
 
     img {
-        height: 200px;
-        width: 460px;
+        height: 181px;
+        width: 423px;
         margin-bottom: 0;
         padding-bottom: 0;
         border-radius: 9px;
@@ -126,6 +126,12 @@ const props = defineProps({
 
     /* Responsive styles for screens smaller than 600px */
     @media (max-width: 600px) {
+        .product-item {
+            width: 100%; /* Set the width of the product item to 100% */
+            max-width: 423px; /* Set the maximum width of the product item to 423px */
+            padding: 0; /* Remove padding */
+            align-items: normal; /* Align items to the start */
+        }
         .image-container {
             width: 100%; /* Set the width of the image container to 100% */
             max-width: 95vw; /* Set the maximum width of the image container to 100% */

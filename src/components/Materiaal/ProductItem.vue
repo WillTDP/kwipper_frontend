@@ -27,6 +27,7 @@ const props = defineProps({
         position: relative;
         background-color: #F0F2F1;
         margin: 1%;
+        max-height: 240px;
     }
 
     .product-text {
@@ -46,8 +47,8 @@ const props = defineProps({
     }
 
     img {
-        height: 200px;
-        width: 200px;
+        height: 183px;
+        width: 183px;
         margin-bottom: 0;
         padding-bottom: 0;
         border-radius: 9px;

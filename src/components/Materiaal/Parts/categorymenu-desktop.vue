@@ -27,7 +27,7 @@
                 <p class="title">Kampmateriaal</p>
                 <p class="link" @click="filter('gasbakken')" >Gasbakken en flessen</p>
                 <p class="link" @click="filter('tent')">Tenten</p>
-                <p class="link">Zeilen</p>
+                <p class="link" @click="filter('zeilen')">Zeilen</p>
             </div>
             <div class="segment">
                 <p class="title">Tafels en Banken</p>
