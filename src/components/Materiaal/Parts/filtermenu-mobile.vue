@@ -73,7 +73,7 @@
             </div>
             <div class="segment">
                 <p class="title">Huren tot</p>
-                <input type="date"></input>
+                <input type="date" class="input" placeholder="">
             </div>
         </div>
         <div class="filter-menu-categories" v-if="isPressed2">
