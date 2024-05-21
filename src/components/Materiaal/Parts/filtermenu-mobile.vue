@@ -69,7 +69,7 @@
             </div>
             <div class="segment">
                 <p class="title">Huren van</p>
-                <input type="date"></input>
+                <input type="date" class="input" placeholder="">
             </div>
             <div class="segment">
                 <p class="title">Huren tot</p>

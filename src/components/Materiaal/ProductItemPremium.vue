@@ -131,6 +131,7 @@ const props = defineProps({
             max-width: 423px; /* Set the maximum width of the product item to 423px */
             padding: 0; /* Remove padding */
             align-items: normal; /* Align items to the start */
+            max-height: 100%; /* Set the maximum height of the product item to 100% */
         }
         .image-container {
             width: 100%; /* Set the width of the image container to 100% */
