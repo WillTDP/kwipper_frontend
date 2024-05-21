@@ -107,7 +107,7 @@ onMounted(() => {
     justify-content: space-between;
     float: right;
     margin-top: 16px;
-    
+    width: 64%;
   }
 
   .selected {

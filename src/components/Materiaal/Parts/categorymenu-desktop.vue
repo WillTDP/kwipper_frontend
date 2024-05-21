@@ -1,27 +1,40 @@
 <script setup>
-const segments = [
-  {
-    title: "Keukenmateriaal",
-    links: ["Kookpotten", "Servies", "Bestek"],
-  },
-  {
-    title: "Legermateriaal",
-    links: ["Legertenten", "Seniortenten", "Patrouilletenten"],
-  },
-  {
-    title: "Kampmateriaal",
-    links: ["Gasbakken", "Tenten", "Verlengtafels"],
-  },
-];
+    import { defineEmits } from 'vue';
+
+    const emit = defineEmits();
+
+    const filter = (category) => {
+        emit('filter', category);
+    };
 </script>
 
 <template>
   <div class="category">
     <h2>Categorieën</h2>
-    <div class="segment" v-for="segment in segments" :key="segment.title">
-      <p class="title">{{ segment.title }}</p>
-      <p class="link" v-for="link in segment.links" :key="link">{{ link }}</p>
-    </div>
+    <div class="segment">
+                <p class="title">Keukenmateriaal</p>
+                <p class="link" @click="filter('kookpotten')">Kookpotten</p>
+                <p class="link" @click="filter('servies')">Servies</p>
+                <p class="link" @click="filter('bestek')">Bestek</p>
+            </div>
+            <div class="segment">
+                <p class="title">Legermateriaal</p>
+                <p class="link" @click="filter('legertenten')">Legertenten</p>
+                <p class="link" @click="filter('seniorentent')">Seniortenten</p>
+                <p class="link" @click="filter('patrouilletenten')">Patrouilletenten</p>
+            </div>
+            <div class="segment">
+                <p class="title">Kampmateriaal</p>
+                <p class="link" @click="filter('gasbakken')" >Gasbakken en flessen</p>
+                <p class="link" @click="filter('tent')">Tenten</p>
+                <p class="link">Zeilen</p>
+            </div>
+            <div class="segment">
+                <p class="title">Tafels en Banken</p>
+                <p class="link">Uitklaptafels</p>
+                <p class="link">Uitklapbanken en stoelen</p>
+                <p class="link">Slaapmateriaal</p>
+            </div>
   </div>
 </template>
 
