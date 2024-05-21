@@ -31,9 +31,9 @@
             </div>
             <div class="segment">
                 <p class="title">Tafels en Banken</p>
-                <p class="link">Uitklaptafels</p>
-                <p class="link">Uitklapbanken en stoelen</p>
-                <p class="link">Slaapmateriaal</p>
+                <p class="link" @click="filter('uitklaptafel')">Uitklaptafels</p>
+                <p class="link" @click="filter('uitklapbanken')" >Uitklapbanken en stoelen</p>
+                <p class="link" @click="filter('slaapmateriaal')" >Slaapmateriaal</p>
             </div>
   </div>
 </template>

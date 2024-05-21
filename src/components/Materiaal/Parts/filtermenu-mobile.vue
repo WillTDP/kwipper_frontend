@@ -93,13 +93,13 @@
                 <p class="title">Kampmateriaal</p>
                 <p class="link" @click="filter('gasbakken')" >Gasbakken en flessen</p>
                 <p class="link" @click="filter('tent')">Tenten</p>
-                <p class="link">Zeilen</p>
+                <p class="link" @click="filter('zeilen')">Zeilen</p>
             </div>
             <div class="segment">
                 <p class="title">Tafels en Banken</p>
-                <p class="link">Uitklaptafels</p>
-                <p class="link">Uitklapbanken en stoelen</p>
-                <p class="link">Slaapmateriaal</p>
+                <p class="link" @click="filter('uitklaptafel')">Uitklaptafels</p>
+                <p class="link" @click="filter('uitklapbanken')" >Uitklapbanken en stoelen</p>
+                <p class="link" @click="filter('slaapmateriaal')" >Slaapmateriaal</p>
             </div>
         </div>
     </div>
