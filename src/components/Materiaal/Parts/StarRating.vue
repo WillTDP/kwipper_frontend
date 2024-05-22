@@ -46,6 +46,10 @@ function setRating(n) {
   font-size: 1rem;
 }
 
+.star :hover {
+  color: #f0c14b;
+}
+
 .white-star {
   color: white;
 }

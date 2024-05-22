@@ -17,31 +17,32 @@ const filterProducts = (category) => {
   selectedCategory.value = category;
 };
 
+/* this part is only applicable for the fake data
 const nonPremiumProducts = computed(() => {
   return products.filter(product => !product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
 });
 
 const premiumProducts = computed(() => {
   return products.filter(product => product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
+});*/
+
+const filteredPremiumItems = computed(() => {
+  if (!data.value || !data.value.data || !data.value.data.twoAssortment) {
+    // Check if data is valid and contains the necessary structure
+    return [];
+  }
+  
+  return data.value.data.twoAssortment.filter(item => item.item && item.item.premium === true);
 });
 
-const PremiumItems = (data) => {
-  if (!data || !data.data || !data.data.twoAssortment) {
+const filteredNonPremiumItems = computed(() => {
+  if (!data.value || !data.value.data || !data.value.data.twoAssortment) {
     // Check if data is valid and contains the necessary structure
     return [];
   }
   
-  return data.data.twoAssortment.filter(item => item.item && item.item.premium === true);
-};
-
-const nonPremiumItems = (data) => {
-  if (!data || !data.data || !data.data.twoAssortment) {
-    // Check if data is valid and contains the necessary structure
-    return [];
-  }
-  
-  return data.data.twoAssortment.filter(item => item.item && item.item.premium === false);
-};
+  return data.value.data.twoAssortment.filter(item => item.item && item.item.premium === false);
+});
 
 const state = reactive({
   mobile: window.innerWidth < 811, // Initialize mobile state
@@ -102,8 +103,8 @@ watchEffect(() => {
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/>
       <div class="grid-wrap" v-if="data">
         <ProductTrending />
-        <ProductItemPremium v-for="item in data.data.twoAssortment" :key="item._id" :item="item"/>
-        <ProductItem v-for="item in data.data.twoAssortment" :key="item._id" :item="item" />
+        <ProductItemPremium v-for="item in filteredPremiumItems" :key="item._id" :item="item"/>
+        <ProductItem v-for="item in filteredNonPremiumItems" :key="item._id" :item="item" />
       </div>
     </div>
   </div>

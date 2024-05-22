@@ -83,7 +83,7 @@ watch(route, () => {
             </div>
             <div class="links" v-else>
                 <router-link active-class="active" class="link materiaal" to="/materiaal">Materiaal</router-link>
-                <router-link active-class="active" class="link verhuurder" to="/verhuurder">Word verhuurder</router-link>
+                <router-link active-class="active" class="link verhuurder" to="/zoekertje">Word verhuurder</router-link>
             </div>
         </div>
         <div class="second_block">

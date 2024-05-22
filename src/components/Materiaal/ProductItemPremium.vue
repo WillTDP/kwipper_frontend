@@ -1,25 +1,28 @@
 <script setup>
 import { defineProps, onMounted, ref } from 'vue';
 import productRating from './Parts/StarRating.vue';
+import campImage1 from '../../assets/fouragetent.png';
 
 import apiService from '../../../apiService';
 
-
+const camp = campImage1;
 const props = defineProps({
   
   item: Object,
 });
+
+
 </script>
 
 <template>
     <div class="product-item" >
         
-        <router-link :to="'/products/' + item._id">
+        <router-link v-bind:to="'/products/' + item._id">
             <div class="image-container">
                 <img class="verhuurder" src="https://c.animaapp.com/rqXPDOkF/img/rectangle-260@2x.png" />
-                <p class="product-owner">Chiro Kuringen Centrum</p>
+                <p class="product-owner">{{item.user.posted_by}}</p>
                 <productRating class="product-rating" />
-                <img src="../../assets/fouragetent.png" alt="materiaal foto">
+                <img :src="camp" onerror="this.onerror=null; this.src='../../assets/fouragetent.png'"  >
             </div>
             
             <div class="product-text-container" >

@@ -16,20 +16,29 @@ const apiClient2 = axios.create({
     },
 });
 
-export async function createAssortment(assortmentData) {
+export async function createAssortment(twoAssortmentData) {
     try {
-      const response = await axios.post('/api/v1/assortments', assortmentData);
+      const response = await apiClient.post('/api/v1/two', twoAssortmentData);
       return response.data;
     } catch (error) {
       throw error;
     }
-  }
+}
+
+
 
 export default {
   // Example function to fetch data from your API
   fetchData() {
+    //return apiClient.get('/api/v1/two');
     return apiClient.get('/api/v1/two');
-    //return apiClient2.get('/api/v1/two');
+  },
+  getItemCount() {
+    return apiClient2.get('/api/v1/two').length;
+  },
+  fetchDataById(id) {
+    //return apiClient.get('/api/v1/two');
+    return apiClient2.get('/api/v1/two/:id');
   },
   getUserById(id){
     return apiClient.get('/api/v1/user/full/${id}');
