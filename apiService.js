@@ -34,11 +34,14 @@ export default {
     return apiClient.get('/api/v1/two');
   },
   getItemCount() {
-    return apiClient2.get('/api/v1/two').length;
+    return apiClient.get('/api/v1/two').length;
   },
   fetchDataById(id) {
     //return apiClient.get('/api/v1/two');
-    return apiClient2.get('/api/v1/two/:id');
+     // Construct the full URL by concatenating the base URL and the ID
+  const fullUrl = `/api/v1/two/${id}`;
+  // Return the Axios request using the constructed full URL
+  return apiClient.get(fullUrl);
   },
   getUserById(id){
     return apiClient.get('/api/v1/user/full/${id}');

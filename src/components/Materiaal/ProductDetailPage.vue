@@ -1,14 +1,14 @@
 <template>
-    <div id="page-wrap" v-if="product">
+    <div id="page-wrap" v-if="itemData">
       <div id="img-wrap">
-        <img v-bind:src="product.item.art_img" @error="handleError" alt="materiaal foto">
+        
       </div>
       <div id="product-details">
-        <h1>{{ product.item.art_name }}</h1>
-        <h3 id="price">€{{ product.item.price }} per dag</h3>
+        <h1>{{ itemData.data.assortment.item.art_name }}</h1>
+        <h3 id="price">€{{ itemData.data.assortment.item.price }} per dag</h3>
         <button id="add-to-cart">Toevoegen aan winkelmandje</button>
-        <h4>Beschrijving</h4>
-        <p>{{ product.item.art_desc }}</p>
+        <h4>Beschrijving:</h4>
+        <p>{{ itemData.data.assortment.item.art_desc }}</p>
       </div>
     </div>
   </template>
@@ -17,38 +17,40 @@
   import { defineProps, onMounted, ref } from 'vue';
   import apiService from '../../../apiService';
   
-  const data = ref(null);
+  const itemId = ref(null); // Define a ref to store the extracted item ID
+
+// Function to extract the item ID from the URL
+const extractItemIdFromUrl = () => {
+  const currentUrl = window.location.href;
+  const urlParts = currentUrl.split('/');
+  const id = urlParts[urlParts.length - 1];
+  itemId.value = id;
+};
+
+// Define a ref to store the fetched item data
+const itemData = ref(null);
+
+// Fetch item data when the component is mounted
+onMounted(async () => {
+  // Call the function to extract the item ID from the URL
+  extractItemIdFromUrl();
   
-  const fetchData = async () => {
+  // Check if the item ID is extracted successfully
+  if (itemId.value) {
     try {
-      const response = await apiService.fetchData();
-      console.log('API Response:', response.data);
-      console.log('Id:', $route.params.id);
-      data.value = response.data;
+      // Fetch item data using the extracted item ID
+      const response = await apiService.fetchDataById(itemId.value);
+      // Store the fetched item data in the ref
+      itemData.value = response.data;
+      console.log('Item data:', itemId.value);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching item data:', error);
     }
-  };
-  
-  onMounted(() => {
-    fetchData();
-  });
-  
-  const product = ref(null);
-  
-  const handleError = () => {
-    // Handle error loading image
-    console.log('Error loading image');
-    product.value.item.art_img = '../../assets/fouragetent.png';
-  };
-  
-  if (data.value) {
-    product.value = data.value.data.twoAssortment.find((p) => p._id === $route.params._id);
-    console.log('id:', $route.params._id);
-    console.log('Product:', product);
   }
+});
+</script>
   
-  </script>
+  
 
 <style scoped>
   #page-wrap {
@@ -72,6 +74,8 @@
 
   #add-to-cart {
     width: 100%;
+    color: black;
+    background-color: #f5f5f5;
   }
 
   #price {
