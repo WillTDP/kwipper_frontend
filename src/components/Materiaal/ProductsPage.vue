@@ -11,6 +11,7 @@ import apiService from '../../../apiService';
 
 let selectedCategory = ref("");
 let selectedPrice = ref(null);
+let selectedCondition = ref(null);
 
 const filterProducts = (category) => {
   selectedCategory.value = category;
@@ -25,19 +26,25 @@ const filterProductsByPrice = (priceRange) => {
   }
 };
 
+const filterProductsByCondition = (condition) => {
+  selectedCondition.value = condition;
+  console.log(selectedCondition.value);
+};
+
 const nonPremiumProducts = computed(() => {
   return products.filter(product => !product.premium && 
     (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true) &&
     (selectedPrice.value ? product.item.price >= selectedPrice.value.lower && product.item.price <= selectedPrice.value.upper : true)
+    && (selectedCondition.value ? String(product.item.staat) === String(selectedCondition.value) : true)
   );
 });
 
-console.log(nonPremiumProducts);
 
 const premiumProducts = computed(() => {
   return products.filter(product => product.premium && 
     (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true) &&
-    (selectedPrice.value ? product.item.price >= selectedPrice.value.lower && product.item.price <= selectedPrice.value.upper : true)
+    (selectedPrice.value ? product.item.price >= selectedPrice.value.lower && product.item.price <= selectedPrice.value.upper : true) 
+    && (selectedCondition.value ? String(product.item.staat) === String(selectedCondition.value) : true)
   );
 });
 
@@ -91,7 +98,7 @@ onMounted(() => {
           <p> {{ selectedCategory }}</p>
         </div>
       </div>
-  <filtermenuDesktop @filter="filterProducts" @filterByPrice="filterProductsByPrice" v-if="state.desktop" />
+  <filtermenuDesktop @filter="filterProducts" @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" v-if="state.desktop" />
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
       <ProductTrending v-if="state.mobile" @filter="filterProducts"/>

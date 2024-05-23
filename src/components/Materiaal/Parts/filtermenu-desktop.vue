@@ -1,16 +1,17 @@
 <script setup>
   import { ref, watch, defineEmits } from 'vue';
 
-  let selectedSortValue = ref(null);
+  let selectedPriceValue = ref(null);
+  let selectedConditionValue = ref(null);
 
-  const emit = defineEmits();
+  const emit = defineEmits(['filter', 'filterByCondition', 'filterByPrice']);
 
-  watch(selectedSortValue, (newVal) => {
+  watch(selectedPriceValue, (newVal) => {
     emit('filterByPrice', newVal);
   });
 
-  defineProps({
-    emits: ['filter', 'filterByPrice']
+  watch(selectedConditionValue, (newVal) => {
+    emit('filterByCondition', newVal);
   });
 </script>
 
@@ -33,11 +34,11 @@
         </div>
         
         <div class="input-wrapper">
-          <input type="text" class="input" placeholder="">
+          <input type="text" class="input" placeholder="contract">
         </div>
         
         <div class="input-wrapper price">
-          <select class="input-limited" v-model="selectedSortValue">
+          <select class="input-limited" v-model="selectedPriceValue">
             <option value="" disabled selected>Sorteer op prijs</option>
             <option value="">Reset</option>
             <option value="0-5">€0-€5</option>
@@ -60,6 +61,16 @@
         </div>
         
         <div class="input-wrapper">
+          <select class="input limited" v-model="selectedConditionValue">
+            <option value="" disabled selected>Sorteer op</option>
+            <option value="">Reset</option>
+            <option value="3">Matig</option>
+            <option value="4">Goed</option>
+            <option value="5">Perfect</option>
+          </select>
+        </div>
+
+        <div class="input-wrapper">
           <input type="text" class="input-limited" placeholder="">
           <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
         </div>
@@ -67,11 +78,6 @@
         <div class="input-wrapper">
           <input type="text" class="input-limited" placeholder="">
           <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-5.svg" />
-        </div>
-        
-        <div class="input-wrapper">
-          <input type="text" class="input-limited" placeholder="">
-          <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
         </div>
       </div>
     </div>
