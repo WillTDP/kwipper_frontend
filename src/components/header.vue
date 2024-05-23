@@ -188,7 +188,10 @@ header {
 }
 
 .verhuurder {
-    padding: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
     color: #2B5740;
     text-decoration: none;
     margin: 1em;
