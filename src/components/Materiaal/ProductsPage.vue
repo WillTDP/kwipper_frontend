@@ -65,7 +65,7 @@ onMounted(() => {
 <template>
   <div id="page-wrap">
     <filtermenuMobile @filter="filterProducts" v-if="state.mobile" />
-      <div v-if="selectedCategory" class="selected">
+      <div v-if="selectedCategory && state.mobile" class="selected">
         <p>Selected Category: </p>
         <div class="filter">
           <p @click="selectedCategory = null" class="x">x</p>
@@ -74,10 +74,10 @@ onMounted(() => {
       </div>
     <filtermenuDesktop @filter="filterProducts" v-if="state.desktop" />
     <div class="grid-container">
-      <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/>
+      <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
       <ProductTrending v-if="state.mobile" @filter="filterProducts"/>
       <div class="grid-wrap">
-        <ProductTrending v-if="state.desktop"/>
+        <ProductTrending v-if="state.desktop" @filter="filterProducts"/>
         <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
         <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
       </div>
