@@ -10,17 +10,35 @@ import ProductTrending from './Parts/ProductTrending.vue';
 import apiService from '../../../apiService';
 
 let selectedCategory = ref("");
+let selectedPrice = ref(null);
 
 const filterProducts = (category) => {
   selectedCategory.value = category;
 };
 
+const filterProductsByPrice = (priceRange) => {
+  if (priceRange === "") {
+    selectedPrice.value = null; // Reset the filter
+  } else {
+    const [lower, upper] = priceRange.split('-').map(Number);
+    selectedPrice.value = { lower, upper };
+  }
+};
+
 const nonPremiumProducts = computed(() => {
-  return products.filter(product => !product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
+  return products.filter(product => !product.premium && 
+    (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true) &&
+    (selectedPrice.value ? product.item.price >= selectedPrice.value.lower && product.item.price <= selectedPrice.value.upper : true)
+  );
 });
 
+console.log(nonPremiumProducts);
+
 const premiumProducts = computed(() => {
-  return products.filter(product => product.premium && (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true));
+  return products.filter(product => product.premium && 
+    (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true) &&
+    (selectedPrice.value ? product.item.price >= selectedPrice.value.lower && product.item.price <= selectedPrice.value.upper : true)
+  );
 });
 
 const state = reactive({
@@ -60,6 +78,7 @@ const fetchData = async () => {
 onMounted(() => {
   fetchData();
 });
+
 </script>
 
 <template>
@@ -72,7 +91,7 @@ onMounted(() => {
           <p> {{ selectedCategory }}</p>
         </div>
       </div>
-    <filtermenuDesktop @filter="filterProducts" v-if="state.desktop" />
+  <filtermenuDesktop @filter="filterProducts" @filterByPrice="filterProductsByPrice" v-if="state.desktop" />
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
       <ProductTrending v-if="state.mobile" @filter="filterProducts"/>

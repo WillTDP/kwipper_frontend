@@ -1,8 +1,17 @@
 <script setup>
-import { ref } from 'vue';
-import { categorie } from '../../../fake-data.js';
+  import { ref, watch, defineEmits } from 'vue';
 
-const categorieRef = ref(categorie);
+  let selectedSortValue = ref(null);
+
+  const emit = defineEmits();
+
+  watch(selectedSortValue, (newVal) => {
+    emit('filterByPrice', newVal);
+  });
+
+  defineProps({
+    emits: ['filter', 'filterByPrice']
+  });
 </script>
 
 <template>
@@ -28,13 +37,18 @@ const categorieRef = ref(categorie);
         </div>
         
         <div class="input-wrapper price">
-          <select class="input-limited" placeholder="">
-            <option value="10">$10</option>
-            <option value="20">$20</option>
-            <option value="30">$30</option>
-            <!-- Add more options as needed -->
+          <select class="input-limited" v-model="selectedSortValue">
+            <option value="" disabled selected>Sorteer op prijs</option>
+            <option value="">Reset</option>
+            <option value="0-5">€0-€5</option>
+            <option value="5-10">€5-€10</option>
+            <option value="10-20">€10-€20</option>
+            <option value="20-30">€20-€30</option>
+            <option value="30-40">€30-€40</option>
+            <option value="40-50">€40-€50</option>
+            <option value="50-100">€50-€100</option>
+            <option value="100-200">€100-€200</option>
           </select>
-          <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
         </div>
         
         <div class="input-wrapper">
@@ -136,7 +150,7 @@ const categorieRef = ref(categorie);
   border: none;
   outline: none;
   flex-grow: 1;
-  width: 70%;
+  width: 100%;
   color: black;
 }
 
