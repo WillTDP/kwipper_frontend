@@ -6,45 +6,60 @@
     <div class="winkelmandje">
         <h1>Winkelmandje</h1>
         <div class="segments">
-            <div class="items">
-                <div class="item">
-                    <img src="../../assets/fouragetent.png" alt="placeholder" />
-                    <div class="item-info">
-                        <div class="name">
-                            <p>Productnaam</p>
-                            <button class="remove">Verwijderen</button>
+            <div class="stacked_segment"> 
+                <div class="items">
+                    <div class="item">
+                        <img src="../../assets/fouragetent.png" alt="placeholder" />
+                        <div class="item-info">
+                            <div class="name">
+                                <p>Productnaam</p>
+                                <button class="remove">Verwijderen</button>
+                            </div>
+                            <div class="item-amount">
+                            <select class="input-limited" v-model="selectedPriceValue">
+                                <option value="0-5">1</option>
+                                <option value="5-10">2</option>
+                                <option value="10-20">3</option>
+                                <option value="20-30">4</option>
+                                <option value="30-40">5</option>
+                            </select>            
                         </div>
-                        <div class="item-amount">
-                        <select class="input-limited" v-model="selectedPriceValue">
-                            <option value="0-5">1</option>
-                            <option value="5-10">2</option>
-                            <option value="10-20">3</option>
-                            <option value="20-30">4</option>
-                            <option value="30-40">5</option>
-                        </select>            
+                        <p>€0,00</p>
+                        <p>x Dagen</p>
+                        </div>
                     </div>
-                    <p>€0,00</p>
-                    <p>x Dagen</p>
+                    <div class="item">
+                        <img src="../../assets/fouragetent.png" alt="placeholder" />
+                        <div class="item-info">
+                            <div class="name">
+                                <p>Productnaam</p>
+                                <button class="remove">Verwijderen</button>
+                            </div>
+                            <div class="item-amount">
+                                <select class="input-limited" v-model="selectedPriceValue">
+                                <option value="0-5">1</option>
+                                <option value="5-10">2</option>
+                                <option value="10-20">3</option>
+                                <option value="20-30">4</option>
+                                <option value="30-40">5</option>
+                                </select>            
+                            </div>
+                            <p>€0,00</p>
+                            <p>x Dagen</p>
+                        </div>
                     </div>
                 </div>
-                <div class="item">
-                    <img src="../../assets/fouragetent.png" alt="placeholder" />
-                    <div class="item-info">
-                        <div class="name">
-                            <p>Productnaam</p>
-                            <button class="remove">Verwijderen</button>
+                <div class="but_wait">
+                    <p>Wacht! Deze gebruiker verkoopt ook:</p>
+                    <div class="items">
+                        <div class="item">
+                            <img src="../../assets/fouragetent.png" alt="placeholder" />
+                            <div class="item-info">
+                                <div class="name">
+                                    <p>Productnaam</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="item-amount">
-                        <select class="input-limited" v-model="selectedPriceValue">
-                            <option value="0-5">1</option>
-                            <option value="5-10">2</option>
-                            <option value="10-20">3</option>
-                            <option value="20-30">4</option>
-                            <option value="30-40">5</option>
-                        </select>            
-                    </div>
-                    <p>€0,00</p>
-                    <p>x Dagen</p>
                     </div>
                 </div>
             </div>
@@ -67,6 +82,7 @@
                 </div>
                 <button class="checkout">Afrekenen</button>
             </div>
+
         </div>
     </div>
 </template>
@@ -84,6 +100,13 @@
     .segments {
         display: flex;
         gap: 2em;
+    }
+
+    .stacked_segment {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        width: 100%;
     }
 
     h1 {
@@ -117,7 +140,7 @@
     .item-info {
         display: flex;
         flex-direction: column;
-        gap: 0.5em;
+        gap: 0em;
     }
 
     .name {
