@@ -3,67 +3,108 @@
 </script>
 
 <template>
-    <h1>Winkelmandje</h1>
-    <div class="items">
-        <div class="item">
-            <img src="../../assets/fouragetent.png" alt="placeholder" />
-            <div class="item-info">
-                <div class="name">
-                    <p>Productnaam</p>
-                    <button class="remove">Verwijderen</button>
+    <div class="winkelmandje">
+        <h1>Winkelmandje</h1>
+        <div class="segments">
+            <div class="items">
+                <div class="item">
+                    <img src="../../assets/fouragetent.png" alt="placeholder" />
+                    <div class="item-info">
+                        <div class="name">
+                            <p>Productnaam</p>
+                            <button class="remove">Verwijderen</button>
+                        </div>
+                        <div class="item-amount">
+                        <select class="input-limited" v-model="selectedPriceValue">
+                            <option value="0-5">1</option>
+                            <option value="5-10">2</option>
+                            <option value="10-20">3</option>
+                            <option value="20-30">4</option>
+                            <option value="30-40">5</option>
+                        </select>            
+                    </div>
+                    <p>€0,00</p>
+                    <p>x Dagen</p>
+                    </div>
                 </div>
-                <div class="item-amount">
-                <select class="input-limited" v-model="selectedPriceValue">
-                    <option value="0-5">1</option>
-                    <option value="5-10">2</option>
-                    <option value="10-20">3</option>
-                    <option value="20-30">4</option>
-                    <option value="30-40">5</option>
-                </select>            
-            </div>
-            <p>€0,00</p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="../../assets/fouragetent.png" alt="placeholder" />
-            <div class="item-info">
-                <div class="name">
-                    <p>Productnaam</p>
-                    <button class="remove">Verwijderen</button>
+                <div class="item">
+                    <img src="../../assets/fouragetent.png" alt="placeholder" />
+                    <div class="item-info">
+                        <div class="name">
+                            <p>Productnaam</p>
+                            <button class="remove">Verwijderen</button>
+                        </div>
+                        <div class="item-amount">
+                        <select class="input-limited" v-model="selectedPriceValue">
+                            <option value="0-5">1</option>
+                            <option value="5-10">2</option>
+                            <option value="10-20">3</option>
+                            <option value="20-30">4</option>
+                            <option value="30-40">5</option>
+                        </select>            
+                    </div>
+                    <p>€0,00</p>
+                    <p>x Dagen</p>
+                    </div>
                 </div>
-                <div class="item-amount">
-                <select class="input-limited" v-model="selectedPriceValue">
-                    <option value="0-5">1</option>
-                    <option value="5-10">2</option>
-                    <option value="10-20">3</option>
-                    <option value="20-30">4</option>
-                    <option value="30-40">5</option>
-                </select>            
             </div>
-            <p>€0,00</p>
+            <div class="overzicht">
+                <h2>Overzicht</h2>
+                <div class="artikelen">
+                    <p>Artikelen</p>
+                    <div class="artikel">
+                        <p>Productnaam</p>
+                        <p>€0,00</p>
+                    </div>
+                    <div class="artikel">
+                        <p>Productnaam</p>
+                        <p>€0,00</p>
+                    </div>
+                </div>
+                <div class="total">
+                    <p>Totaal</p>
+                    <p>€0,00</p>
+                </div>
+                <button class="checkout">Afrekenen</button>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+
+    .winkelmandje {
+        display: flex;
+        flex-direction: column;
+
+        gap: 2em;
+        padding: 2em;
+    }
+
+    .segments {
+        display: flex;
+        gap: 2em;
+    }
+
     h1 {
-        margin-top: 2em;
-        margin-bottom: 1em;
+        color: #2b5740;
     }
 
     .items {
         display: flex;
         flex-direction: column;
         gap: 1em;
+        background-color: #f0f2f1;
+        width: 100%;
+        border-radius: 12px;
     }
 
     .item {
         display: flex;
         gap: 1em;
         padding: 1em;
-        background-color: #f0f2f1;
         border-radius: 9px;
+        width: 100%;
     }
 
     .item img {
@@ -102,5 +143,15 @@
 
     .remove:hover {
         background-color: #1e3d2b;
+    }
+
+    .overzicht {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        background-color: #f0f2f1;
+        width: 100%;
+        border-radius: 12px;
+        padding: 1em;
     }
 </style>
