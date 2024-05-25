@@ -82,7 +82,10 @@ watch(selectedNameValue, (newVal) => {
 const router = useRouter();
 
 const navigateToMateriaal = () => {
-  router.push({ name: 'materiaal', query: { name: selectedNameValue.value } });
+    if (selectedNameValue.value === null) {
+    } else {
+        router.push({ name: 'materiaal', query: { name: selectedNameValue.value } });
+    }
 };
 
 </script>
@@ -103,6 +106,7 @@ const navigateToMateriaal = () => {
         <div class="second_block">
             <div class="searchbar-container">
                 <div class="input-icon">
+                    <img src="../../public/search.svg" @click="navigateToMateriaal" class="icon" />
                     <input type="text" class="search-input" name="searchbar" placeholder="Naar wat ben je op zoek?" v-model="selectedNameValue"  @keydown.enter="navigateToMateriaal">
                 </div>
             </div>
@@ -216,16 +220,28 @@ header {
 }
 
 .input-icon {
-  position: relative;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: right;
 }
 
-.input-icon::before {
+/*.input-icon::before {
   content: url('../../public/search.svg'); /* Replace with your icon path */
-  position: absolute;
+  /*position: absolute;
   right: 5px; /* Adjust as needed */
-  top: 50%;
+  /*top: 50%;
   transform: translateY(-50%);
+  cursor: pointer;
+}*/
+
+.icon {
+    position: absolute;
+    display: flex;
+    cursor: pointer;
+    right: 2%;
 }
+
 .searchbar-containter {
     display: flex;
     justify-content: center;
@@ -311,9 +327,9 @@ header {
         display: flex;
     }
 
-    .input-icon::before {
+    /*.input-icon::before {
         right: 1%;
-    }
+    }*/
 
     .search-input {
         width: 100%;
