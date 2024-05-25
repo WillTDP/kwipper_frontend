@@ -24,7 +24,7 @@ app.component('VDatePicker', DatePicker)
 
 const routes = [
         { path: '/', component: landingspage },
-        { path: '/materiaal', component: materiaalpagina },
+        { path: '/materiaal', name: 'materiaal',component: materiaalpagina },
         { path: '/products/:id', component: materiaaldetail },
         { path: '/user', component: profilepagina },
         { path: '/zoekertje', component: zoekertjespage },

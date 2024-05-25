@@ -1,5 +1,6 @@
 <script setup>
-import { ref, reactive ,computed, onMounted, onUnmounted } from 'vue';
+import { ref, reactive ,computed, onMounted, onUnmounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { products } from '../../fake-data.js'
 import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
@@ -8,6 +9,8 @@ import filtermenuDesktop from './Parts/filtermenu-desktop.vue';
 import categorymenuDesktop from './Parts/categorymenu-desktop.vue';
 import ProductTrending from './Parts/ProductTrending.vue';
 import apiService from '../../../apiService';
+
+const route = useRoute();
 
 let selectedCategory = ref("");
 let selectedPrice = ref(null);
@@ -33,8 +36,14 @@ const filterProductsByCondition = (condition) => {
 };
 
 const filterProductsByName = (name) => {
-  selectedName.value = name;
+  if (name) {
+    selectedName.value = name;
+  } else if (route.query.name) {
+    selectedName.value = route.query.name;
+  }
 };
+
+
 
 const nonPremiumProducts = computed(() => {
   return products.filter(product => !product.premium && 
@@ -71,6 +80,9 @@ function checkDesktop() {
 onMounted(() => {
   window.addEventListener('resize', checkMobile);
   window.addEventListener('resize', checkDesktop);
+  filterProductsByName();
+  fetchData();
+
 });
 
 onUnmounted(() => {
@@ -89,8 +101,8 @@ const fetchData = async () => {
   }
 };
 
-onMounted(() => {
-  fetchData();
+watch(route, () => {
+  filterProductsByName();
 });
 
 </script>

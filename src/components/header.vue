@@ -1,6 +1,6 @@
 <script setup>
-import { RouterLink, useRoute } from 'vue-router';
-import { reactive, onMounted, onBeforeUnmount, watch } from 'vue';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
+import { reactive, onMounted, onBeforeUnmount, watch, ref, defineEmits } from 'vue';
 import headerpopupmobile from './headerpopupmobile.vue';
 import headerpopupaccount from './headerpopupaccount.vue';
 
@@ -71,6 +71,20 @@ watch(route, () => {
   state.showAccountPopup = false
 })
 
+let selectedNameValue = ref(null);
+
+const emit = defineEmits(['filterByName']);
+
+watch(selectedNameValue, (newVal) => {
+    emit('filterByName', newVal);
+});
+
+const router = useRouter();
+
+const navigateToMateriaal = () => {
+  router.push({ name: 'materiaal', query: { name: selectedNameValue.value } });
+};
+
 </script>
 
 <template>
@@ -89,7 +103,7 @@ watch(route, () => {
         <div class="second_block">
             <div class="searchbar-container">
                 <div class="input-icon">
-                    <input type="text" class="search-input" name="searchbar" placeholder="Naar wat ben je op zoek?">
+                    <input type="text" class="search-input" name="searchbar" placeholder="Naar wat ben je op zoek?" v-model="selectedNameValue"  @keydown.enter="navigateToMateriaal">
                 </div>
             </div>
             <div class="menu-login">
