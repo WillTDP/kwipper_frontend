@@ -3,8 +3,9 @@
 
   let selectedPriceValue = ref(null);
   let selectedConditionValue = ref(null);
+  let selectedNameValue = ref(null);
 
-  const emit = defineEmits(['filter', 'filterByCondition', 'filterByPrice']);
+  const emit = defineEmits(['filter', 'filterByCondition', 'filterByPrice', 'filterByName']);
 
   watch(selectedPriceValue, (newVal) => {
     emit('filterByPrice', newVal);
@@ -12,6 +13,10 @@
 
   watch(selectedConditionValue, (newVal) => {
     emit('filterByCondition', newVal);
+  });
+
+  watch(selectedNameValue, (newVal) => {
+    emit('filterByName', newVal);
   });
 </script>
 
@@ -30,7 +35,7 @@
         <div class="option-label">Sorteren op</div>
         
         <div class="input-wrapper">
-          <input type="text" class="input" placeholder="Naar wat ben je op zoek?">
+          <input type="search" class="input" placeholder="Naar wat ben je op zoek?" v-model="selectedNameValue">
         </div>
         
         <div class="input-wrapper">
