@@ -80,7 +80,7 @@
                     <p>Totaal</p>
                     <p>€0,00</p>
                 </div>
-                <button class="checkout">Afrekenen</button>
+                <button class="checkout">Verder naar bestellen</button>
             </div>
 
         </div>
@@ -92,8 +92,6 @@
     .winkelmandje {
         display: flex;
         flex-direction: column;
-
-        gap: 2em;
         padding: 2em;
     }
 
@@ -112,6 +110,7 @@
     h1 {
         color: #2b5740;
     }
+
 
     .items {
         display: flex;
@@ -171,10 +170,107 @@
     .overzicht {
         display: flex;
         flex-direction: column;
-        gap: 1em;
         background-color: #f0f2f1;
         width: 100%;
+        height: 100%;
         border-radius: 12px;
         padding: 1em;
+    }
+
+    h2 {
+        font-size: 36px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .artikelen {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .artikel {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 24px;
+        font-weight: 900;
+    }
+
+    .checkout {
+        background-color: #1C98D6;
+        color: white;
+        border: none;
+        border-radius: 9px;
+        padding: 0.5em;
+    }
+
+    @media screen and (max-width: 800px){
+
+        .winkelmandje {
+            padding: 1em;
+        }
+
+        .segments {
+            flex-direction: column;
+            gap: 2em;
+        }
+
+        .stacked_segment {
+            gap: 1em;
+        }
+
+        .items {
+            gap: 1em;
+        }
+
+        .item {
+            gap: 1em;
+        }
+
+        .item img {
+            width: 75px;
+            height: 75px;
+        }
+
+        .name {
+            gap: 0.5em;
+        }
+
+        .remove {
+            padding: 0.25em;
+        }
+
+        .overzicht {
+            gap: 1em;
+            padding: 1em;
+            width: auto;
+        }
+
+        .artikelen {
+            gap: 0.5em;
+            width: 100%;
+        }
+
+        .artikel {
+            gap: 0.5em;
+        }
+
+        .total {
+            gap: 0.5em;
+            width: 100%;
+        }
+
+        .checkout {
+            width: 100%;
+        }
+
+
     }
 </style>
