@@ -221,6 +221,7 @@ const sameSellerProducts = computed(() => {
         display: flex;
         flex-direction: column;
         gap: 1em;
+        border-radius: 16px;
     }
 
     .but_wait p {
