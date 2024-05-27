@@ -7,40 +7,39 @@ import Popup from './Parts/Popup.vue';
 
   
 
-const route = useRoute();
-let product = reactive({});
+import apiService from '../../../apiService';
+  
+  const itemId = ref(null); // Define a ref to store the extracted item ID
 
-onMounted(() => {
-  const foundProduct = products.find((p) => p.id === route.params.id);
-  if (foundProduct) {
-    for (let key in foundProduct) {
-      product[key] = foundProduct[key];
+// Function to extract the item ID from the URL
+const extractItemIdFromUrl = () => {
+  const currentUrl = window.location.href;
+  const urlParts = currentUrl.split('/');
+  const id = urlParts[urlParts.length - 1];
+  itemId.value = id;
+};
+
+// Define a ref to store the fetched item data
+const itemData = ref(null);
+
+// Fetch item data when the component is mounted
+onMounted(async () => {
+  // Call the function to extract the item ID from the URL
+  extractItemIdFromUrl();
+  
+  // Check if the item ID is extracted successfully
+  if (itemId.value) {
+    try {
+      // Fetch item data using the extracted item ID
+      const response = await apiService.fetchDataById(itemId.value);
+      // Store the fetched item data in the ref
+      itemData.value = response.data;
+      console.log('Item data:', itemId.value);
+    } catch (error) {
+      console.error('Error fetching item data:', error);
     }
   }
 });
-
-const getStateText = (product) => {
-  if (product && product.item && product.item.staat) {
-    switch (product.item.staat) {
-      case '1':
-        return 'Beschadigd';
-      case '2':
-        return 'Defect';
-      case '3':
-        return 'Matig';
-      case '4':
-        return 'Goed';
-      case '5':
-        return 'Perfect';
-      default:
-        return 'Onbekend';
-    }
-  } else {
-    return '';
-  }
-};
-
-const stateText = computed(() => getStateText(product));
 
 const showPopup = ref(false);
 
@@ -82,18 +81,18 @@ const SendMessage = () => {
 </script>
 
 <template>
-    <div id="page-wrap">
+    <div id="page-wrap" v-if="itemData">
       <div class="top_img_element">
           <div id="img-wrap">
             <div class="titlewrap">
-              <h1 class="title">{{ product.name }}</h1>
+              <h1 class="title">{{ itemData.data.assortment.item.art_name }}</h1>
               <a href="/*">flag</a>
             </div>
-              <img v-bind:src="product.imageUrl">
+              <img src="../../assets/fouragetent.png">
           </div>
       </div>
       <div class="middle_detail_element">
-        <div v-if="product && product.seller && product.item">
+        <div v-if="itemData && itemData.data.assortment.user && itemData.data.assortment.item">
           <div class="seller">
             <div class="icons">
               <div class="message" @click="openPopup">
@@ -114,8 +113,8 @@ const SendMessage = () => {
               </div>
             </div>
             <div class="score_name">
-              <h2 class="seller_name">{{ product.seller.name }} </h2>
-              <StarRating :rating="Number(product.seller.averageRating)" :readOnly="true" class="star" />   
+              <h2 class="seller_name">{{ itemData.data.assortment.user.posted_by }} </h2>
+              <StarRating :rating="Number(4)" :readOnly="true" class="star" />   
             </div>
           </div>
           <div class="price_location">
@@ -123,12 +122,12 @@ const SendMessage = () => {
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" viewBox="0 0 14 20" fill="none">
                 <path d="M6.92308 9.5C6.26732 9.5 5.63842 9.23661 5.17474 8.76777C4.71105 8.29893 4.45055 7.66304 4.45055 7C4.45055 6.33696 4.71105 5.70107 5.17474 5.23223C5.63842 4.76339 6.26732 4.5 6.92308 4.5C7.57883 4.5 8.20773 4.76339 8.67142 5.23223C9.13511 5.70107 9.3956 6.33696 9.3956 7C9.3956 7.3283 9.33165 7.65339 9.20739 7.95671C9.08314 8.26002 8.90101 8.53562 8.67142 8.76777C8.44182 8.99991 8.16925 9.18406 7.86927 9.3097C7.56929 9.43534 7.24777 9.5 6.92308 9.5ZM6.92308 0C5.08696 0 3.32605 0.737498 2.02772 2.05025C0.729393 3.36301 0 5.14348 0 7C0 12.25 6.92308 20 6.92308 20C6.92308 20 13.8462 12.25 13.8462 7C13.8462 5.14348 13.1168 3.36301 11.8184 2.05025C10.5201 0.737498 8.75919 0 6.92308 0Z" fill="#090D0B"/>
               </svg>
-              <p>{{ product.seller.location }}</p>
+              <p>{{ itemData.data.assortment.user.location }}</p>
             </div>
             <div class="price_available">
-              <h3 id="price">€{{ product.item.price }} per dag</h3>
-              <p :class="{ 'available': product.item.available, 'not-available': !product.item.available }">
-                {{ product.item.available ? 'Beschikbaar' : 'Niet Beschikbaar' }}
+              <h3 id="price">€{{ itemData.data.assortment.item.price }} per dag</h3>
+              <p :class="{ 'available': itemData.data.assortment.item.available_from, 'not-available': !itemData.data.assortment.item.available_from }">
+                {{ itemData.data.assortment.item.art_name ? 'Beschikbaar' : 'Niet Beschikbaar' }}
               </p>            
             </div>
           </div>
@@ -136,11 +135,11 @@ const SendMessage = () => {
       </div>
       <div class="bottom_detail_element">
         <h4>Beschrijving</h4>
-        <p>{{ product.description }}</p>
-        <div v-if="product && product.item">
-          <p>stock: {{ product.item.stock }}</p>
-          <p>Staat: {{ stateText }}</p>
-          <p>Waarborg: {{ product.item.waarborg }} per product</p>
+        <p>{{ itemData.data.assortment.item.art_desc }}</p>
+        <div v-if="itemData && itemData.data.assortment.item">
+          <p>stock: {{ itemData.data.assortment.item.price }}</p>
+          <p>Staat: {{ itemData.data.assortment.item.condition }}</p>
+          <p>Waarborg: €{{ itemData.data.assortment.item.waarborg }} per product</p>
         </div>
         <button id="add-to-cart">Toevoegen aan winkelmandje</button>
       </div>

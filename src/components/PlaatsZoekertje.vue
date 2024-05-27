@@ -6,13 +6,106 @@
     import 'v-calendar/style.css';
     import adverteergratis from './GratisAdverteren.vue'
     import adverteerpremium from './PremiumAdverteren.vue'
+    import {createAssortment}  from '../../apiService';
 
+    
+    /* attempt at trying to showcase how many items there are in the database
+    const data = ref(null);
+    const getItemCount = async () => {
+    try {
+        const response = await apiService.getItemCount();
+        console.log('aantal database:', response);
+        data = response;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+    };
+
+
+
+    getItemCount();*/
+    // Create a reactive state to store the radio button state
+ 
+
+// Function to update the radio button state when the event is emitted from the child component
+const updateRadioButtonState = (newValue) => {
+  radioButtonState.value = newValue;
+  console.log('Button state in parent component:', newValue);
+};
+    
+    const formData = {
+        
+        
+
+    item:{
+        art_name: '',
+        user: '4',
+        price: '',
+        waarborg: '',
+        available_from: '24 mei 2024',
+        available_until: '18 mei 2024',
+        art_desc: '',
+        art_category: '',
+        condition:'',
+        size: '',
+        brand: '',
+        complete_set: true,
+        free: true,
+        premium: false,
+    },
+    user:{
+        posted_by: 'Zegher',
+        location : 'Herentals',
+    },
+        // Add other form fields here
+    };
+
+    // Method to handle form submission
+    const submitForm = async () => {
+        try {
+        // Call the createAssortment function from apiService.js and pass formData.value
+
+        const response = await createAssortment(formData);
+        console.log('Assortment created successfully:', response);
+
+        console.log('Assortment created successfully:', formData.value);
+
+        // Clear the form after successful submission
+        formData.value = {
+            item:{
+                art_name: '',
+                user: '4',
+                price: '',
+                waarborg: '',
+                available_from: '24 mei 2024',
+                available_until: '18 mei 2024',
+                art_desc: '',
+                art_category: '',
+                condition:'',
+                size: '',
+                brand: '',
+                complete_set: true,
+                free: true,
+                premium: false,
+            },
+            user:{
+                posted_by: 'Zegher',
+                location : 'Herentals',
+            },
+            // Reset other form fields if needed
+        };
+        } catch (error) {
+        console.error('Error creating assortment:', error);
+        // Handle error if needed
+        }
+    };
     
     
 </script>
 
 <template>
     <h1 class="header-title">Plaats een advertentie</h1>
+    <form @submit.prevent="submitForm">
     <div class="post-container">
         <div class="table-display">
             <div class="cell-display">
@@ -53,11 +146,11 @@
                 <div class="div4">
                     <h1>Details</h1>
                     <h2>Titel</h2>
-                    <input type="text" class="input-simple" placeholder="Aanpasbare titel:">
+                    <input type="text" class="input-simple" placeholder="Aanpasbare titel:" v-model="formData.item.art_name" required>
                     <h2>Beschrijving</h2>
-                    <input type="text" class="input-description" placeholder="descriptie">
+                    <input type="text" class="input-description" placeholder="descriptie" v-model="formData.item.art_desc" required>
                     <h2>Categorie</h2>
-                    <select class="conditie" name="Conditie">
+                    <select class="conditie" name="Conditie" v-model="formData.item.art_category" required>
                         <option value="Kookpotten">Kookpotten</option>
                         <option value="Servies">Servies</option>
                         <option value="Bestek">Bestek</option>
@@ -89,7 +182,7 @@
                 <div class="kenmerken-container">
                     <div class="Kenmerk-links">
                     <h2>Conditie</h2>
-                    <select class="conditie" name="Conditie">
+                    <select class="conditie" name="Conditie" v-model="formData.item.condition" required>
                         <option value="Beschadigd">Beschadigd</option>
                         <option value="Defect">Defect</option>
                         <option value="Matig">Matig</option>
@@ -97,27 +190,34 @@
                         <option value="Perfect">Perfect</option>
                     </select>
                     <h2>Merk</h2>
-                    <select class="conditie" name="Conditie">
-                        <option value="Beschadigd">Beschadigd</option>
-                        <option value="Defect">Defect</option>
-                        <option value="Matig">Matig</option>
-                        <option value="Goed">Goed</option>
-                        <option value="Perfect">Perfect</option>
+                    <select class="conditie" name="Conditie" v-model="formData.item.brand" required>
+                        <option value="Dometic">Dometic</option>
+                        <option value="Eurotrail">Eurotrail</option>
+                        <option value="Kampa">Kampa</option>
+                        <option value="Nemo">Nemo</option>
+                        <option value="Outwell">Outwell</option>
+                        <option value="Robens">Robens</option>
+                        <option value="Vango">Vango</option>
                     </select>
                 </div>
                 <div class="Kenmerk-rechts">
                     <h2>Formaat</h2>
-                    <select class="conditie" name="Conditie">
-                        <option value="Beschadigd">Beschadigd</option>
-                        <option value="Defect">Defect</option>
-                        <option value="Matig">Matig</option>
-                        <option value="Goed">Goed</option>
-                        <option value="Perfect">Perfect</option>
+                    <select class="conditie" name="Conditie" v-model="formData.item.size" required>
+                        <option value="3x4m">3x4m</option>
+                        <option value="4x4m">4x4m</option>
+                        <option value="3x5m">3x5m</option>
+                        <option value="4x6m">4x6m</option>
+                        <option value="4x5m">4x5m</option>
+                        <option value="5x4m">5x4m</option>
+                        <option value="5x5m">5x5m</option>
+                        <option value="4x8m">4x8m</option>
+                        <option value="5x10m">5x10m</option>
+                        <option value="6x10m">6x10m</option>
                     </select>
                     <h2>Is het product volledig?</h2>
-                    <select class="conditie" name="Conditie">
-                        <option value="Ja">Ja</option>
-                        <option value="Nee">Nee</option>
+                    <select class="conditie" name="Conditie" v-model="formData.complete_set" required>
+                        <option value="true">Ja</option>
+                        <option value="false">Nee</option>
                     </select>
                 </div>
             </div> 
@@ -133,11 +233,14 @@
                         <option value="Verkopen">Verkopen</option>
                     </select>
                     <h2>Vraagprijs</h2>
-                    <input type="text" class="input-simple" placeholder="">
+                    <input type="text" class="input-simple" placeholder="" v-model="formData.item.price" required>
                 </div>
                 <div class="div4">
                     <h1>Beschikbaarheid</h1>
-                    <Calendar borderless class="Date-picker"/>
+                    <div class="my-calendar">
+                        <Calendar borderless class="Date-picker" />
+                    </div>
+                    
                 </div>
                 
             </div>
@@ -145,19 +248,16 @@
                 <div class="div3">
                     <div class="tip">
                         <i class="fa-solid fa-pen"></i>
-                        <p>Naast verhuren kan je ook materiaal verkopen!</p>
+                        <p>Naast verhuren kan je ook materiaal <br>verkopen!</p>
                     </div>
-                    <h2>Per...</h2>
-                    <select class="conditie" name="intentie">
-                        <option value="Verhuren">Verhuren</option>
-                        <option value="Verkopen">Verkopen</option>
-                    </select>
+                    <h2>Waarborg</h2>
+                    <input class="conditie" v-model="formData.item.waarborg">
                     
                 </div>
                 <div class="div4">
                     <h1>Levering</h1>
                     <label class="container">Levering
-                        <input type="radio" checked="checked" name="radio">
+                        <input type="radio"  name="radio">
                         <span class="checkmark"></span>
                     </label>
                     <label class="container">Ophalen
@@ -171,7 +271,7 @@
             <div class="div3">
                 <h1>Hoe wil je adverteren?</h1>
                 <div class="adverteer-opties">
-                    <adverteergratis></adverteergratis>
+                    <adverteergratis :radioButtonState="radioButtonState" @update:radioButtonState="updateRadioButtonState" ></adverteergratis>
                     <adverteerpremium></adverteerpremium>
                 </div>
                 
@@ -179,11 +279,12 @@
         </div><div class="cell-display2">
             <div class="div3">
                 <h1>Totaal: € </h1>
-                <button class="post">Zet online</button>
+                <button class="post" type="submit">Zet online</button>
                 <button class="preview">Bekijk preview</button>
             </div>
         </div>
     </div>
+    </form>
 </template>
 
 <style scoped>
@@ -198,7 +299,7 @@
     }
 
     .post-container {
-        width: 80%;
+        width: 70%;
         height: 100%;
         margin: 1% auto;
         border-radius: 9px;
@@ -340,6 +441,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  
 }
 
 /* Hide the browser's default radio button */
@@ -358,6 +460,9 @@
   width: 25px;
   background-color: #d9d9d9;
   border-radius: 50%;
+  display: flex; /* Use flexbox for container */
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
 }
 
 /* On mouse-over, add a grey background color */
@@ -406,5 +511,21 @@
     width: 241px;
     margin-left: 2%;
 }
+
+.my-calendar :deep(.vc-container) {
+  background-color: #f5f5f5;
+  border-radius: 9px;
+}
+
+.my-calendar :deep(.vc-title) {
+  background-color: #f5f5f5;
+  
+}
+
+.my-calendar :deep( .vc-base-icon) {
+  background-color: #f5f5f5;
+}
+
+
 
 </style>

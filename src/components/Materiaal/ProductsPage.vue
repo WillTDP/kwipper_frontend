@@ -17,6 +17,8 @@ let selectedPrice = ref(null);
 let selectedCondition = ref(null);
 let selectedName = ref(null);
 
+const data = ref(null);
+
 const filterProducts = (category) => {
   selectedCategory.value = category;
 };
@@ -45,6 +47,10 @@ const filterProductsByName = (name) => {
 
 
 
+
+
+
+/* this part is only applicable for the fake data*/
 const nonPremiumProducts = computed(() => {
   return products.filter(product => !product.premium && 
     (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true) &&
@@ -63,6 +69,25 @@ const premiumProducts = computed(() => {
     && (selectedName.value ? product.name.toLowerCase().includes(selectedName.value.toLowerCase()) : true)
   );
 });
+
+const filteredPremiumItems = computed(() => {
+  if (!data.value || !data.value.data || !data.value.data.twoAssortment) {
+    // Check if data is valid and contains the necessary structure
+    return [];
+  }
+  
+  return data.value.data.twoAssortment.filter(item => item.item && item.item.premium === true);
+});
+
+const filteredNonPremiumItems = computed(() => {
+  if (!data.value || !data.value.data || !data.value.data.twoAssortment) {
+    // Check if data is valid and contains the necessary structure
+    return [];
+  }
+  
+  return data.value.data.twoAssortment.filter(item => item.item && item.item.premium === false);
+});
+
 
 const state = reactive({
   mobile: window.innerWidth < 811, // Initialize mobile state
@@ -90,16 +115,22 @@ onUnmounted(() => {
   window.removeEventListener('resize', checkDesktop);
 });
 
-const data = ref(null);
+
 
 const fetchData = async () => {
   try {
     const response = await apiService.fetchData();
+    console.log('API Response:', response.data);
     data.value = response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
+
+
+
+
+fetchData();
 
 watch(route, () => {
   filterProductsByName();
@@ -121,10 +152,10 @@ watch(route, () => {
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
       <ProductTrending v-if="state.mobile" @filter="filterProducts"/>
-      <div class="grid-wrap">
+      <div class="grid-wrap" v-if="data">
         <ProductTrending v-if="state.desktop" @filter="filterProducts"/>
-        <ProductItemPremium v-for="product in premiumProducts" :key="product.id" :product="product" />
-        <ProductItem v-for="product in nonPremiumProducts" :key="product.id" :product="product" />
+        <ProductItemPremium v-for="item in filteredPremiumItems" :key="item._id" :item="item"/>
+        <ProductItem v-for="item in filteredNonPremiumItems" :key="item._id" :item="item" />
       </div>
     </div>
   </div>

@@ -1,8 +1,6 @@
 <script setup>
     
     
-
-    
   
 </script>
 
@@ -10,7 +8,7 @@
     <div class="box">
         <div class="top-box">
             <label class="container">
-                <input type="radio" name="radio" value="10" v-model="selectedRadioButton" @click="handleRadioClickPremium">
+                <input type="radio" name="test" value="10" v-model="selectedRadioButton" @click="handleRadioClickPremium" required>
                 <span class="checkmark"></span>
             </label>
             <p id="gratis">Premium</p>

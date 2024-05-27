@@ -9,9 +9,11 @@ import materiaalpagina from './components/Materiaal/ProductsPage.vue'
 import profilepagina from './components/ProfilePage.vue'
 import verhuurder from './components/VerhuurPage.vue'
 import zoekertjespage from './components/PlaatsZoekertje.vue'
+import ProductDetailPageVue from './components/Materiaal/ProductDetailPage.vue'
 import winkelmand from './components/Rent/Winkelmandje.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
+import VCalendar from 'v-calendar';
 import 'v-calendar/style.css';
 
 // Use plugin defaults (optional)
