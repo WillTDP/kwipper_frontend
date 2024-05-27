@@ -49,15 +49,15 @@ const props = defineProps({
         border-radius: 9px;
         display: flex;
         flex-direction: column;
-        margin: 1%;
-        position: relative;
         background-color: #f0f2f1;
+        margin: 1%;
+        max-height: 240px;
     }
 
     .image-container {
         position: relative;
-        width: 460px; /* Set the width of the image container */
-        height: 200px; /* Set the height of the image container */
+        width: 423px; /* Set the width of the image container */
+        height: 181px; /* Set the height of the image container */
     }
 
     .verhuurder {
@@ -72,7 +72,6 @@ const props = defineProps({
 
     .product-owner {
         position: absolute;
-        
         left: 80px;
         z-index: 10;
         color: white;
@@ -106,11 +105,12 @@ const props = defineProps({
     }
 
     img {
-        height: 200px;
-        width: 460px;
+        height: 181px;
+        width: 423px;
         margin-bottom: 0;
         padding-bottom: 0;
         border-radius: 9px;
+        object-fit: cover; 
     }
 
     .product-price{
@@ -125,8 +125,6 @@ const props = defineProps({
         padding: 0;
     }
 
-    
-
     .product-button{
         display: flex;
         justify-content: center; /* Center button horizontally */
@@ -135,4 +133,25 @@ const props = defineProps({
         
     }
 
+    /* Responsive styles for screens smaller than 600px */
+    @media (max-width: 600px) {
+        .product-item {
+            width: 100%; /* Set the width of the product item to 100% */
+            max-width: 423px; /* Set the maximum width of the product item to 423px */
+            padding: 0; /* Remove padding */
+            align-items: normal; /* Align items to the start */
+            max-height: 100%; /* Set the maximum height of the product item to 100% */
+        }
+        .image-container {
+            width: 100%; /* Set the width of the image container to 100% */
+            max-width: 95vw; /* Set the maximum width of the image container to 100% */
+            height: auto; /* Set the height of the image container to auto */
+        }
+
+        img {
+            max-width: 100%; /* Set the maximum width of the image to 100% */
+            height: auto; /* Set the height of the image to auto */
+            object-fit: cover; /* Ensure images don't stretch */
+        }
+    }
 </style>

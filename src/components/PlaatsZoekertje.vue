@@ -136,7 +136,6 @@ const updateRadioButtonState = (newValue) => {
                 <div class="tip" id="camera-tip">
                         
                     <i class="fa-solid fa-camera"></i>
-                    <p>Number of items in the database: {{ data }}</p>
                     <p>Gebruik minimaal 4 foto's</p>
                 </div>
             </div>

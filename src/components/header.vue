@@ -1,6 +1,6 @@
 <script setup>
-import { RouterLink, useRoute } from 'vue-router';
-import { reactive, onMounted, onBeforeUnmount, watch } from 'vue';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
+import { reactive, onMounted, onBeforeUnmount, watch, ref, defineEmits } from 'vue';
 import headerpopupmobile from './headerpopupmobile.vue';
 import headerpopupaccount from './headerpopupaccount.vue';
 
@@ -71,6 +71,23 @@ watch(route, () => {
   state.showAccountPopup = false
 })
 
+let selectedNameValue = ref(null);
+
+const emit = defineEmits(['filterByName']);
+
+watch(selectedNameValue, (newVal) => {
+    emit('filterByName', newVal);
+});
+
+const router = useRouter();
+
+const navigateToMateriaal = () => {
+    if (selectedNameValue.value === null) {
+    } else {
+        router.push({ name: 'materiaal', query: { name: selectedNameValue.value } });
+    }
+};
+
 </script>
 
 <template>
@@ -89,7 +106,8 @@ watch(route, () => {
         <div class="second_block">
             <div class="searchbar-container">
                 <div class="input-icon">
-                    <input type="text" class="search-input" name="searchbar" placeholder="Naar wat ben je op zoek?">
+                    <img src="../../public/search.svg" @click="navigateToMateriaal" class="icon" />
+                    <input type="text" class="search-input" name="searchbar" placeholder="Naar wat ben je op zoek?" v-model="selectedNameValue"  @keydown.enter="navigateToMateriaal">
                 </div>
             </div>
             <div class="menu-login">
@@ -179,7 +197,6 @@ header {
 }
 
 .link.active {
-  color: #f00;
 }
 
 .materiaal {
@@ -189,7 +206,10 @@ header {
 }
 
 .verhuurder {
-    padding: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
     color: #2B5740;
     text-decoration: none;
     margin: 1em;
@@ -200,16 +220,28 @@ header {
 }
 
 .input-icon {
-  position: relative;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: right;
 }
 
-.input-icon::before {
+/*.input-icon::before {
   content: url('../../public/search.svg'); /* Replace with your icon path */
-  position: absolute;
+  /*position: absolute;
   right: 5px; /* Adjust as needed */
-  top: 50%;
+  /*top: 50%;
   transform: translateY(-50%);
+  cursor: pointer;
+}*/
+
+.icon {
+    position: absolute;
+    display: flex;
+    cursor: pointer;
+    right: 2%;
 }
+
 .searchbar-containter {
     display: flex;
     justify-content: center;
@@ -295,9 +327,9 @@ header {
         display: flex;
     }
 
-    .input-icon::before {
+    /*.input-icon::before {
         right: 1%;
-    }
+    }*/
 
     .search-input {
         width: 100%;

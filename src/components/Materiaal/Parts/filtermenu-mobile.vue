@@ -69,11 +69,11 @@
             </div>
             <div class="segment">
                 <p class="title">Huren van</p>
-                <input type="date"></input>
+                <input type="date" class="input" placeholder="">
             </div>
             <div class="segment">
                 <p class="title">Huren tot</p>
-                <input type="date"></input>
+                <input type="date" class="input" placeholder="">
             </div>
         </div>
         <div class="filter-menu-categories" v-if="isPressed2">
@@ -86,20 +86,20 @@
             <div class="segment">
                 <p class="title">Legermateriaal</p>
                 <p class="link" @click="filter('legertenten')">Legertenten</p>
-                <p class="link" @cliek="filter('seniortenten')">Seniortenten</p>
+                <p class="link" @click="filter('seniorentent')">Seniortenten</p>
                 <p class="link" @click="filter('patrouilletenten')">Patrouilletenten</p>
             </div>
             <div class="segment">
                 <p class="title">Kampmateriaal</p>
-                <p class="link" @click="filter('gasbakken')" >Gasbakken</p>
+                <p class="link" @click="filter('gasbakken')" >Gasbakken en flessen</p>
                 <p class="link" @click="filter('tent')">Tenten</p>
-                <p class="link">Verlengtafels</p>
+                <p class="link" @click="filter('zeilen')">Zeilen</p>
             </div>
             <div class="segment">
-                <p class="title">Keukenmateriaal</p>
-                <p class="link">Kookpotten</p>
-                <p class="link">Servies</p>
-                <p class="link">Bestek</p>
+                <p class="title">Tafels en Banken</p>
+                <p class="link" @click="filter('uitklaptafel')">Uitklaptafels</p>
+                <p class="link" @click="filter('uitklapbanken')" >Uitklapbanken en stoelen</p>
+                <p class="link" @click="filter('slaapmateriaal')" >Slaapmateriaal</p>
             </div>
         </div>
     </div>
@@ -149,13 +149,22 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;;
+    align-items: flex-start;
+    text-align: left;
     gap: 1em;
     width: 100%;
-    max-width: 320px;
+    max-width: 375px;
     background-color: #2B5740;
     padding-bottom: 2em;
+}
+.filter-menu-categories > * {
+    flex-basis: 100%;
+}
+@media (max-width: 413px) {
+    .filter-menu-categories > * {
+        flex-basis: calc(50% - 1em);
+        max-width: 375px;
+    }
 }
 
 .segment {

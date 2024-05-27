@@ -1,8 +1,23 @@
 <script setup>
-import { ref } from 'vue';
-import { categorie } from '../../fake-data.js';
+  import { ref, watch, defineEmits } from 'vue';
 
-const categorieRef = ref(categorie);
+  let selectedPriceValue = ref(null);
+  let selectedConditionValue = ref(null);
+  let selectedNameValue = ref(null);
+
+  const emit = defineEmits(['filter', 'filterByCondition', 'filterByPrice', 'filterByName']);
+
+  watch(selectedPriceValue, (newVal) => {
+    emit('filterByPrice', newVal);
+  });
+
+  watch(selectedConditionValue, (newVal) => {
+    emit('filterByCondition', newVal);
+  });
+
+  watch(selectedNameValue, (newVal) => {
+    emit('filterByName', newVal);
+  });
 </script>
 
 <template>
@@ -20,16 +35,26 @@ const categorieRef = ref(categorie);
         <div class="option-label">Sorteren op</div>
         
         <div class="input-wrapper">
-          <input type="text" class="input" placeholder="Naar wat ben je op zoek?">
+          <input type="search" class="input" placeholder="Naar wat ben je op zoek?" v-model="selectedNameValue">
         </div>
         
         <div class="input-wrapper">
-          <input type="text" class="input" placeholder="">
+          <input type="text" class="input" placeholder="contract">
         </div>
         
-        <div class="input-wrapper">
-          <input type="text" class="input-limited" placeholder="">
-          <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
+        <div class="input-wrapper price">
+          <select class="input-limited" v-model="selectedPriceValue">
+            <option value="" disabled selected>Sorteer op prijs</option>
+            <option value="">Reset</option>
+            <option value="0-5">€0-€5</option>
+            <option value="5-10">€5-€10</option>
+            <option value="10-20">€10-€20</option>
+            <option value="20-30">€20-€30</option>
+            <option value="30-40">€30-€40</option>
+            <option value="40-50">€40-€50</option>
+            <option value="50-100">€50-€100</option>
+            <option value="100-200">€100-€200</option>
+          </select>
         </div>
         
         <div class="input-wrapper">
@@ -41,6 +66,16 @@ const categorieRef = ref(categorie);
         </div>
         
         <div class="input-wrapper">
+          <select class="input limited" v-model="selectedConditionValue">
+            <option value="" disabled selected>Sorteer op</option>
+            <option value="">Reset</option>
+            <option value="3">Matig</option>
+            <option value="4">Goed</option>
+            <option value="5">Perfect</option>
+          </select>
+        </div>
+
+        <div class="input-wrapper">
           <input type="text" class="input-limited" placeholder="">
           <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
         </div>
@@ -48,11 +83,6 @@ const categorieRef = ref(categorie);
         <div class="input-wrapper">
           <input type="text" class="input-limited" placeholder="">
           <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-5.svg" />
-        </div>
-        
-        <div class="input-wrapper">
-          <input type="text" class="input-limited" placeholder="">
-          <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
         </div>
       </div>
     </div>
@@ -131,7 +161,7 @@ const categorieRef = ref(categorie);
   border: none;
   outline: none;
   flex-grow: 1;
-  width: 70%;
+  width: 100%;
   color: black;
 }
 
