@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="product-item">
+    <div class="product-item" v-if="item">
       <router-link :to="'/products/' + item._id">
         <img src="../../assets/fouragetent.png" alt="materiaal foto">
         <div class="product-text">

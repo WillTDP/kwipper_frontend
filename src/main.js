@@ -10,6 +10,7 @@ import profilepagina from './components/ProfilePage.vue'
 import verhuurder from './components/VerhuurPage.vue'
 import zoekertjespage from './components/PlaatsZoekertje.vue'
 import ProductDetailPageVue from './components/Materiaal/ProductDetailPage.vue'
+import winkelmand from './components/Rent/Winkelmandje.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 import VCalendar from 'v-calendar';
@@ -31,6 +32,7 @@ const routes = [
         { path: '/user', component: profilepagina },
         { path: '/zoekertje', component: zoekertjespage },
         { path: '/verhuurder', component: verhuurder },
+        { path: '/winkelmand', component: winkelmand },
         { path: '/login', component: login },
         { path: '/signup', component: signup },
 ]
