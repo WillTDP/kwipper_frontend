@@ -5,7 +5,7 @@
   let selectedConditionValue = ref(null);
   let selectedNameValue = ref(null);
 
-  const emit = defineEmits(['filter', 'filterByCondition', 'filterByPrice', 'filterByName']);
+  const emit = defineEmits(['filterByCondition', 'filterByPrice', 'filterByName']);
 
   watch(selectedPriceValue, (newVal) => {
     emit('filterByPrice', newVal);
