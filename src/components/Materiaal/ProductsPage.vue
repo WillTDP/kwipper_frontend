@@ -109,7 +109,7 @@ watch(route, () => {
 
 <template>
   <div id="page-wrap">
-    <filtermenuMobile @filter="filterProducts" v-if="state.mobile" />
+    <filtermenuMobile  @filter="filterProducts" @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" v-if="state.mobile" />
       <div v-if="selectedCategory && state.mobile" class="selected">
         <p>Selected Category: </p>
         <div class="filter">
