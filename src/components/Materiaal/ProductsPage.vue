@@ -16,11 +16,16 @@ let selectedCategory = ref("");
 let selectedPrice = ref(null);
 let selectedCondition = ref(null);
 let selectedName = ref(null);
+let selectedBrand = ref(null);
 
 const data = ref(null);
 
 const filterProducts = (category) => {
   selectedCategory.value = category;
+};
+
+const filterProductsByBrand = (brand) => {
+  selectedBrand.value = brand;
 };
 
 const filterProductsByPrice = (priceRange) => {
@@ -43,32 +48,14 @@ const filterProductsByName = (name) => {
   } else if (route.query.name) {
     selectedName.value = route.query.name;
   }
+
+  // Reset filtered items if selectedName.value is empty
+  if ( selectedName.value === "") {
+    selectedName.value = null;
+  }
+
+  console.log(selectedName.value);
 };
-
-
-
-
-
-
-/* this part is only applicable for the fake data*/
-const nonPremiumProducts = computed(() => {
-  return products.filter(product => !product.premium && 
-    (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true) &&
-    (selectedPrice.value ? product.item.price >= selectedPrice.value.lower && product.item.price <= selectedPrice.value.upper : true)
-    && (selectedCondition.value ? String(product.item.staat) === String(selectedCondition.value) : true) 
-    && (selectedName.value ? product.name.toLowerCase().includes(selectedName.value.toLowerCase()) : true)
-  );
-});
-
-
-const premiumProducts = computed(() => {
-  return products.filter(product => product.premium && 
-    (selectedCategory.value ? product.item && product.item.art_category && product.item.art_category.includes(selectedCategory.value) : true) &&
-    (selectedPrice.value ? product.item.price >= selectedPrice.value.lower && product.item.price <= selectedPrice.value.upper : true) 
-    && (selectedCondition.value ? String(product.item.staat) === String(selectedCondition.value) : true)
-    && (selectedName.value ? product.name.toLowerCase().includes(selectedName.value.toLowerCase()) : true)
-  );
-});
 
 const filteredPremiumItems = computed(() => {
   if (!data.value || !data.value.data || !data.value.data.twoAssortment) {
@@ -76,7 +63,14 @@ const filteredPremiumItems = computed(() => {
     return [];
   }
   
-  return data.value.data.twoAssortment.filter(item => item.item && item.item.premium === true);
+  return data.value.data.twoAssortment.filter(item => 
+    item.item && item.item.premium === true &&
+    (selectedCategory.value ? item.item.art_category && item.item.art_category.includes(selectedCategory.value) : true) &&
+    (selectedPrice.value ? item.item.price >= selectedPrice.value.lower && item.item.price <= selectedPrice.value.upper : true) &&
+    (selectedCondition.value ? String(item.item.condition) === String(selectedCondition.value) : true) &&
+    (selectedName.value ? item.item.art_name.toLowerCase().includes(selectedName.value.toLowerCase()) : true)
+    && (selectedBrand.value ? item.item.brand.toLowerCase().includes(selectedBrand.value.toLowerCase()) : true)
+  );
 });
 
 const filteredNonPremiumItems = computed(() => {
@@ -85,7 +79,14 @@ const filteredNonPremiumItems = computed(() => {
     return [];
   }
   
-  return data.value.data.twoAssortment.filter(item => item.item && item.item.premium === false);
+  return data.value.data.twoAssortment.filter(item => 
+    item.item && item.item.premium !== true &&
+    (selectedCategory.value ? item.item.art_category && item.item.art_category.includes(selectedCategory.value) : true) &&
+    (selectedPrice.value ? item.item.price >= selectedPrice.value.lower && item.item.price <= selectedPrice.value.upper : true) &&
+    (selectedCondition.value ? String(item.item.condition) === String(selectedCondition.value) : true) &&
+    (selectedName.value ? item.item.art_name.toLowerCase().includes(selectedName.value.toLowerCase()) : true)
+    && (selectedBrand.value ? item.item.brand.toLowerCase().includes(selectedBrand.value.toLowerCase()) : true)
+  );
 });
 
 
@@ -148,12 +149,12 @@ watch(route, () => {
           <p> {{ selectedCategory }}</p>
         </div>
       </div>
-  <filtermenuDesktop @filter="filterProducts" @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" @filterByName="filterProductsByName" v-if="state.desktop" />
+  <filtermenuDesktop @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" @filterByName="filterProductsByName" v-if="state.desktop" />
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
-      <ProductTrending v-if="state.mobile" @filter="filterProducts"/>
+      <ProductTrending v-if="state.mobile" @filter="filterProductsByBrand"/>
       <div class="grid-wrap" v-if="data">
-        <ProductTrending v-if="state.desktop" @filter="filterProducts"/>
+        <ProductTrending v-if="state.desktop" @filter="filterProductsByBrand"/>
         <ProductItemPremium v-for="item in filteredPremiumItems" :key="item._id" :item="item"/>
         <ProductItem v-for="item in filteredNonPremiumItems" :key="item._id" :item="item" />
       </div>
