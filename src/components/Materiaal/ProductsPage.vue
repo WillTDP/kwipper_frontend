@@ -29,12 +29,12 @@ const filterProductsByBrand = (brand) => {
 };
 
 const filterProductsByPrice = (priceRange) => {
-  if (priceRange === "") {
+  if (!priceRange || priceRange === "") {
     selectedPrice.value = null; // Reset the filter
-  } else {
-    const [lower, upper] = priceRange.split('-').map(Number);
-    selectedPrice.value = { lower, upper };
+    return;
   }
+  const [lower, upper] = priceRange.split('-').map(Number);
+  selectedPrice.value = { lower, upper };
 };
 
 const filterProductsByCondition = (condition) => {
