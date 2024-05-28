@@ -1,23 +1,18 @@
 <script setup>
-  import { ref, watch, defineEmits } from 'vue';
+import { ref, defineEmits } from 'vue';
 
-  let selectedPriceValue = ref(null);
-  let selectedConditionValue = ref(null);
-  let selectedNameValue = ref(null);
+let selectedPriceValue = ref(null);
+let selectedConditionValue = ref(null);
+let selectedNameValue = ref(null);
 
-  const emit = defineEmits(['filterByCondition', 'filterByPrice', 'filterByName']);
+const emit = defineEmits(['filterByCondition', 'filterByPrice', 'filterByName']);
 
-  watch(selectedPriceValue, (newVal) => {
-    emit('filterByPrice', newVal);
-  });
-
-  watch(selectedConditionValue, (newVal) => {
-    emit('filterByCondition', newVal);
-  });
-
-  watch(selectedNameValue, (newVal) => {
-    emit('filterByName', newVal);
-  });
+const handleFilterButtonClick = () => {
+  console.log('Filter button is pressed');
+  emit('filterByPrice', selectedPriceValue.value);
+  emit('filterByCondition', selectedConditionValue.value);
+  emit('filterByName', selectedNameValue.value);
+};
 </script>
 
 <template>
@@ -26,21 +21,18 @@
     <div class="search-group">
       <div class="search-options">
         <div class="option-label">Zoeken</div>
-        <div class="option-label">Soort contract</div>
         <div class="option-label">Prijs</div>
         <div class="option-label">Huren van..</div>
         <div class="option-label">Huren tot..</div>
-        <div class="option-label">Locatie</div>
         <div class="option-label">Conditie</div>
+        <div class="option-label">Locatie</div>
         <div class="option-label">Sorteren op</div>
+        <div class="option-label">Sorteren</div>
         
         <div class="input-wrapper">
           <input type="search" class="input" placeholder="Naar wat ben je op zoek?" v-model="selectedNameValue">
         </div>
         
-        <div class="input-wrapper">
-          <input type="text" class="input" placeholder="contract">
-        </div>
         
         <div class="input-wrapper price">
           <select class="input-limited" v-model="selectedPriceValue">
@@ -83,6 +75,10 @@
         <div class="input-wrapper">
           <input type="text" class="input-limited" placeholder="">
           <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-5.svg" />
+        </div>
+
+        <div class="input-wrapper">
+          <button  @click="handleFilterButtonClick">Filter</button>
         </div>
       </div>
     </div>
@@ -175,4 +171,16 @@
 
 .icon:nth-of-type(3) { top: 4px; left: calc(100% - 23px); width: 11px; height: 12px; }
 .icon:nth-of-type(4) { top: 6px; left: calc(100% - 34px); }
+
+button {
+  position: absolute;
+  background-color: #1C98D6;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  width: 100%;
+  padding: 0.5em 1em;
+  font-size: 10px;
+  cursor: pointer;
+}
 </style>
