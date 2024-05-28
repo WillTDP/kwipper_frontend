@@ -90,16 +90,16 @@ const filteredNonPremiumItems = computed(() => {
 
 
 const state = reactive({
-  mobile: window.innerWidth < 811, // Initialize mobile state
-  desktop: window.innerWidth > 811 // Initialize desktop state
+  mobile: window.innerWidth < 1025, // Initialize mobile state
+  desktop: window.innerWidth > 1025 // Initialize desktop state
 });
 
 function checkMobile() {
-  state.mobile = window.innerWidth < 811;
+  state.mobile = window.innerWidth < 1025;
 }
 
 function checkDesktop() {
-  state.desktop = window.innerWidth > 811;
+  state.desktop = window.innerWidth > 1025;
 }
 
 onMounted(() => {

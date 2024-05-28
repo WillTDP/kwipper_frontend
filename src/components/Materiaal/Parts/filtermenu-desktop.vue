@@ -94,22 +94,28 @@ const handleFilterButtonClick = () => {
 }
 
 .search-container {
-  width: 100%;
   display: flex;
   justify-content: center;
-  margin: 2% 0 1%;
-}
-
-.search-group {
-  width: 1245px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1245px;
   height: 179px;
   background-color: #f0f2f1;
   border-radius: 9px;
   position: relative;
 }
 
+.search-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .option-label {
   position: absolute;
+  display: flex;
   font-family: "Inter", Helvetica;
   font-weight: 400;
   color: #000000;
@@ -182,5 +188,25 @@ button {
   padding: 0.5em 1em;
   font-size: 10px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1300px){
+  .search-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1000px;
+    height: 179px;
+    background-color: #f0f2f1;
+    border-radius: 9px;
+    position: relative;
+  }
+
+  .search-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
 }
 </style>
