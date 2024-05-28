@@ -151,9 +151,8 @@ watch(route, () => {
   <filtermenuDesktop @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" @filterByName="filterProductsByName" v-if="state.desktop" />
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
-      <ProductTrending v-if="state.mobile" @filter="filterProductsByBrand"/>
       <div class="grid-wrap" v-if="data">
-        <ProductTrending v-if="state.desktop" @filter="filterProductsByBrand"/>
+        <ProductTrending @filter="filterProductsByBrand"/>
         <ProductItemPremium v-for="item in filteredPremiumItems" :key="item._id" :item="item"/>
         <ProductItem v-for="item in filteredNonPremiumItems" :key="item._id" :item="item" />
       </div>
@@ -180,9 +179,12 @@ watch(route, () => {
   .grid-wrap {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    align-items: center;
     float: right;
     margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
     width: 64%;
   }
 
@@ -242,11 +244,13 @@ watch(route, () => {
     font-weight: 600;
   }
 
-  @media (max-width: 811px) {
+  @media (max-width: 1025px) {
     .grid-wrap {
       width: 95%;
       flex-wrap: wrap;
       padding: 6px;
+      margin-left: 0px;
+      margin-right: 0px;
     }
 
     .grid-container {
