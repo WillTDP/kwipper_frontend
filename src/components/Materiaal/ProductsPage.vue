@@ -1,7 +1,6 @@
 <script setup>
 import { ref, reactive ,computed, onMounted, onUnmounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { products } from '../../fake-data.js'
 import ProductItem from './ProductItem.vue';
 import ProductItemPremium from './ProductItemPremium.vue';
 import filtermenuMobile from './Parts/filtermenu-mobile.vue';

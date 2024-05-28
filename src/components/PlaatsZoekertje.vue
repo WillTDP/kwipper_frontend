@@ -183,11 +183,11 @@ const updateRadioButtonState = (newValue) => {
                     <div class="Kenmerk-links">
                     <h2>Conditie</h2>
                     <select class="conditie" name="Conditie" v-model="formData.item.condition" required>
-                        <option value="Beschadigd">Beschadigd</option>
-                        <option value="Defect">Defect</option>
-                        <option value="Matig">Matig</option>
-                        <option value="Goed">Goed</option>
-                        <option value="Perfect">Perfect</option>
+                        <option value="1">Beschadigd</option>
+                        <option value="2">Defect</option>
+                        <option value="3">Matig</option>
+                        <option value="4">Goed</option>
+                        <option value="5">Perfect</option>
                     </select>
                     <h2>Merk</h2>
                     <select class="conditie" name="Conditie" v-model="formData.item.brand" required>
@@ -198,6 +198,7 @@ const updateRadioButtonState = (newValue) => {
                         <option value="Outwell">Outwell</option>
                         <option value="Robens">Robens</option>
                         <option value="Vango">Vango</option>
+                        <option value="Quechua">Quechua</option>
                     </select>
                 </div>
                 <div class="Kenmerk-rechts">
@@ -227,11 +228,6 @@ const updateRadioButtonState = (newValue) => {
             <div class="cell-display">
                 <div class="div3">
                     <h1>Prijs</h1>
-                    <h2>Ik will...</h2>
-                    <select class="conditie" name="intentie">
-                        <option value="Verhuren">Verhuren</option>
-                        <option value="Verkopen">Verkopen</option>
-                    </select>
                     <h2>Vraagprijs</h2>
                     <input type="text" class="input-simple" placeholder="" v-model="formData.item.price" required>
                 </div>
@@ -248,7 +244,7 @@ const updateRadioButtonState = (newValue) => {
                 <div class="div3">
                     <div class="tip">
                         <i class="fa-solid fa-pen"></i>
-                        <p>Naast verhuren kan je ook materiaal <br>verkopen!</p>
+                        <p>Tip hier</p>
                     </div>
                     <h2>Waarborg</h2>
                     <input class="conditie" v-model="formData.item.waarborg">
