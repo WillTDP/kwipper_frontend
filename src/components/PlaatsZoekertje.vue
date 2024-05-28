@@ -159,22 +159,71 @@ const updateRadioButtonState = (newValue) => {
 
 
                     <div class="added-images">
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
+                            <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image1">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image1"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image2">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image2"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image3">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image3"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image4">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image4"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >                      
                     </div>
+
+
                 </div>
-                
-                
             </div>
             <div class="cell-display">
                 
