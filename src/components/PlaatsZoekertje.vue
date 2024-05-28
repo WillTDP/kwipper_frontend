@@ -110,9 +110,17 @@ const updateRadioButtonState = (newValue) => {
         <div class="table-display">
             <div class="cell-display">
                 <div class="div3" id="post-image">
-                    <div class="main-image">
-                        <i class="fa-solid fa-camera"></i>
-                    </div>
+
+
+
+                    <label class="main-image" for="prompt-header-image">
+                    <i></i>
+                    </label>
+                    <input data-type="image" type="file" name="header-image" id="prompt-header-image" accept=".jpg, .jpeg, .png, .webp" class="hidden">
+
+
+
+
                     <div class="added-images">
                         <div class="image">
                             <i class="fa-solid fa-plus"></i>
@@ -285,7 +293,9 @@ const updateRadioButtonState = (newValue) => {
 
 <style scoped>
 
-
+    .hidden{
+        display: none;
+    }
 
     .header-title {
         font-size: 48px;
