@@ -150,7 +150,7 @@ const updateRadioButtonState = (newValue) => {
                         data-type="image" 
                         type="file" 
                         id="header-image"
-                        name="header-image" 
+                        name="art-picture" 
                         accept=".jpg, .jpeg, .png, .webp" 
                         class="hidden"
                     >
@@ -336,10 +336,10 @@ const updateRadioButtonState = (newValue) => {
             </div>
             <div class="cell-display">
                 <div class="div3">
-                    <div class="tip">
+                    <!-- <div class="tip">
                         <i class="fa-solid fa-pen"></i>
                         <p>Tip hier</p>
-                    </div>
+                    </div> -->
                     <h2>Waarborg</h2>
                     <input class="conditie" v-model="formData.item.waarborg">
                     
@@ -422,7 +422,7 @@ const updateRadioButtonState = (newValue) => {
     }
     
     #camera-tip {
-        top: 0;
+        top: -6.5em;
         position: relative;
     }
 
@@ -433,7 +433,9 @@ const updateRadioButtonState = (newValue) => {
         width: 60%;
         right: 0;
         position: relative;
+        padding: 0.5em;
     }
+
 
     .tip i {
         font-size: 3rem;
