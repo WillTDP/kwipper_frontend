@@ -99,8 +99,35 @@ const updateRadioButtonState = (newValue) => {
         // Handle error if needed
         }
     };
-    
-    
+
+    onMounted(() => {
+        const imageInputs = document.querySelectorAll('input[data-type="image"]');
+        const reader = new FileReader();
+
+        imageInputs.forEach(imageInput => {
+
+            imageInput.onchange = handleImageChange;
+
+        })
+
+        function handleImageChange (e) {
+            if (e.target.files && e.target.files[0]) {
+
+                reader.readAsDataURL(e.target.files[0]);
+
+                reader.onload = () => {
+                    document.querySelector(`label[for="${e.target.id}"]`).style.backgroundImage = `url(${reader.result})`;
+                    document.querySelector(`label[for="${e.target.id}"]`).classList.remove('example-image');
+                }
+
+            } else {
+                document.querySelector(`label[for="${e.target.id}"]`).style.backgroundImage = '';
+                document.querySelector(`label[for="${e.target.id}"]`).classList.add('example-image');
+            }
+        }
+    })
+
+
 </script>
 
 <template>
@@ -113,12 +140,23 @@ const updateRadioButtonState = (newValue) => {
 
 
 
-                    <label class="main-image" for="prompt-header-image">
-                    <i></i>
+                    <label 
+                        style="background-image: url('/public/Images/cambg.png');"
+                        class="main-image main example-image" 
+                        for="header-image"
+                    >
+                        <i></i>
                     </label>
-                    <input data-type="image" type="file" name="header-image" id="prompt-header-image" accept=".jpg, .jpeg, .png, .webp" class="hidden">
+                    <input 
+                        data-type="image" 
+                        type="file" 
+                        id="header-image"
+                        name="header-image" 
+                        accept=".jpg, .jpeg, .png, .webp" 
+                        class="hidden"
+                    >
 
-
+                    
 
 
                     <div class="added-images">
@@ -292,6 +330,16 @@ const updateRadioButtonState = (newValue) => {
 </template>
 
 <style scoped>
+
+    .example-image {
+        background-size: 50% !important;
+    }
+
+    .main{
+        background-size: cover;
+        background-repeat: no-repeat; 
+        background-position: center;
+    }
 
     .hidden{
         display: none;
