@@ -143,8 +143,7 @@ const updateRadioButtonState = (newValue) => {
                     <label 
                         style="background-image: url('/public/Images/cambg.png');"
                         class="main-image main example-image" 
-                        for="header-image"
-                    >
+                        for="header-image">
                         <i></i>
                     </label>
                     <input 
