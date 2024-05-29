@@ -36,6 +36,7 @@ const fetchData = async () => {
       const response = await apiService.fetchDataById(itemId.value);
       itemData.value = response.data;
       console.log('Item data:', itemId.value);
+      console.log('Item data:', itemData.value);
     } catch (error) {
       console.error('Error fetching item data:', error);
     }

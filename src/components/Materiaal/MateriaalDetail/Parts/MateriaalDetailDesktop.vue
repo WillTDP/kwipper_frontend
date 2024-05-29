@@ -27,26 +27,38 @@ const sendMessage = () => {
           <div id="img-wrap">
             <div class="titlewrap">
               <h1 class="title">{{ itemData.data.assortment.item.art_name }}</h1>
-              <a href="#" class="flag" @click="openFlagPopup">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-                  <g clip-path="url(#clip0_2202_11692)">
-                    <path d="M2.42188 8.13772C2.42188 8.13772 2.94145 7.61815 4.50016 7.61815C6.05887 7.61815 7.09801 8.65729 8.65672 8.65729C10.2154 8.65729 10.735 8.13772 10.735 8.13772V1.90287C10.735 1.90287 10.2154 2.42244 8.65672 2.42244C7.09801 2.42244 6.05887 1.3833 4.50016 1.3833C2.94145 1.3833 2.42188 1.90287 2.42188 1.90287V8.13772Z" stroke="#F0F2F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2.42188 11.7747V8.1377" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_2202_11692">
-                      <rect width="12.4697" height="12.4697" fill="white" transform="translate(0.34375 0.344238)"/>
-                    </clipPath>
-                  </defs>
-                </svg>
-              </a>
+              <h2 class="seller_name">{{ itemData.data.assortment.user.posted_by }} </h2>
             </div>
               <img src="../../../../assets/fouragetent.png">
           </div>
       </div>
       <div class="middle_detail_element">
-        <div v-if="itemData && itemData.data.assortment.user && itemData.data.assortment.item">
-          <div class="seller">
+        <p>{{ itemData.data.assortment.user.posted_by }}</p>
+        <p> email </p>
+        <p>verification</p>
+        <p>deze gebruiker is geverifierd</p>
+        <div class="score_name">
+            <StarRating :rating="Number(4)" :readOnly="true" class="star" />   
+        </div>
+        
+        <div class="price_available">
+            <h3 id="price">€{{ itemData.data.assortment.item.price }} per dag</h3>
+            <p :class="{ 'available': itemData.data.assortment.item.available_from, 'not-available': !itemData.data.assortment.item.available_from }">
+               {{ itemData.data.assortment.item.art_name ? 'Beschikbaar' : 'Niet Beschikbaar' }}
+            </p>            
+        </div>
+        <div v-if="itemData && itemData.data.assortment.item">
+          <p>stock: {{ itemData.data.assortment.item.price }}</p>
+          <p>Staat: {{ itemData.data.assortment.item.condition }}</p>
+          <p>Waarborg: €{{ itemData.data.assortment.item.waarborg }} per product</p>
+        </div>
+        <div class="location">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" viewBox="0 0 14 20" fill="none">
+                <path d="M6.92308 9.5C6.26732 9.5 5.63842 9.23661 5.17474 8.76777C4.71105 8.29893 4.45055 7.66304 4.45055 7C4.45055 6.33696 4.71105 5.70107 5.17474 5.23223C5.63842 4.76339 6.26732 4.5 6.92308 4.5C7.57883 4.5 8.20773 4.76339 8.67142 5.23223C9.13511 5.70107 9.3956 6.33696 9.3956 7C9.3956 7.3283 9.33165 7.65339 9.20739 7.95671C9.08314 8.26002 8.90101 8.53562 8.67142 8.76777C8.44182 8.99991 8.16925 9.18406 7.86927 9.3097C7.56929 9.43534 7.24777 9.5 6.92308 9.5ZM6.92308 0C5.08696 0 3.32605 0.737498 2.02772 2.05025C0.729393 3.36301 0 5.14348 0 7C0 12.25 6.92308 20 6.92308 20C6.92308 20 13.8462 12.25 13.8462 7C13.8462 5.14348 13.1168 3.36301 11.8184 2.05025C10.5201 0.737498 8.75919 0 6.92308 0Z" fill="#090D0B"/>
+              </svg>
+              <p>{{ itemData.data.assortment.user.location }}</p>
+        </div>
+        <div class="seller">
             <div class="icons">
               <div class="message" @click="$emit('openPopup')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 17 14" fill="none">
@@ -65,36 +77,27 @@ const sendMessage = () => {
                 </svg>
               </div>
             </div>
-            <div class="score_name">
-              <h2 class="seller_name">{{ itemData.data.assortment.user.posted_by }} </h2>
-              <StarRating :rating="Number(4)" :readOnly="true" class="star" />   
-            </div>
           </div>
-          <div class="price_location">
-            <div class="location">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" viewBox="0 0 14 20" fill="none">
-                <path d="M6.92308 9.5C6.26732 9.5 5.63842 9.23661 5.17474 8.76777C4.71105 8.29893 4.45055 7.66304 4.45055 7C4.45055 6.33696 4.71105 5.70107 5.17474 5.23223C5.63842 4.76339 6.26732 4.5 6.92308 4.5C7.57883 4.5 8.20773 4.76339 8.67142 5.23223C9.13511 5.70107 9.3956 6.33696 9.3956 7C9.3956 7.3283 9.33165 7.65339 9.20739 7.95671C9.08314 8.26002 8.90101 8.53562 8.67142 8.76777C8.44182 8.99991 8.16925 9.18406 7.86927 9.3097C7.56929 9.43534 7.24777 9.5 6.92308 9.5ZM6.92308 0C5.08696 0 3.32605 0.737498 2.02772 2.05025C0.729393 3.36301 0 5.14348 0 7C0 12.25 6.92308 20 6.92308 20C6.92308 20 13.8462 12.25 13.8462 7C13.8462 5.14348 13.1168 3.36301 11.8184 2.05025C10.5201 0.737498 8.75919 0 6.92308 0Z" fill="#090D0B"/>
-              </svg>
-              <p>{{ itemData.data.assortment.user.location }}</p>
-            </div>
-            <div class="price_available">
-              <h3 id="price">€{{ itemData.data.assortment.item.price }} per dag</h3>
-              <p :class="{ 'available': itemData.data.assortment.item.available_from, 'not-available': !itemData.data.assortment.item.available_from }">
-                {{ itemData.data.assortment.item.art_name ? 'Beschikbaar' : 'Niet Beschikbaar' }}
-              </p>            
-            </div>
-          </div>
+        <div>
+            <button id="add-to-cart">Toevoegen aan winkelmandje</button>
+            <a href="#" class="flag" @click="openFlagPopup">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <g clip-path="url(#clip0_2202_11692)">
+                        <path d="M2.42188 8.13772C2.42188 8.13772 2.94145 7.61815 4.50016 7.61815C6.05887 7.61815 7.09801 8.65729 8.65672 8.65729C10.2154 8.65729 10.735 8.13772 10.735 8.13772V1.90287C10.735 1.90287 10.2154 2.42244 8.65672 2.42244C7.09801 2.42244 6.05887 1.3833 4.50016 1.3833C2.94145 1.3833 2.42188 1.90287 2.42188 1.90287V8.13772Z" stroke="#F0F2F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2.42188 11.7747V8.1377" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_2202_11692">
+                        <rect width="12.4697" height="12.4697" fill="white" transform="translate(0.34375 0.344238)"/>
+                        </clipPath>
+                    </defs>
+                    </svg>
+            </a>
         </div>
       </div>
       <div class="bottom_detail_element">
         <h4>Beschrijving</h4>
         <p>{{ itemData.data.assortment.item.art_desc }}</p>
-        <div v-if="itemData && itemData.data.assortment.item">
-          <p>stock: {{ itemData.data.assortment.item.price }}</p>
-          <p>Staat: {{ itemData.data.assortment.item.condition }}</p>
-          <p>Waarborg: €{{ itemData.data.assortment.item.waarborg }} per product</p>
-        </div>
-        <button id="add-to-cart">Toevoegen aan winkelmandje</button>
       </div>
       <Popup :showPopup="props.showPopup" @update:showPopup="$emit('closePopup')">
         <div v-if="!confirmationShown">  
