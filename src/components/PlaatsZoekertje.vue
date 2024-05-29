@@ -99,8 +99,35 @@ const updateRadioButtonState = (newValue) => {
         // Handle error if needed
         }
     };
-    
-    
+
+    onMounted(() => {
+        const imageInputs = document.querySelectorAll('input[data-type="image"]');
+        const reader = new FileReader();
+
+        imageInputs.forEach(imageInput => {
+
+            imageInput.onchange = handleImageChange;
+
+        })
+
+        function handleImageChange (e) {
+            if (e.target.files && e.target.files[0]) {
+
+                reader.readAsDataURL(e.target.files[0]);
+
+                reader.onload = () => {
+                    document.querySelector(`label[for="${e.target.id}"]`).style.backgroundImage = `url(${reader.result})`;
+                    document.querySelector(`label[for="${e.target.id}"]`).classList.remove('example-image');
+                }
+
+            } else {
+                document.querySelector(`label[for="${e.target.id}"]`).style.backgroundImage = '';
+                document.querySelector(`label[for="${e.target.id}"]`).classList.add('example-image');
+            }
+        }
+    })
+
+
 </script>
 
 <template>
@@ -113,31 +140,90 @@ const updateRadioButtonState = (newValue) => {
 
 
 
-                    <label class="main-image" for="prompt-header-image">
-                    <i></i>
+                    <label 
+                        style="background-image: url('/public/Images/cambg.png');"
+                        class="main-image main example-image" 
+                        for="header-image">
+                        <i></i>
                     </label>
-                    <input data-type="image" type="file" name="header-image" id="prompt-header-image" accept=".jpg, .jpeg, .png, .webp" class="hidden">
+                    <input 
+                        data-type="image" 
+                        type="file" 
+                        id="header-image"
+                        name="art-picture" 
+                        accept=".jpg, .jpeg, .png, .webp" 
+                        class="hidden"
+                    >
 
-
+                    
 
 
                     <div class="added-images">
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
+                            <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image1">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image1"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image2">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image2"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image3">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image3"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image4">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image4"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >                      
                     </div>
+
+
                 </div>
-                
-                
             </div>
             <div class="cell-display">
                 
@@ -250,10 +336,10 @@ const updateRadioButtonState = (newValue) => {
             </div>
             <div class="cell-display">
                 <div class="div3">
-                    <div class="tip">
+                    <!-- <div class="tip">
                         <i class="fa-solid fa-pen"></i>
                         <p>Tip hier</p>
-                    </div>
+                    </div> -->
                     <h2>Waarborg</h2>
                     <input class="conditie" v-model="formData.item.waarborg">
                     
@@ -293,6 +379,16 @@ const updateRadioButtonState = (newValue) => {
 
 <style scoped>
 
+    .example-image {
+        background-size: 50% !important;
+    }
+
+    .main{
+        background-size: cover;
+        background-repeat: no-repeat; 
+        background-position: center;
+    }
+
     .hidden{
         display: none;
     }
@@ -326,7 +422,7 @@ const updateRadioButtonState = (newValue) => {
     }
     
     #camera-tip {
-        top: 0;
+        top: -6.5em;
         position: relative;
     }
 
@@ -337,7 +433,9 @@ const updateRadioButtonState = (newValue) => {
         width: 60%;
         right: 0;
         position: relative;
+        padding: 0.5em;
     }
+
 
     .tip i {
         font-size: 3rem;
