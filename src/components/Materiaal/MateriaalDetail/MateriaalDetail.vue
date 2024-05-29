@@ -2,8 +2,9 @@
 import { reactive, onMounted, computed, ref, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import MateriaalDetailMobile from './Parts/MateriaalDetailMobile.vue';
+import MateriaalDetailDesktop from './Parts/MateriaalDetailDesktop.vue';
 
-import apiService from '../../../apiService';
+import apiService from '../../../../apiService';
 
 const itemId = ref(null);
 const itemData = ref(null);
@@ -92,7 +93,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <MateriaalDetailMobile v-if="state.mobile" :itemData="itemData" :showPopup="showPopup" :showFlagPopup="showFlagPopup" :confirmationShown="confirmationShown" :formData="formData" @openPopup="openPopup" @closePopup="closePopup" @sendMessage="SendMessage" @update:showFlagPopup="showFlagPopup = $event"/></template>
+  <MateriaalDetailMobile v-if="state.mobile" :itemData="itemData" :showPopup="showPopup" :showFlagPopup="showFlagPopup" :confirmationShown="confirmationShown" :formData="formData" @openPopup="openPopup" @closePopup="closePopup" @sendMessage="SendMessage" @update:showFlagPopup="showFlagPopup = $event"/>
+  <MateriaalDetailDesktop v-else :itemData="itemData" :showPopup="showPopup" :showFlagPopup="showFlagPopup" :confirmationShown="confirmationShown" :formData="formData" @openPopup="openPopup" @closePopup="closePopup" @sendMessage="SendMessage" @update:showFlagPopup="showFlagPopup = $event"/>  
+</template>
 
 <style scoped>
   

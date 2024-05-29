@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps, defineEmits, ref } from 'vue';
 import Popup from './Popup.vue';
-import StarRating from './StarRating.vue';
+import StarRating from './../../Parts/StarRating.vue';
 
 const props = defineProps(['itemData', 'showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
 const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'update:showFlagPopup']);
@@ -41,7 +41,7 @@ const sendMessage = () => {
                 </svg>
               </a>
             </div>
-              <img src="../../../assets/fouragetent.png">
+              <img src="../../../../assets/fouragetent.png">
           </div>
       </div>
       <div class="middle_detail_element">
