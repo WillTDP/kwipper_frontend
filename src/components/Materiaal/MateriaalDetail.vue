@@ -5,7 +5,6 @@ import { useRoute } from 'vue-router';
 import StarRating from './Parts/StarRating.vue';
 import Popup from './Parts/Popup.vue';
 
-  
 
 import apiService from '../../../apiService';
   
@@ -41,6 +40,13 @@ onMounted(async () => {
   }
 });
 
+const showFlagPopup = ref(false);
+
+const openFlagPopup = () => {
+  showPopup.value = true;
+  showFlagPopup.value = true;
+};
+
 const showPopup = ref(false);
 
 const openPopup = () => {
@@ -49,6 +55,7 @@ const openPopup = () => {
 
 const closePopup = () => {
   showPopup.value = false;
+  showFlagPopup.value = false;
   confirmationShown.value = false; // reset the confirmation state when closing the popup
 };
 
@@ -59,14 +66,25 @@ const confirmationShown = ref(false);
 const formData = ref({
   name: '',
   email: '',
+  flagreason: '',
   message: '',
 });
 
 const SendMessage = () => {
+
+  let dataToSend = {
+    name: formData.value.name,
+    email: formData.value.email,
+    message: formData.value.message,
+  };
+
+  if (showFlagPopup.value) {
+    dataToSend.flagreason = formData.value.flagreason;
+  }
   // Simulate an API call with a 2 second delay
   new Promise((resolve) => {
     setTimeout(() => {
-      console.log('Data sent:', formData.value);
+      console.log('Data sent:', dataToSend);
       resolve('Success');
     }, 2000);
   })
@@ -78,6 +96,7 @@ const SendMessage = () => {
   });
 };
 
+
 </script>
 
 <template>
@@ -86,7 +105,19 @@ const SendMessage = () => {
           <div id="img-wrap">
             <div class="titlewrap">
               <h1 class="title">{{ itemData.data.assortment.item.art_name }}</h1>
-              <a href="/*">flag</a>
+              <a href="#" class="flag" @click="openFlagPopup">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <g clip-path="url(#clip0_2202_11692)">
+                    <path d="M2.42188 8.13772C2.42188 8.13772 2.94145 7.61815 4.50016 7.61815C6.05887 7.61815 7.09801 8.65729 8.65672 8.65729C10.2154 8.65729 10.735 8.13772 10.735 8.13772V1.90287C10.735 1.90287 10.2154 2.42244 8.65672 2.42244C7.09801 2.42244 6.05887 1.3833 4.50016 1.3833C2.94145 1.3833 2.42188 1.90287 2.42188 1.90287V8.13772Z" stroke="#F0F2F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2.42188 11.7747V8.1377" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2202_11692">
+                      <rect width="12.4697" height="12.4697" fill="white" transform="translate(0.34375 0.344238)"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
             </div>
               <img src="../../assets/fouragetent.png">
           </div>
@@ -158,6 +189,12 @@ const SendMessage = () => {
               <label for="Email">E-mail</label>
               <input type="email" name="Email" placeholder="Email" v-model="formData.email">
             </div>
+            <div v-if="showFlagPopup">
+              <div class="textfield">
+                <label for="flagging">Reden van Aangeven</label>
+                <input type="message" name="flagging" placeholder="Geef hier je titel" v-model="formData.flagreason">
+              </div>
+            </div>
             <div class="textfield">
               <label for="message">Je Bericht</label>
               <textarea name="message" id="message" cols="30" rows="10"  v-model="formData.message"></textarea>
@@ -198,6 +235,7 @@ const SendMessage = () => {
     align-items: center;
   }
 
+
   #img-wrap {
     text-align: center;
   }
@@ -212,6 +250,16 @@ const SendMessage = () => {
   .title {
     margin: 0;
     font-size: 32px;
+  }
+
+  .flag {
+    display: flex;
+    width: 23.16px;
+    height: 23.16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background-color: #1C98D6;
   }
 
   img {
