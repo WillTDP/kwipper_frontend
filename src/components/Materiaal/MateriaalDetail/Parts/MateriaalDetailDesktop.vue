@@ -27,8 +27,8 @@ const sendMessage = () => {
             <div class="top_img_element">
             <div id="img-wrap">
                 <div class="titlewrap">
-                <h1 class="title">{{ itemData.data.assortment.item.art_name }}</h1>
-                <h2 class="seller_name">{{ itemData.data.assortment.user.posted_by }} </h2>
+                  <h1 class="title">{{ itemData.data.assortment.item.art_name }}</h1>
+                  <p class="seller_name">{{ itemData.data.assortment.user.posted_by }} </p>
                 </div>
                 <img src="../../../../assets/fouragetent.png">
             </div>
@@ -179,6 +179,9 @@ const sendMessage = () => {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #F0F2F1;
+    border-radius: 12px;
+    padding: 1em;
   }
 
 
@@ -188,9 +191,8 @@ const sendMessage = () => {
 
   .titlewrap {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .title {
