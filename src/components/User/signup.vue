@@ -81,6 +81,12 @@ const nextStep = () => {
     }
 };
 
+const previousStep = () => {
+    
+    currentStep.value--;
+    console.log(`Current step is now: ${currentStep.value}`);
+};
+
 const submitForm = async () => {
     try {
         // Call the createUser function from apiService.js and pass signupData.value
@@ -108,6 +114,7 @@ const submitForm = async () => {
             gemeente: '',
             // Reset other form fields if needed
         };
+        window.location.href = '/login';
         } catch (error) {
         console.error('Error creating user:', error);
         // Handle error if needed
@@ -213,6 +220,9 @@ const updateStep = (step) => {
             </template>
 
             <template v-slot:footer>
+                <button class="next-step" 
+                        type="button" 
+                        @click="previousStep" v-if="currentStep>1">Previous Step</button>
                 <button class="next-step" 
                         type="button" 
                         @click="nextStep" v-if="currentStep<4">Next Step</button>
