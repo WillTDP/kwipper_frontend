@@ -3,8 +3,8 @@
 
   const emit = defineEmits();
 
-  const filter = (category) => {
-        emit('filter', category);
+  const filter = (brand) => {
+        emit('filter', brand);
     };
 
 </script>

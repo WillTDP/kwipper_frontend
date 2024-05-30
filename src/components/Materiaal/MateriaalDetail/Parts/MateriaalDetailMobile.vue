@@ -1,84 +1,25 @@
 <script setup>
-import { reactive, onMounted, computed, ref } from 'vue';
-import { products } from '../../fake-data.js'
-import { useRoute } from 'vue-router';
-import StarRating from './Parts/StarRating.vue';
-import Popup from './Parts/Popup.vue';
+import { defineProps, defineEmits, ref } from 'vue';
+import Popup from './Popup.vue';
+import StarRating from './../../Parts/StarRating.vue';
 
-  
+const props = defineProps(['itemData', 'showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
+const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'update:showFlagPopup']);
 
-import apiService from '../../../apiService';
-  
-  const itemId = ref(null); // Define a ref to store the extracted item ID
-
-// Function to extract the item ID from the URL
-const extractItemIdFromUrl = () => {
-  const currentUrl = window.location.href;
-  const urlParts = currentUrl.split('/');
-  const id = urlParts[urlParts.length - 1];
-  itemId.value = id;
-};
-
-// Define a ref to store the fetched item data
-const itemData = ref(null);
-
-// Fetch item data when the component is mounted
-onMounted(async () => {
-  // Call the function to extract the item ID from the URL
-  extractItemIdFromUrl();
-  
-  // Check if the item ID is extracted successfully
-  if (itemId.value) {
-    try {
-      // Fetch item data using the extracted item ID
-      const response = await apiService.fetchDataById(itemId.value);
-      // Store the fetched item data in the ref
-      itemData.value = response.data;
-      console.log('Item data:', itemId.value);
-    } catch (error) {
-      console.error('Error fetching item data:', error);
-    }
-  }
-});
-
-const showPopup = ref(false);
-
-const openPopup = () => {
-  showPopup.value = true;
+const openFlagPopup = () => {
+  emits('update:showFlagPopup', true);
+  emits('openPopup');
 };
 
 const closePopup = () => {
-  showPopup.value = false;
-  confirmationShown.value = false; // reset the confirmation state when closing the popup
+  emits('closePopup');
 };
 
-
-const confirmationShown = ref(false);
-
-// Define your form data as a reactive variable
-const formData = ref({
-  name: '',
-  email: '',
-  message: '',
-});
-
-const SendMessage = () => {
-  // Simulate an API call with a 2 second delay
-  new Promise((resolve) => {
-    setTimeout(() => {
-      console.log('Data sent:', formData.value);
-      resolve('Success');
-    }, 2000);
-  })
-  .then(() => {
-    confirmationShown.value = true; // switch to the confirmation layout after successful request
-  })
-  .catch((error) => {
-    console.error('Failed to send data:', error);
-  });
+const sendMessage = () => {
+  emits('sendMessage');
 };
 
-</script>
+</script> 
 
 <template>
     <div id="page-wrap" v-if="itemData">
@@ -86,16 +27,28 @@ const SendMessage = () => {
           <div id="img-wrap">
             <div class="titlewrap">
               <h1 class="title">{{ itemData.data.assortment.item.art_name }}</h1>
-              <a href="/*">flag</a>
+              <a href="#" class="flag" @click="openFlagPopup">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <g clip-path="url(#clip0_2202_11692)">
+                    <path d="M2.42188 8.13772C2.42188 8.13772 2.94145 7.61815 4.50016 7.61815C6.05887 7.61815 7.09801 8.65729 8.65672 8.65729C10.2154 8.65729 10.735 8.13772 10.735 8.13772V1.90287C10.735 1.90287 10.2154 2.42244 8.65672 2.42244C7.09801 2.42244 6.05887 1.3833 4.50016 1.3833C2.94145 1.3833 2.42188 1.90287 2.42188 1.90287V8.13772Z" stroke="#F0F2F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2.42188 11.7747V8.1377" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2202_11692">
+                      <rect width="12.4697" height="12.4697" fill="white" transform="translate(0.34375 0.344238)"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
             </div>
-              <img src="../../assets/fouragetent.png">
+              <img src="../../../../assets/fouragetent.png">
           </div>
       </div>
       <div class="middle_detail_element">
         <div v-if="itemData && itemData.data.assortment.user && itemData.data.assortment.item">
           <div class="seller">
             <div class="icons">
-              <div class="message" @click="openPopup">
+              <div class="message" @click="$emit('openPopup')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 17 14" fill="none">
                   <path d="M1.6637 14C1.20618 14 0.814659 13.8288 0.489128 13.4864C0.163597 13.144 0.000554567 12.7318 0 12.25V1.75C0 1.26875 0.163043 0.856916 0.489128 0.5145C0.815213 0.172083 1.20674 0.000583333 1.6637 0H14.9733C15.4308 0 15.8226 0.1715 16.1487 0.5145C16.4748 0.8575 16.6376 1.26933 16.637 1.75V12.25C16.637 12.7312 16.4742 13.1434 16.1487 13.4864C15.8232 13.8294 15.4314 14.0006 14.9733 14H1.6637ZM8.3185 7.875L1.6637 3.5V12.25H14.9733V3.5L8.3185 7.875ZM8.3185 6.125L14.9733 1.75H1.6637L8.3185 6.125ZM1.6637 3.5V1.75V12.25V3.5Z" fill="white"/>
                 </svg>
@@ -143,7 +96,7 @@ const SendMessage = () => {
         </div>
         <button id="add-to-cart">Toevoegen aan winkelmandje</button>
       </div>
-      <Popup :showPopup="showPopup" @update:showPopup="showPopup = $event">
+      <Popup :showPopup="props.showPopup" @update:showPopup="$emit('closePopup')">
         <div v-if="!confirmationShown">  
           <div class="top_mss">      
             <p class="mss_title">Bericht</p>
@@ -158,11 +111,17 @@ const SendMessage = () => {
               <label for="Email">E-mail</label>
               <input type="email" name="Email" placeholder="Email" v-model="formData.email">
             </div>
+            <div v-if="showFlagPopup">
+              <div class="textfield">
+                <label for="flagging">Reden van Aangeven</label>
+                <input type="message" name="flagging" placeholder="Geef hier je titel" v-model="formData.flagreason">
+              </div>
+            </div>
             <div class="textfield">
               <label for="message">Je Bericht</label>
               <textarea name="message" id="message" cols="30" rows="10"  v-model="formData.message"></textarea>
             </div>
-            <button @click="SendMessage">Verstuur</button>
+            <button @click="sendMessage">Verstuur</button>
           </div>
         </div>
         <div v-else >
@@ -184,6 +143,7 @@ const SendMessage = () => {
 </template>
 
 <style scoped>
+
   #page-wrap {
     margin-top: 16px;
     padding: 16px;
@@ -197,6 +157,7 @@ const SendMessage = () => {
     flex-direction: column;
     align-items: center;
   }
+
 
   #img-wrap {
     text-align: center;
@@ -212,6 +173,16 @@ const SendMessage = () => {
   .title {
     margin: 0;
     font-size: 32px;
+  }
+
+  .flag {
+    display: flex;
+    width: 23.16px;
+    height: 23.16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background-color: #1C98D6;
   }
 
   img {
@@ -365,4 +336,5 @@ const SendMessage = () => {
     align-items: center;
     padding: 16px;
   }
+  
 </style>

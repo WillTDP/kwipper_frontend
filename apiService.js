@@ -2,14 +2,14 @@
 import axios from 'axios';
 
 // Zet de basis URL van de API
-const apiClient = axios.create({
+const apiClient2 = axios.create({
   baseURL: 'https://kwipper-back.onrender.com', // zet hier de webservice url
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-const apiClient2 = axios.create({
+const apiClient = axios.create({
     baseURL: 'http://localhost:3000/', // zet hier de webservice url
     headers: {
       'Content-Type': 'application/json',
@@ -81,6 +81,6 @@ export default {
   return apiClient2.get(fullUrl);
   },
   getUserById(id){
-    return apiClient.get('/api/v1/user/full/${id}');
+    return apiClient.get(`/api/v1/user/full/${id}`);
   }
 };

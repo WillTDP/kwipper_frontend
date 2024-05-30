@@ -99,8 +99,35 @@ const updateRadioButtonState = (newValue) => {
         // Handle error if needed
         }
     };
-    
-    
+
+    onMounted(() => {
+        const imageInputs = document.querySelectorAll('input[data-type="image"]');
+        const reader = new FileReader();
+
+        imageInputs.forEach(imageInput => {
+
+            imageInput.onchange = handleImageChange;
+
+        })
+
+        function handleImageChange (e) {
+            if (e.target.files && e.target.files[0]) {
+
+                reader.readAsDataURL(e.target.files[0]);
+
+                reader.onload = () => {
+                    document.querySelector(`label[for="${e.target.id}"]`).style.backgroundImage = `url(${reader.result})`;
+                    document.querySelector(`label[for="${e.target.id}"]`).classList.remove('example-image');
+                }
+
+            } else {
+                document.querySelector(`label[for="${e.target.id}"]`).style.backgroundImage = '';
+                document.querySelector(`label[for="${e.target.id}"]`).classList.add('example-image');
+            }
+        }
+    })
+
+
 </script>
 
 <template>
@@ -110,26 +137,93 @@ const updateRadioButtonState = (newValue) => {
         <div class="table-display">
             <div class="cell-display">
                 <div class="div3" id="post-image">
-                    <div class="main-image">
-                        <i class="fa-solid fa-camera"></i>
-                    </div>
+
+
+
+                    <label 
+                        style="background-image: url('/public/Images/cambg.png');"
+                        class="main-image main example-image" 
+                        for="header-image">
+                        <i></i>
+                    </label>
+                    <input 
+                        data-type="image" 
+                        type="file" 
+                        id="header-image"
+                        name="art-picture" 
+                        accept=".jpg, .jpeg, .png, .webp" 
+                        class="hidden"
+                    >
+
+                    
+
+
                     <div class="added-images">
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
+                            <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image1">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image1"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image2">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image2"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image3">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image3"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image4">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image4"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >                      
                     </div>
+
+
                 </div>
-                
-                
             </div>
             <div class="cell-display">
                 
@@ -183,11 +277,11 @@ const updateRadioButtonState = (newValue) => {
                     <div class="Kenmerk-links">
                     <h2>Conditie</h2>
                     <select class="conditie" name="Conditie" v-model="formData.item.condition" required>
-                        <option value="Beschadigd">Beschadigd</option>
-                        <option value="Defect">Defect</option>
-                        <option value="Matig">Matig</option>
-                        <option value="Goed">Goed</option>
-                        <option value="Perfect">Perfect</option>
+                        <option value="1">Beschadigd</option>
+                        <option value="2">Defect</option>
+                        <option value="3">Matig</option>
+                        <option value="4">Goed</option>
+                        <option value="5">Perfect</option>
                     </select>
                     <h2>Merk</h2>
                     <select class="conditie" name="Conditie" v-model="formData.item.brand" required>
@@ -198,6 +292,7 @@ const updateRadioButtonState = (newValue) => {
                         <option value="Outwell">Outwell</option>
                         <option value="Robens">Robens</option>
                         <option value="Vango">Vango</option>
+                        <option value="Quechua">Quechua</option>
                     </select>
                 </div>
                 <div class="Kenmerk-rechts">
@@ -227,11 +322,6 @@ const updateRadioButtonState = (newValue) => {
             <div class="cell-display">
                 <div class="div3">
                     <h1>Prijs</h1>
-                    <h2>Ik will...</h2>
-                    <select class="conditie" name="intentie">
-                        <option value="Verhuren">Verhuren</option>
-                        <option value="Verkopen">Verkopen</option>
-                    </select>
                     <h2>Vraagprijs</h2>
                     <input type="text" class="input-simple" placeholder="" v-model="formData.item.price" required>
                 </div>
@@ -246,10 +336,10 @@ const updateRadioButtonState = (newValue) => {
             </div>
             <div class="cell-display">
                 <div class="div3">
-                    <div class="tip">
+                    <!-- <div class="tip">
                         <i class="fa-solid fa-pen"></i>
-                        <p>Naast verhuren kan je ook materiaal <br>verkopen!</p>
-                    </div>
+                        <p>Tip hier</p>
+                    </div> -->
                     <h2>Waarborg</h2>
                     <input class="conditie" v-model="formData.item.waarborg">
                     
@@ -289,7 +379,19 @@ const updateRadioButtonState = (newValue) => {
 
 <style scoped>
 
+    .example-image {
+        background-size: 50% !important;
+    }
 
+    .main{
+        background-size: cover;
+        background-repeat: no-repeat; 
+        background-position: center;
+    }
+
+    .hidden{
+        display: none;
+    }
 
     .header-title {
         font-size: 48px;
@@ -320,7 +422,7 @@ const updateRadioButtonState = (newValue) => {
     }
     
     #camera-tip {
-        top: 0;
+        top: -6.5em;
         position: relative;
     }
 
@@ -331,7 +433,9 @@ const updateRadioButtonState = (newValue) => {
         width: 60%;
         right: 0;
         position: relative;
+        padding: 0.5em;
     }
+
 
     .tip i {
         font-size: 3rem;

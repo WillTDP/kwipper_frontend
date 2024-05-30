@@ -5,7 +5,7 @@ import store from './store';
 import login from './components/User/login.vue'
 import signup from './components/User/signup.vue'
 import landingspage from './components/landingspage.vue'
-import materiaaldetail from './components/Materiaal/MateriaalDetail.vue'
+import materiaaldetail from './components/Materiaal/MateriaalDetail/MateriaalDetail.vue'
 import materiaalpagina from './components/Materiaal/ProductsPage.vue'
 import profilepagina from './components/ProfilePage.vue'
 import verhuurder from './components/VerhuurPage.vue'
