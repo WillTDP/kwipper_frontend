@@ -2,8 +2,9 @@
 import { defineProps, defineEmits, ref } from 'vue';
 import Popup from './Popup.vue';
 import StarRating from './../../Parts/StarRating.vue';
+import { useCalendar } from 'v-calendar';
 
-const props = defineProps(['itemData', 'showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
+const props = defineProps(['itemData', 'userData','showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
 const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'update:showFlagPopup']);
 
 const openFlagPopup = () => {
@@ -22,14 +23,14 @@ const sendMessage = () => {
 </script> 
 
 <template>
-    <div id="page-wrap" v-if="itemData">
-      <div class="trial">
+    <div id="page-wrap" v-if="itemData && userData && userData.data && userData.data.user">
+      <div>
         <div class="top">
             <div class="top_img_element">
             <div id="img-wrap">
                 <div class="titlewrap">
                   <h1 class="title">{{ itemData.data.assortment.item.art_name }}</h1>
-                  <p class="seller_name">{{ itemData.data.assortment.user.posted_by }} </p>
+                  <p class="seller_name">{{  userData.data.user.jb_name}} </p>
                 </div>
                 <img src="../../../../assets/fouragetent.png">
             </div>
@@ -40,8 +41,8 @@ const sendMessage = () => {
                       <div class="pfp_details">
                           <img src="../../../../../public/Images/tent.png" alt="profile picture" class="pfp">
                           <div class="user_details">
-                              <p>{{ itemData.data.assortment.user.posted_by }}</p>
-                              <p> email </p>
+                              <p>{{  userData.data.user.jb_name}}</p>
+                              <p> {{ userData.data.user.email}} </p>
                           </div>
                       </div>
                       <p class="verification">v</p>
@@ -171,10 +172,6 @@ const sendMessage = () => {
     display: flex;
     flex-wrap: wrap;
     justify-content: center
-  }
-
-  .trial {
-    
   }
 
   .top {

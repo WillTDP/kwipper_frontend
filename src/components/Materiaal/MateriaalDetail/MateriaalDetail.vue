@@ -8,6 +8,7 @@ import apiService from '../../../../apiService';
 
 const itemId = ref(null);
 const itemData = ref(null);
+const userData = ref(null);
 const showFlagPopup = ref(false);
 const showPopup = ref(false);
 const confirmationShown = ref(false);
@@ -37,6 +38,18 @@ const fetchData = async () => {
       itemData.value = response.data;
       console.log('Item data:', itemId.value);
       console.log('Item data:', itemData.value);
+
+      // Fetch user data based on user_id from the itemData
+      if (itemData.value.data && itemData.value.data.assortment && itemData.value.data.assortment.user && itemData.value.data.assortment.user.user_id) {
+        console.log('User id:', itemData.value.data.assortment.user.user_id);
+        try {
+          const userResponse = await apiService.getUserById(itemData.value.data.assortment.user.user_id);
+          userData.value = userResponse.data;
+          console.log('User data:', userData);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
     } catch (error) {
       console.error('Error fetching item data:', error);
     }
@@ -95,7 +108,7 @@ onUnmounted(() => {
 
 <template>
   <MateriaalDetailMobile v-if="state.mobile" :itemData="itemData" :showPopup="showPopup" :showFlagPopup="showFlagPopup" :confirmationShown="confirmationShown" :formData="formData" @openPopup="openPopup" @closePopup="closePopup" @sendMessage="SendMessage" @update:showFlagPopup="showFlagPopup = $event"/>
-  <MateriaalDetailDesktop v-else :itemData="itemData" :showPopup="showPopup" :showFlagPopup="showFlagPopup" :confirmationShown="confirmationShown" :formData="formData" @openPopup="openPopup" @closePopup="closePopup" @sendMessage="SendMessage" @update:showFlagPopup="showFlagPopup = $event"/>  
+  <MateriaalDetailDesktop v-else :itemData="itemData" :userData="userData" :showPopup="showPopup" :showFlagPopup="showFlagPopup" :confirmationShown="confirmationShown" :formData="formData" @openPopup="openPopup" @closePopup="closePopup" @sendMessage="SendMessage" @update:showFlagPopup="showFlagPopup = $event"/>  
 </template>
 
 <style scoped>
