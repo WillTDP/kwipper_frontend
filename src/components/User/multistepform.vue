@@ -1,11 +1,12 @@
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue';
+import { ref, defineProps, defineEmits, watch } from 'vue';
 
 const props = defineProps({
     steps: {
         type: Array,
         default: () => []
     },
+    currentStep: Number,
     id: String,
     action: String,
     method: String,
@@ -15,13 +16,18 @@ const props = defineProps({
     }
 });
 
-const emits = defineEmits(['validateStep', 'onComplete']);
+const emits = defineEmits(['validateStep', 'onComplete', 'updateStep']);
 
-const activeStepIndex = ref(0);
+const activeStepIndex = ref(props.currentStep - 1);
+
+watch(() => props.currentStep, (newVal) => {
+    activeStepIndex.value = newVal - 1;
+    console.log(`Active step index changed to: ${activeStepIndex.value}`);
+});
 
 const submitStep = () => {
     if (!props.steps[activeStepIndex.value]?.step_valid) {
-        emits('validateStep', activeStepIndex.value);
+        emits('validateStep', activeStepIndex.value + 1);
         return false;
     }
     let isLastStep = (activeStepIndex.value === props.steps.length - 1);
@@ -37,6 +43,7 @@ const submitStep = () => {
     while (props.steps[activeStepIndex.value]?.step_skip === true) {
         activeStepIndex.value++;
     }
+    emits('updateStep', activeStepIndex.value + 1);
 };
 
 const submitForm = () => {
@@ -53,7 +60,7 @@ const submitForm = () => {
         v-for="(step, index) in steps" 
         :key="index" 
         :id="'step'+(index+1)" 
-        v-show="activeStepIndex===index"
+        v-show="activeStepIndex === index"
         class="vue-form-step">
 
             <slot :name="'step'+(index+1)" /> 
@@ -64,5 +71,4 @@ const submitForm = () => {
         <button type="submit">Next</button>
         </slot>
     </form>
-
 </template>
