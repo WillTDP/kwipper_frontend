@@ -23,6 +23,7 @@ const sendMessage = () => {
 
 <template>
     <div id="page-wrap" v-if="itemData">
+      <div class="trial">
         <div class="top">
             <div class="top_img_element">
             <div id="img-wrap">
@@ -156,6 +157,7 @@ const sendMessage = () => {
             </div>
             </div>
         </Popup>
+      </div>
     </div>
 </template>
 
@@ -165,12 +167,19 @@ const sendMessage = () => {
     margin-top: 16px;
     padding: 16px;
     margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center
+  }
+
+  .trial {
+    
   }
 
   .top {
     display: flex;
     flex-direction: row;
-    width: 100vw;
     justify-content: center;    
     gap: 13px;
   }
