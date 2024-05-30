@@ -23,7 +23,7 @@ const store = createStore({
   },
   actions: {
     async login({ commit }, loginData) {
-      const response = await axios.post('http://localhost:3000/api/v1/user/login', loginData);
+      const response = await axios.post('https://kwipper-back.onrender.com/api/v1/user/login', loginData);
       const token = response.data.token;
       const user = response.data.user;
       commit('setToken', token);
@@ -36,7 +36,7 @@ const store = createStore({
     },
     async fetchUser({ commit }) {
       if (!state.token) return;
-      const response = await axios.get('http://localhost:3000/api/v1/user/me');
+      const response = await axios.get('https://kwipper-back.onrender.com/api/v1/user/me');
       const user = response.data;
       commit('setUser', user);
     }
