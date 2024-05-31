@@ -26,7 +26,7 @@ const handleSubmit = async () => {
 
 <template>
   <div class="login_div">
-    <img src="/Images/tent.png" alt="tent image" />
+    <img src="/Images/tent.png" alt="tent image" class="image"/>
     <div class="login_element">
       <div class="green_rect">
         <img src="/logo.svg" alt="logo" />
@@ -144,5 +144,17 @@ const handleSubmit = async () => {
 
   .to_signup {
     color: #FF4D00;
+  }
+
+  @media screen and (max-width: 1025px) {
+    .login_div {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .image {
+      display: none;
+    }
+
   }
 </style>
