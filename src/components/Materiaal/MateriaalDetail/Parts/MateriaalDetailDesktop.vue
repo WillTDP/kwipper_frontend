@@ -269,6 +269,7 @@ const sendMessage = () => {
     align-items: center;
     border-radius: 6px;
     background-color: #1C98D6;
+    cursor: pointer;
   }
 
   .wishlist {

@@ -196,9 +196,6 @@ header {
   color: #333;
 }
 
-.link.active {
-}
-
 .materiaal {
     padding: 1em;
     text-decoration: none;
