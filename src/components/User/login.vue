@@ -1,12 +1,26 @@
 <script setup>
 import { ref } from 'vue';
+import {loginUser}  from '../../../apiService';
+import { useStore } from 'vuex';
 
-const username = ref('');
-const password = ref('');
+const store = useStore();
+const loginData = ref({
+  email: '',
+  password: '',
+});
 
-const handleSubmit = () => {
-  // Handle form submission
-  console.log(username.value, password.value);
+const handleSubmit = async () => {
+  
+  try {
+          await store.dispatch('login', loginData.value);
+          console.log('User logged in successfully');
+          window.location.href = '/';
+        } catch (error) {
+        console.error('Error creating user:', error);
+        // Handle error if needed
+        }
+
+    console.log('Form submitted');
 };
 </script>
 
@@ -21,11 +35,11 @@ const handleSubmit = () => {
       <form class="login" @submit.prevent="handleSubmit">
         <div class="inputfield">
           <label for="username">E-mailadres</label>
-          <input class="textbox" type="text" v-model="username" placeholder="Voorbeeld@email.com" />
+          <input class="textbox" type="text" v-model="loginData.email" placeholder="Voorbeeld@email.com" />
         </div>
         <div class="inputfield">
           <label for="password">Wachtwoord</label>
-          <input class="textbox" type="password" v-model="password" placeholder="Wachtwoord" />
+          <input class="textbox" type="password" v-model="loginData.password" placeholder="Wachtwoord" />
         </div>
         <a class="forgot_password" href="#">Wachtwoord vergeten?</a>
         <div class="and_remember_me">

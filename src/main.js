@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import store from './store';
 import login from './components/User/login.vue'
 import signup from './components/User/signup.vue'
 import landingspage from './components/landingspage.vue'
@@ -26,13 +27,13 @@ app.component('VDatePicker', DatePicker)
 
 
 const routes = [
-        { path: '/', component: landingspage },
-        { path: '/materiaal', name: 'materiaal',component: materiaalpagina },
-        { path: '/products/:id', component: materiaaldetail },
-        { path: '/user', component: profilepagina },
-        { path: '/zoekertje', component: zoekertjespage },
-        { path: '/verhuurder', component: verhuurder },
-        { path: '/winkelmand', component: winkelmand },
+        { path: '/', component: landingspage, meta: { requiresAuth: true } },
+        { path: '/materiaal', name: 'materiaal',component: materiaalpagina, meta: { requiresAuth: true } },
+        { path: '/products/:id', component: materiaaldetail, meta: { requiresAuth: true } },
+        { path: '/user', component: profilepagina, meta: { requiresAuth: true } },
+        { path: '/zoekertje', component: zoekertjespage, meta: { requiresAuth: true } },
+        { path: '/verhuurder', component: verhuurder, meta: { requiresAuth: true } },
+        { path: '/winkelmand', component: winkelmand, meta: { requiresAuth: true } },
         { path: '/login', component: login },
         { path: '/signup', component: signup },
 ]
@@ -51,4 +52,18 @@ const router = createRouter({
         },
 })
 
-createApp(App).use(router).mount('#app')
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      if (!store.getters.isAuthenticated) {
+        next({ path: '/login' });
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+  });
+  
+
+
+createApp(App).use(store).use(router).mount('#app')
