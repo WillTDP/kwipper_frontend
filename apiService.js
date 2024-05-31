@@ -81,6 +81,6 @@ export default {
   return apiClient2.get(fullUrl);
   },
   getUserById(id){
-    return apiClient.get(`/api/v1/user/full/${id}`);
+    return apiClient2.get(`/api/v1/user/full/${id}`);
   }
 };
