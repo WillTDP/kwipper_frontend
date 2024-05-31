@@ -1,21 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import { useStore } from 'vuex';
-
-const store = useStore();
-
-const handleLogout = async () => {
-  
-  try {
-          await store.dispatch('logout');
-          console.log('User logged out successfully');
-          window.location.href = '/login';
-        } catch (error) {
-        console.error('Error logging out user:', error);
-        // Handle error if needed
-        }
-
-};
 
 </script>
 
@@ -60,7 +44,9 @@ const handleLogout = async () => {
                     <h2>Waarom Kwipper</h2>
                     <p>Ontdek Kwipper voor stressvrij huren en verhuren van kwalitatief kampmateriaal. Met handige filters vind je snel tenten, kookgerei en meer. Optimaliseer uitwisselingen, vul tekorten aan met overschotten en genereer nieuwe inkomsten voor je jeugdbeweging.</p>
                 </div>
-                <button @click="handleLogout">Bekijk de catalogus!</button>                
+                <button>
+                    <router-link to="/materiaal" >Bekijk de catalogus!</router-link>
+                </button>                
             </div>
         </div>
 

@@ -10,7 +10,6 @@ import materiaalpagina from './components/Materiaal/ProductsPage.vue'
 import profilepagina from './components/ProfilePage.vue'
 import verhuurder from './components/VerhuurPage.vue'
 import zoekertjespage from './components/PlaatsZoekertje.vue'
-import ProductDetailPageVue from './components/Materiaal/ProductDetailPage.vue'
 import winkelmand from './components/Rent/Winkelmandje.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
@@ -27,9 +26,9 @@ app.component('VDatePicker', DatePicker)
 
 
 const routes = [
-        { path: '/', component: landingspage, meta: { requiresAuth: true } },
-        { path: '/materiaal', name: 'materiaal',component: materiaalpagina, meta: { requiresAuth: true } },
-        { path: '/products/:id', component: materiaaldetail, meta: { requiresAuth: true } },
+        { path: '/', component: landingspage, meta: { requiresAuth: false } },
+        { path: '/materiaal', name: 'materiaal',component: materiaalpagina, meta: { requiresAuth: false } },
+        { path: '/products/:id', component: materiaaldetail, meta: { requiresAuth: false } },
         { path: '/user', component: profilepagina, meta: { requiresAuth: true } },
         { path: '/zoekertje', component: zoekertjespage, meta: { requiresAuth: true } },
         { path: '/verhuurder', component: verhuurder, meta: { requiresAuth: true } },

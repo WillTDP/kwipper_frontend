@@ -1,5 +1,7 @@
 <script setup>
 import { onMounted, onBeforeUnmount, reactive } from 'vue';
+import { useStore } from 'vuex';
+
 
 function checkMobile() {
   state.mobile = window.innerWidth < 811;
@@ -17,6 +19,23 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('resize', checkMobile); // Remove event listener for window resize
 });
+
+const store = useStore();
+
+const handleLogout = async () => {
+  
+  try {
+          await store.dispatch('logout');
+          console.log('User logged out successfully');
+          window.location.href = '/login';
+        } catch (error) {
+        console.error('Error logging out user:', error);
+        // Handle error if needed
+        }
+};
+
+defineExpose({ handleLogout });
+
 </script>
 
 <template>
@@ -63,7 +82,7 @@ onBeforeUnmount(() => {
             </svg>
             <p>Instellingen</p>
         </router-link>
-        <button>Log Uit</button>
+        <button @click="handleLogout">Log Uit</button>
     </div>
 </template>
 
