@@ -45,7 +45,7 @@ import { ref } from 'vue';
                     <p>Ontdek Kwipper voor stressvrij huren en verhuren van kwalitatief kampmateriaal. Met handige filters vind je snel tenten, kookgerei en meer. Optimaliseer uitwisselingen, vul tekorten aan met overschotten en genereer nieuwe inkomsten voor je jeugdbeweging.</p>
                 </div>
                 <button>
-                    <router-link to="/materiaal" >Bekijk de catalogus!</router-link>
+                    <router-link to="/materiaal" class="catalogus_CTA">Bekijk de catalogus!</router-link>
                 </button>                
             </div>
         </div>
@@ -189,6 +189,11 @@ import { ref } from 'vue';
         border-radius: 12px;
         max-width: 839px;
     }
+
+    .catalogus_CTA {
+        text-decoration: none;
+        color: #F0F2F1;
+    }   
 
     @media screen and (max-width: 768px){
         .landingspage__top {
