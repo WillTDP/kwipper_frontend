@@ -111,6 +111,10 @@ const sendMessage = () => {
               <label for="Email">E-mail</label>
               <input type="email" name="Email" placeholder="Email" v-model="formData.email">
             </div>
+            <div class="textfield">
+              <label for="Subject">Onderwerp</label>
+              <input type="message" name="Subject" placeholder="Voeg je onderwerp hier in" v-model="formData.onderwerp">
+            </div>
             <div v-if="showFlagPopup">
               <div class="textfield">
                 <label for="flagging">Reden van Aangeven</label>

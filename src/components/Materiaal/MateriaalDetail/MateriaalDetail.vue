@@ -70,6 +70,7 @@ const SendMessage = () => {
   let dataToSend = {
     name: formData.value.name,
     email: formData.value.email,
+    onderwerp: formData.value.onderwerp,
     message: formData.value.message,
   };
 
@@ -80,6 +81,7 @@ const SendMessage = () => {
   new Promise((resolve) => {
     setTimeout(() => {
       console.log('Data sent:', dataToSend);
+
       resolve('Success');
     }, 2000);
   })
