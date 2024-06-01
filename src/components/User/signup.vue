@@ -130,7 +130,7 @@ const updateStep = (step) => {
 </script>
 
 <template>
-    
+    <div class="top">
     <img src="/Images/tent.png" alt="tent image" class="mood_image"/>
     <div class="signup_div">
         
@@ -232,45 +232,51 @@ const updateStep = (step) => {
             </template>
         </multistepform>
     </div>
+    </div>
 </template>
 
 <style scoped>
-/* Add your styles here */
-.mood_image{
-    position: absolute;
-
-}
-.signup_div {
+.top {
+    align-items: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    height: 100vh;
 }
-div {
+
+.mood_image {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+}
+
+.signup_div {
     align-items: center;
-    height: 50vh;
-    margin-top: 5%;
-    margin-bottom: 8%;
+    display: flex;
+    flex-direction: column;
+    padding-right: 10%;
+    padding-left: 10%;
+}
+
+div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
 }
 
 .green_rect {
-    width: 366px;
-    height: 88px;
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    border-radius: 12px;
     background: #2B5740;
+    border-radius: 12px;
+    display: flex;
+    flex-shrink: 0;
+    height: 88px;
+    justify-content: center;
+    width: 366px;
 }
 
 .green_rect img {
-width: 200px;
-height: 100%;
+    height: 100%;
+    width: 200px;
 }
 
 input {
@@ -283,23 +289,40 @@ button {
     margin-top: 10px;
 }
 
-.next-step { 
-    color: white;
+.next-step {
     background-color: #2b5740;
+    color: white;
 }
 
-.type-user {
-    color: black;
+.type-user, .type-user:hover, .type-user-clicked {
     background-color: #f0f2f1;
+    color: black;
 }
 
-.type-user:hover {
-    color: white;
+.type-user:hover, .type-user-clicked {
     background-color: #2b5740;
+    color: white;
 }
 
-.type-user-clicked {
-    color: white;
-    background-color: #2b5740;
+@media screen and (max-width: 1250px) {
+    .top {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: center;
+        padding-top: 5%;
+    }
+
+    .mood_image {
+        display: none;
+    }
+
+    .signup_div {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        padding-right: 0;
+    }
 }
 </style>
