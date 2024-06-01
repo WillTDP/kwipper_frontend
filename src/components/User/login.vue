@@ -47,7 +47,7 @@ const handleSubmit = async () => {
           <label for="remember" class="remember_label">Ingelogd blijven</label>
         </div>
         <button type="submit" class="login_btn">Login</button>
-        <p class="signup_text">Ik heb nog geen Account. <a class="to_signup" href="/signup">Maak een Account aan</a></p>
+        <p class="signup_text">Ik heb nog geen Account. <router-link class="to_signup" to="/signup">Maak een Account aan</router-link></p>      
       </form>
     </div>
   </div>

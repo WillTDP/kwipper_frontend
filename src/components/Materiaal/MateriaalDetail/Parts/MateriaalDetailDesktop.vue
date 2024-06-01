@@ -60,9 +60,9 @@ const sendMessage = () => {
                       </p>            
                   </div>
                   <div v-if="itemData && itemData.data.assortment.item">
-                    <p>stock: {{ itemData.data.assortment.item.price }}</p>
-                    <p>Staat: {{ itemData.data.assortment.item.condition }}</p>
-                    <p>Waarborg: €{{ itemData.data.assortment.item.waarborg }} per product</p>
+                    <p><b>Stock:</b> {{ itemData.data.assortment.item.price }}</p>
+                    <p><b>Staat:</b> {{ itemData.data.assortment.item.condition }}</p>
+                    <p><b>Waarborg:</b> €{{ itemData.data.assortment.item.waarborg }} per product</p>
                   </div>
                 </div>
                 <div class="location">
