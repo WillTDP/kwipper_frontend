@@ -133,18 +133,18 @@ if (!isLoggedIn) {
                 <div v-if="state.mobile">
                 </div>
                 <div class="other-icons" v-else>
-                    <router-link class="cart" to="/winkelmand">
+                    <router-link class="cart" to="/winkelmand" v-if="isLoggedIn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </router-link>
-                    <div class="Private_message">
+                   <!----<div class="Private_message">
                         <svg xmlns="http://www.w3.org/2000/svg" width="29" height="27" viewBox="0 0 29 27" fill="none">
                             <path d="M14.4663 24.316L14.4639 24.316C13.1185 24.3191 11.7786 24.1445 10.479 23.7966L10.1091 23.6976L9.76771 23.871C8.884 24.3197 6.84833 25.1962 3.43768 25.8418C3.96377 24.3988 4.40406 22.6814 4.55779 21.0711L4.6025 20.6029L4.27029 20.2699C2.21788 18.2124 1 15.5479 1 12.658C1 6.34072 6.89993 1 14.4663 1C22.0326 1 27.9325 6.34072 27.9325 12.658C27.9325 18.9753 22.0326 24.316 14.4663 24.316ZM10.2204 24.7626C11.6052 25.1333 13.0328 25.3193 14.4663 25.316L2.66179 26.9941C6.74128 26.325 9.16619 25.2979 10.2204 24.7626Z" fill="#F0F2F1" stroke="#F0F2F1" stroke-width="2"/>
                         </svg>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="account-icon" @click="toggleAccountPopup($event)" v-if="isLoggedIn">
                     <img src="../assets/verlengkabel.png" alt="profile_icon">
