@@ -101,7 +101,7 @@ const handleFilterButtonClick = () => {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 1245px;
+  max-width: 1285px;
   height: 179px;
   background-color: #f0f2f1;
   border-radius: 9px;
