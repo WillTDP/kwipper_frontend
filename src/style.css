@@ -7,6 +7,12 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Museo Sans';
+  src: url('/fonts/MuseoSans_900.ttf') format('opentype');
+  font-weight: 900;
+  font-style: bold;
+}
 
 @font-face {
   font-family: 'Amazing Slab Medium';
@@ -42,10 +48,22 @@ a:hover {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 36px;
+  font-weight: bold, 900;
+  font-family: 'Bitter', serif;
+}
+
+h2 {
+  font-size: 2.8em;
   line-height: 1.1;
   font-weight: 900;
   font-family: 'Bitter', serif;
+}
+
+h3 {
+  font-size: 2.2em;
+  font-weight: medium, 700;
+  font-family: 'Amazing Slab Medium', serif;
 }
 
 p {

@@ -102,6 +102,9 @@ const props = defineProps({
         margin-bottom: 0;
         padding-bottom: 0;
         color: #2B5740;
+        font-size: 1em;
+        font-weight: 900;
+        font-family: 'Museo Sans', sans-serif;
     }
 
     img {
