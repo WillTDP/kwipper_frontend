@@ -1,102 +1,54 @@
 <script setup>
-import { reactive, onMounted, computed, ref } from 'vue';
-import { products } from '../../fake-data.js'
-import { useRoute } from 'vue-router';
-import StarRating from './Parts/StarRating.vue';
-import Popup from './Parts/Popup.vue';
+import { defineProps, defineEmits, ref } from 'vue';
+import Popup from './Popup.vue';
+import StarRating from './../../Parts/StarRating.vue';
 
-  
+const props = defineProps(['itemData', 'showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
+const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'update:showFlagPopup']);
 
-const route = useRoute();
-let product = reactive({});
-
-onMounted(() => {
-  const foundProduct = products.find((p) => p.id === route.params.id);
-  if (foundProduct) {
-    for (let key in foundProduct) {
-      product[key] = foundProduct[key];
-    }
-  }
-});
-
-const getStateText = (product) => {
-  if (product && product.item && product.item.staat) {
-    switch (product.item.staat) {
-      case '1':
-        return 'Beschadigd';
-      case '2':
-        return 'Defect';
-      case '3':
-        return 'Matig';
-      case '4':
-        return 'Goed';
-      case '5':
-        return 'Perfect';
-      default:
-        return 'Onbekend';
-    }
-  } else {
-    return '';
-  }
-};
-
-const stateText = computed(() => getStateText(product));
-
-const showPopup = ref(false);
-
-const openPopup = () => {
-  showPopup.value = true;
+const openFlagPopup = () => {
+  emits('update:showFlagPopup', true);
+  emits('openPopup');
 };
 
 const closePopup = () => {
-  showPopup.value = false;
-  confirmationShown.value = false; // reset the confirmation state when closing the popup
+  emits('closePopup');
 };
 
-
-const confirmationShown = ref(false);
-
-// Define your form data as a reactive variable
-const formData = ref({
-  name: '',
-  email: '',
-  message: '',
-});
-
-const SendMessage = () => {
-  // Simulate an API call with a 2 second delay
-  new Promise((resolve) => {
-    setTimeout(() => {
-      console.log('Data sent:', formData.value);
-      resolve('Success');
-    }, 2000);
-  })
-  .then(() => {
-    confirmationShown.value = true; // switch to the confirmation layout after successful request
-  })
-  .catch((error) => {
-    console.error('Failed to send data:', error);
-  });
+const sendMessage = () => {
+  emits('sendMessage');
 };
 
-</script>
+</script> 
 
 <template>
-    <div id="page-wrap">
+    <div id="page-wrap" v-if="itemData">
       <div class="top_img_element">
           <div id="img-wrap">
             <div class="titlewrap">
-              <h1 class="title">{{ product.name }}</h1>
-              <a href="/*">flag</a>
+              <h1 class="title">{{ itemData.data.assortment.item.art_name }}</h1>
+              <a href="#" class="flag" @click="openFlagPopup">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <g clip-path="url(#clip0_2202_11692)">
+                    <path d="M2.42188 8.13772C2.42188 8.13772 2.94145 7.61815 4.50016 7.61815C6.05887 7.61815 7.09801 8.65729 8.65672 8.65729C10.2154 8.65729 10.735 8.13772 10.735 8.13772V1.90287C10.735 1.90287 10.2154 2.42244 8.65672 2.42244C7.09801 2.42244 6.05887 1.3833 4.50016 1.3833C2.94145 1.3833 2.42188 1.90287 2.42188 1.90287V8.13772Z" stroke="#F0F2F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2.42188 11.7747V8.1377" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_2202_11692">
+                      <rect width="12.4697" height="12.4697" fill="white" transform="translate(0.34375 0.344238)"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
             </div>
-              <img v-bind:src="product.imageUrl">
+              <img src="../../../../assets/fouragetent.png">
           </div>
       </div>
       <div class="middle_detail_element">
-        <div v-if="product && product.seller && product.item">
+        <div v-if="itemData && itemData.data.assortment.user && itemData.data.assortment.item">
           <div class="seller">
             <div class="icons">
-              <div class="message" @click="openPopup">
+              <div class="message" @click="$emit('openPopup')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 17 14" fill="none">
                   <path d="M1.6637 14C1.20618 14 0.814659 13.8288 0.489128 13.4864C0.163597 13.144 0.000554567 12.7318 0 12.25V1.75C0 1.26875 0.163043 0.856916 0.489128 0.5145C0.815213 0.172083 1.20674 0.000583333 1.6637 0H14.9733C15.4308 0 15.8226 0.1715 16.1487 0.5145C16.4748 0.8575 16.6376 1.26933 16.637 1.75V12.25C16.637 12.7312 16.4742 13.1434 16.1487 13.4864C15.8232 13.8294 15.4314 14.0006 14.9733 14H1.6637ZM8.3185 7.875L1.6637 3.5V12.25H14.9733V3.5L8.3185 7.875ZM8.3185 6.125L14.9733 1.75H1.6637L8.3185 6.125ZM1.6637 3.5V1.75V12.25V3.5Z" fill="white"/>
                 </svg>
@@ -114,8 +66,8 @@ const SendMessage = () => {
               </div>
             </div>
             <div class="score_name">
-              <h2 class="seller_name">{{ product.seller.name }} </h2>
-              <StarRating :rating="Number(product.seller.averageRating)" :readOnly="true" class="star" />   
+              <h2 class="seller_name">{{ itemData.data.assortment.user.posted_by }} </h2>
+              <StarRating :rating="Number(4)" :readOnly="true" class="star" />   
             </div>
           </div>
           <div class="price_location">
@@ -123,12 +75,12 @@ const SendMessage = () => {
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" viewBox="0 0 14 20" fill="none">
                 <path d="M6.92308 9.5C6.26732 9.5 5.63842 9.23661 5.17474 8.76777C4.71105 8.29893 4.45055 7.66304 4.45055 7C4.45055 6.33696 4.71105 5.70107 5.17474 5.23223C5.63842 4.76339 6.26732 4.5 6.92308 4.5C7.57883 4.5 8.20773 4.76339 8.67142 5.23223C9.13511 5.70107 9.3956 6.33696 9.3956 7C9.3956 7.3283 9.33165 7.65339 9.20739 7.95671C9.08314 8.26002 8.90101 8.53562 8.67142 8.76777C8.44182 8.99991 8.16925 9.18406 7.86927 9.3097C7.56929 9.43534 7.24777 9.5 6.92308 9.5ZM6.92308 0C5.08696 0 3.32605 0.737498 2.02772 2.05025C0.729393 3.36301 0 5.14348 0 7C0 12.25 6.92308 20 6.92308 20C6.92308 20 13.8462 12.25 13.8462 7C13.8462 5.14348 13.1168 3.36301 11.8184 2.05025C10.5201 0.737498 8.75919 0 6.92308 0Z" fill="#090D0B"/>
               </svg>
-              <p>{{ product.seller.location }}</p>
+              <p>{{ itemData.data.assortment.user.location }}</p>
             </div>
             <div class="price_available">
-              <h3 id="price">€{{ product.item.price }} per dag</h3>
-              <p :class="{ 'available': product.item.available, 'not-available': !product.item.available }">
-                {{ product.item.available ? 'Beschikbaar' : 'Niet Beschikbaar' }}
+              <h3 id="price">€{{ itemData.data.assortment.item.price }} per dag</h3>
+              <p :class="{ 'available': itemData.data.assortment.item.available_from, 'not-available': !itemData.data.assortment.item.available_from }">
+                {{ itemData.data.assortment.item.art_name ? 'Beschikbaar' : 'Niet Beschikbaar' }}
               </p>            
             </div>
           </div>
@@ -136,15 +88,15 @@ const SendMessage = () => {
       </div>
       <div class="bottom_detail_element">
         <h4>Beschrijving</h4>
-        <p>{{ product.description }}</p>
-        <div v-if="product && product.item">
-          <p>stock: {{ product.item.stock }}</p>
-          <p>Staat: {{ stateText }}</p>
-          <p>Waarborg: {{ product.item.waarborg }} per product</p>
+        <p>{{ itemData.data.assortment.item.art_desc }}</p>
+        <div v-if="itemData && itemData.data.assortment.item">
+          <p><b>Stock:</b> {{ itemData.data.assortment.item.price }}</p>
+          <p><b>Staat:</b> {{ itemData.data.assortment.item.condition }}</p>
+          <p><b>Waarborg:</b> €{{ itemData.data.assortment.item.waarborg }} per product</p>
         </div>
         <button id="add-to-cart">Toevoegen aan winkelmandje</button>
       </div>
-      <Popup :showPopup="showPopup" @update:showPopup="showPopup = $event">
+      <Popup :showPopup="props.showPopup" @update:showPopup="$emit('closePopup')">
         <div v-if="!confirmationShown">  
           <div class="top_mss">      
             <p class="mss_title">Bericht</p>
@@ -160,10 +112,20 @@ const SendMessage = () => {
               <input type="email" name="Email" placeholder="Email" v-model="formData.email">
             </div>
             <div class="textfield">
+              <label for="Subject">Onderwerp</label>
+              <input type="message" name="Subject" placeholder="Voeg je onderwerp hier in" v-model="formData.onderwerp">
+            </div>
+            <div v-if="showFlagPopup">
+              <div class="textfield">
+                <label for="flagging">Reden van Aangeven</label>
+                <input type="message" name="flagging" placeholder="Geef hier je titel" v-model="formData.flagreason">
+              </div>
+            </div>
+            <div class="textfield">
               <label for="message">Je Bericht</label>
               <textarea name="message" id="message" cols="30" rows="10"  v-model="formData.message"></textarea>
             </div>
-            <button @click="SendMessage">Verstuur</button>
+            <button @click="sendMessage">Verstuur</button>
           </div>
         </div>
         <div v-else >
@@ -185,6 +147,7 @@ const SendMessage = () => {
 </template>
 
 <style scoped>
+
   #page-wrap {
     margin-top: 16px;
     padding: 16px;
@@ -198,6 +161,7 @@ const SendMessage = () => {
     flex-direction: column;
     align-items: center;
   }
+
 
   #img-wrap {
     text-align: center;
@@ -213,6 +177,16 @@ const SendMessage = () => {
   .title {
     margin: 0;
     font-size: 32px;
+  }
+
+  .flag {
+    display: flex;
+    width: 23.16px;
+    height: 23.16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background-color: #1C98D6;
   }
 
   img {
@@ -366,4 +340,5 @@ const SendMessage = () => {
     align-items: center;
     padding: 16px;
   }
+  
 </style>

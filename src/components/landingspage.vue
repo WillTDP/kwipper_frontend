@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue';
+
 </script>
 
 <template>
@@ -42,7 +44,9 @@
                     <h2>Waarom Kwipper</h2>
                     <p>Ontdek Kwipper voor stressvrij huren en verhuren van kwalitatief kampmateriaal. Met handige filters vind je snel tenten, kookgerei en meer. Optimaliseer uitwisselingen, vul tekorten aan met overschotten en genereer nieuwe inkomsten voor je jeugdbeweging.</p>
                 </div>
-                <button>Bekijk de catalogus!</button>                
+                <button>
+                    <router-link to="/materiaal" class="catalogus_CTA">Bekijk de catalogus!</router-link>
+                </button>                
             </div>
         </div>
 
@@ -143,7 +147,7 @@
         text-align: left;
         margin: 0 auto;
         padding: 2rem;
-        background: url("../public/Images/bg.jpeg");
+        background: url('/Images/bg.jpeg');        
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
@@ -185,6 +189,11 @@
         border-radius: 12px;
         max-width: 839px;
     }
+
+    .catalogus_CTA {
+        text-decoration: none;
+        color: #F0F2F1;
+    }   
 
     @media screen and (max-width: 768px){
         .landingspage__top {

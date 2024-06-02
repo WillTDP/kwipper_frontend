@@ -1,8 +1,18 @@
 <script setup>
-import { ref } from 'vue';
-import { categorie } from '../../fake-data.js';
+import { ref, defineEmits } from 'vue';
 
-const categorieRef = ref(categorie);
+let selectedPriceValue = ref(null);
+let selectedConditionValue = ref(null);
+let selectedNameValue = ref(null);
+
+const emit = defineEmits(['filterByCondition', 'filterByPrice', 'filterByName']);
+
+const handleFilterButtonClick = () => {
+  console.log('Filter button is pressed');
+  emit('filterByPrice', selectedPriceValue.value);
+  emit('filterByCondition', selectedConditionValue.value);
+  emit('filterByName', selectedNameValue.value);
+};
 </script>
 
 <template>
@@ -11,25 +21,32 @@ const categorieRef = ref(categorie);
     <div class="search-group">
       <div class="search-options">
         <div class="option-label">Zoeken</div>
-        <div class="option-label">Soort contract</div>
         <div class="option-label">Prijs</div>
         <div class="option-label">Huren van..</div>
         <div class="option-label">Huren tot..</div>
-        <div class="option-label">Locatie</div>
         <div class="option-label">Conditie</div>
+        <div class="option-label">Locatie</div>
         <div class="option-label">Sorteren op</div>
+        <div class="option-label">Sorteren</div>
         
         <div class="input-wrapper">
-          <input type="text" class="input" placeholder="Naar wat ben je op zoek?">
+          <input type="search" class="input" placeholder="Naar wat ben je op zoek?" v-model="selectedNameValue">
         </div>
         
-        <div class="input-wrapper">
-          <input type="text" class="input" placeholder="">
-        </div>
         
-        <div class="input-wrapper">
-          <input type="text" class="input-limited" placeholder="">
-          <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
+        <div class="input-wrapper price">
+          <select class="input-limited" v-model="selectedPriceValue">
+            <option value="" disabled selected>Sorteer op prijs</option>
+            <option value="">Reset</option>
+            <option value="0-5">€0-€5</option>
+            <option value="5-10">€5-€10</option>
+            <option value="10-20">€10-€20</option>
+            <option value="20-30">€20-€30</option>
+            <option value="30-40">€30-€40</option>
+            <option value="40-50">€40-€50</option>
+            <option value="50-100">€50-€100</option>
+            <option value="100-200">€100-€200</option>
+          </select>
         </div>
         
         <div class="input-wrapper">
@@ -41,6 +58,16 @@ const categorieRef = ref(categorie);
         </div>
         
         <div class="input-wrapper">
+          <select class="input limited" v-model="selectedConditionValue">
+            <option value="" disabled selected>Sorteer op</option>
+            <option value="">Reset</option>
+            <option value="3">Matig</option>
+            <option value="4">Goed</option>
+            <option value="5">Perfect</option>
+          </select>
+        </div>
+
+        <div class="input-wrapper">
           <input type="text" class="input-limited" placeholder="">
           <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
         </div>
@@ -49,10 +76,9 @@ const categorieRef = ref(categorie);
           <input type="text" class="input-limited" placeholder="">
           <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-5.svg" />
         </div>
-        
+
         <div class="input-wrapper">
-          <input type="text" class="input-limited" placeholder="">
-          <img class="icon" src="https://c.animaapp.com/w3XHq8Z1/img/vector-2.svg" />
+          <button  @click="handleFilterButtonClick">Filter</button>
         </div>
       </div>
     </div>
@@ -68,22 +94,28 @@ const categorieRef = ref(categorie);
 }
 
 .search-container {
-  width: 100%;
   display: flex;
   justify-content: center;
-  margin: 2% 0 1%;
-}
-
-.search-group {
-  width: 1245px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1245px;
   height: 179px;
   background-color: #f0f2f1;
   border-radius: 9px;
   position: relative;
 }
 
+.search-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .option-label {
   position: absolute;
+  display: flex;
   font-family: "Inter", Helvetica;
   font-weight: 400;
   color: #000000;
@@ -131,7 +163,7 @@ const categorieRef = ref(categorie);
   border: none;
   outline: none;
   flex-grow: 1;
-  width: 70%;
+  width: 100%;
   color: black;
 }
 
@@ -145,4 +177,36 @@ const categorieRef = ref(categorie);
 
 .icon:nth-of-type(3) { top: 4px; left: calc(100% - 23px); width: 11px; height: 12px; }
 .icon:nth-of-type(4) { top: 6px; left: calc(100% - 34px); }
+
+button {
+  position: absolute;
+  background-color: #1C98D6;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  width: 100%;
+  padding: 0.5em 1em;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1300px){
+  .search-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1000px;
+    height: 179px;
+    background-color: #f0f2f1;
+    border-radius: 9px;
+    position: relative;
+  }
+
+  .search-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
 </style>

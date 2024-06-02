@@ -1,16 +1,19 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import store from './store';
 import login from './components/User/login.vue'
 import signup from './components/User/signup.vue'
 import landingspage from './components/landingspage.vue'
-import materiaaldetail from './components/Materiaal/MateriaalDetail.vue'
+import materiaaldetail from './components/Materiaal/MateriaalDetail/MateriaalDetail.vue'
 import materiaalpagina from './components/Materiaal/ProductsPage.vue'
 import profilepagina from './components/ProfilePage.vue'
 import verhuurder from './components/VerhuurPage.vue'
 import zoekertjespage from './components/PlaatsZoekertje.vue'
+import winkelmand from './components/Rent/Winkelmandje.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
+import VCalendar from 'v-calendar';
 import 'v-calendar/style.css';
 
 // Use plugin defaults (optional)
@@ -23,11 +26,15 @@ app.component('VDatePicker', DatePicker)
 
 
 const routes = [
-        { path: '/', component: landingspage },
-        { path: '/materiaal', component: materiaalpagina },
-        { path: '/materiaaldetail', component: materiaaldetail },
-        { path: '/user', component: profilepagina },
-        { path: '/zoekertje', component: zoekertjespage },
+        { path: '/', component: landingspage, meta: { requiresAuth: false } },
+        { path: '/materiaal', name: 'materiaal',component: materiaalpagina, meta: { requiresAuth: false } },
+        { path: '/products/:id', component: materiaaldetail, meta: { requiresAuth: false } },
+        { path: '/user', component: profilepagina, meta: { requiresAuth: true } },
+        { path: '/zoekertje', component: zoekertjespage, meta: { requiresAuth: true } },
+        { path: '/verhuurder', component: verhuurder, meta: { requiresAuth: true } },
+        { path: '/winkelmand', component: winkelmand, meta: { requiresAuth: true } },
+        { path: '/login', component: login },
+        { path: '/signup', component: signup },
 ]
 
 const router = createRouter({
@@ -44,4 +51,18 @@ const router = createRouter({
         },
 })
 
-createApp(App).use(router).mount('#app')
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      if (!store.getters.isAuthenticated) {
+        next({ path: '/login' });
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+  });
+  
+
+
+createApp(App).use(store).use(router).mount('#app')

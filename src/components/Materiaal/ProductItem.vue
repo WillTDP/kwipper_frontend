@@ -2,17 +2,19 @@
 import { defineProps } from 'vue';
 
 const props = defineProps({
-  product: Object,
+  item: Object,
 });
+ 
+
 </script>
 
 <template>
-    <div class="product-item">
-      <router-link :to="'/products/' + product.id">
-        <img :src="product.imageUrl" alt="Product Image">
+    <div class="product-item" v-if="item">
+      <router-link :to="'/products/' + item._id">
+        <img :src="item.item.art_picture ? item.item.art_picture : '../../../src/assets/seniorentent.png'" alt="materiaal foto">        
         <div class="product-text">
-          <h3 class="product-name">{{ product.name }}</h3>
-          <p v-if="product && product.item" id="price" class="product-price">Vanaf €{{ product.item.price }} per dag</p>
+          <h3 class="product-name">{{ item.item.art_name }}</h3>
+          <p  id="price" class="product-price">Vanaf €{{ item.item.price }} per dag</p>
         </div>
       </router-link>
     </div>
@@ -24,9 +26,10 @@ const props = defineProps({
         border-radius: 9px;
         display: flex;
         flex-direction: column;
-        margin: 1%;
         position: relative;
         background-color: #F0F2F1;
+        margin: 1%;
+        max-height: 240px;
     }
 
     .product-text {
@@ -46,8 +49,8 @@ const props = defineProps({
     }
 
     img {
-        height: 200px;
-        width: 200px;
+        height: 183px;
+        width: 183px;
         margin-bottom: 0;
         padding-bottom: 0;
         border-radius: 9px;
@@ -55,5 +58,24 @@ const props = defineProps({
 
     .product-price{
         color: black;
+    }
+
+    @media screen and (max-width: 768px){
+        .product-item {
+            width: 100%;
+            max-width: 183px;
+            padding: 0;
+            align-items: normal;
+        }
+
+        img {
+            height: 100%;
+            max-height: 109px;
+            width: 100%;
+            max-width: 183px;
+            object-fit: cover; /* Ensure images don't stretch */
+        }
+
+      
     }
 </style>

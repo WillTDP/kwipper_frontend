@@ -1,9 +1,13 @@
 <script setup>
-    import { ref, defineEmits } from 'vue';
+    import { ref, watch ,defineEmits } from 'vue';
+
     const isPressed1 = ref(false);
     const isPressed2 = ref(false);
 
-    const emit = defineEmits();
+    let selectedPriceValue = ref(null);
+    let selectedConditionValue = ref(null);
+
+    const emit = defineEmits(['filterByCondition', 'filterByPrice', 'filter']);
 
     const toggleButton1 = () => {
         if (isPressed1.value) {
@@ -28,6 +32,18 @@
         isPressed1.value = false;
         isPressed2.value = false;
     };
+
+    watch(selectedPriceValue, (newVal) => {
+        // Implement your filter logic here
+        emit('filterByPrice', newVal);
+
+    });
+
+    watch(selectedConditionValue, (newVal) => {
+        // Implement your filter logic here
+        emit('filterByCondition', newVal);
+
+    });
 </script>
 
 <template>
@@ -61,7 +77,18 @@
             </div>
             <div class="segment">
                 <p class="title">Prijs</p>
-                <input type="text"></input>
+                <select class="input-limited" v-model="selectedPriceValue">
+                    <option value="" disabled selected>Sorteer op prijs</option>
+                    <option value="">Reset</option>
+                    <option value="0-5">€0-€5</option>
+                    <option value="5-10">€5-€10</option>
+                    <option value="10-20">€10-€20</option>
+                    <option value="20-30">€20-€30</option>
+                    <option value="30-40">€30-€40</option>
+                    <option value="40-50">€40-€50</option>
+                    <option value="50-100">€50-€100</option>
+                    <option value="100-200">€100-€200</option>
+                </select>
             </div>
             <div class="segment">
                 <p class="title">Afstand</p>
@@ -69,11 +96,21 @@
             </div>
             <div class="segment">
                 <p class="title">Huren van</p>
-                <input type="date"></input>
+                <input type="date" class="input" placeholder="">
             </div>
             <div class="segment">
                 <p class="title">Huren tot</p>
-                <input type="date"></input>
+                <input type="date" class="input" placeholder="">
+            </div>
+            <div class="segment">
+                <p class="title">Conditie</p>
+                <select class="input limited" v-model="selectedConditionValue">
+                    <option value="" disabled selected>Sorteer op</option>
+                    <option value="">Reset</option>
+                    <option value="3">Matig</option>
+                    <option value="4">Goed</option>
+                    <option value="5">Perfect</option>
+                </select>
             </div>
         </div>
         <div class="filter-menu-categories" v-if="isPressed2">
@@ -86,20 +123,20 @@
             <div class="segment">
                 <p class="title">Legermateriaal</p>
                 <p class="link" @click="filter('legertenten')">Legertenten</p>
-                <p class="link" @cliek="filter('seniortenten')">Seniortenten</p>
+                <p class="link" @click="filter('seniorentent')">Seniortenten</p>
                 <p class="link" @click="filter('patrouilletenten')">Patrouilletenten</p>
             </div>
             <div class="segment">
                 <p class="title">Kampmateriaal</p>
-                <p class="link" @click="filter('gasbakken')" >Gasbakken</p>
+                <p class="link" @click="filter('gasbakken')" >Gasbakken en flessen</p>
                 <p class="link" @click="filter('tent')">Tenten</p>
-                <p class="link">Verlengtafels</p>
+                <p class="link" @click="filter('zeilen')">Zeilen</p>
             </div>
             <div class="segment">
-                <p class="title">Keukenmateriaal</p>
-                <p class="link">Kookpotten</p>
-                <p class="link">Servies</p>
-                <p class="link">Bestek</p>
+                <p class="title">Tafels en Banken</p>
+                <p class="link" @click="filter('uitklaptafel')">Uitklaptafels</p>
+                <p class="link" @click="filter('uitklapbanken')" >Uitklapbanken en stoelen</p>
+                <p class="link" @click="filter('slaapmateriaal')" >Slaapmateriaal</p>
             </div>
         </div>
     </div>
@@ -149,13 +186,22 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;;
+    align-items: flex-start;
+    text-align: left;
     gap: 1em;
     width: 100%;
-    max-width: 320px;
+    max-width: 375px;
     background-color: #2B5740;
     padding-bottom: 2em;
+}
+.filter-menu-categories > * {
+    flex-basis: 100%;
+}
+@media (max-width: 413px) {
+    .filter-menu-categories > * {
+        flex-basis: calc(50% - 1em);
+        max-width: 375px;
+    }
 }
 
 .segment {
@@ -164,6 +210,14 @@
     justify-content: space-evenly;
     padding: 0;
     margin: 0;
+}
+
+.input-limited {
+    width: 75%;
+}
+
+.limited {
+    width: 75%;
 }
 
 .title {

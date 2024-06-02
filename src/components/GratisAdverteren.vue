@@ -1,14 +1,26 @@
 <script setup>
-    function handleRadioClickFree(){
-        console.log('Radio button free clicked!');
-    };
+    import { ref, getCurrentInstance } from 'vue';
+    
+    
+
+      // Function to update the parent component's radio button state
+  const updateParentState = () => {
+    const instance = getCurrentInstance();
+    if (instance) {
+      const newValue = !instance.proxy.$props.radioButtonState;
+      instance.emit('update:radioButtonState', newValue);
+      console.log('Button state in child component:', newValue);
+    }else{
+      console.log('No instance found');
+    }
+  };
 </script>
 
 <template>
     <div class="box">
         <div class="top-box">
             <label class="container">
-                <input type="radio" name="radio" value="0" v-model="selectedRadioButton" @click="handleRadioClickFree">
+                <input type="radio" name="test" value="0" v-model="isChecked" @change="updateParentState" required>
                 <span class="checkmark"></span>
             </label>
             <p id="gratis">Gratis</p>

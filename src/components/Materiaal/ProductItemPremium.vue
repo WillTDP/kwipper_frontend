@@ -1,30 +1,37 @@
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, onMounted, ref } from 'vue';
 import productRating from './Parts/StarRating.vue';
+import campImage1 from '../../assets/fouragetent.png';
 
+import apiService from '../../../apiService';
+
+const camp = campImage1;
 const props = defineProps({
-  product: Object,
+  
+  item: Object,
 });
+
+
 </script>
 
 <template>
-    <div class="product-item">
+    <div class="product-item" >
         
-        <router-link :to="'/products/' + product.id">
+        <router-link v-bind:to="'/products/' + item._id">
             <div class="image-container">
                 <img class="verhuurder" src="https://c.animaapp.com/rqXPDOkF/img/rectangle-260@2x.png" />
-                <p class="product-owner">Chiro Kuringen Centrum</p>
+                <p class="product-owner">{{item.user.posted_by}}</p>
                 <productRating class="product-rating" />
-                <img :src="product.imageUrl" alt="Product Image">
+                <img :src="camp" onerror="this.onerror=null; this.src='../../assets/fouragetent.png'"  >
             </div>
             
-            <div class="product-text-container">
+            <div class="product-text-container" >
                 <div class="product-text">
-                    <h3 class="product-name">{{ product.name }}</h3>
-                    <p v-if="product && product.item" id="price" class="product-price">Vanaf €{{ product.item.price }} per dag</p>
+                    <h3 class="product-name">{{ item.item.art_name }}</h3>
+                    <p  id="price" class="product-price">Vanaf €{{ item.item.price }} per dag</p>
                 </div>   
                 <div class="product-button">
-                    <router-link v-bind:to="'/products/' + product.id">
+                    <router-link v-bind:to="'/products/' + item._id">
                         <button class="button-details">Bekijk</button>
                     </router-link> 
                 </div>
@@ -33,6 +40,7 @@ const props = defineProps({
             
         </router-link>
     </div>
+    
 </template>
 
 <style scoped>
@@ -41,15 +49,15 @@ const props = defineProps({
         border-radius: 9px;
         display: flex;
         flex-direction: column;
-        margin: 1%;
-        position: relative;
         background-color: #f0f2f1;
+        margin: 1%;
+        max-height: 240px;
     }
 
     .image-container {
         position: relative;
-        width: 460px; /* Set the width of the image container */
-        height: 200px; /* Set the height of the image container */
+        width: 423px; /* Set the width of the image container */
+        height: 181px; /* Set the height of the image container */
     }
 
     .verhuurder {
@@ -64,7 +72,6 @@ const props = defineProps({
 
     .product-owner {
         position: absolute;
-        
         left: 80px;
         z-index: 10;
         color: white;
@@ -98,11 +105,12 @@ const props = defineProps({
     }
 
     img {
-        height: 200px;
-        width: 460px;
+        height: 181px;
+        width: 423px;
         margin-bottom: 0;
         padding-bottom: 0;
         border-radius: 9px;
+        object-fit: cover; 
     }
 
     .product-price{
@@ -117,8 +125,6 @@ const props = defineProps({
         padding: 0;
     }
 
-    
-
     .product-button{
         display: flex;
         justify-content: center; /* Center button horizontally */
@@ -127,4 +133,25 @@ const props = defineProps({
         
     }
 
+    /* Responsive styles for screens smaller than 600px */
+    @media (max-width: 600px) {
+        .product-item {
+            width: 100%; /* Set the width of the product item to 100% */
+            max-width: 423px; /* Set the maximum width of the product item to 423px */
+            padding: 0; /* Remove padding */
+            align-items: normal; /* Align items to the start */
+            max-height: 100%; /* Set the maximum height of the product item to 100% */
+        }
+        .image-container {
+            width: 100%; /* Set the width of the image container to 100% */
+            max-width: 95vw; /* Set the maximum width of the image container to 100% */
+            height: auto; /* Set the height of the image container to auto */
+        }
+
+        img {
+            max-width: 100%; /* Set the maximum width of the image to 100% */
+            height: auto; /* Set the height of the image to auto */
+            object-fit: cover; /* Ensure images don't stretch */
+        }
+    }
 </style>

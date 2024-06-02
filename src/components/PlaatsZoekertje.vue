@@ -6,37 +6,224 @@
     import 'v-calendar/style.css';
     import adverteergratis from './GratisAdverteren.vue'
     import adverteerpremium from './PremiumAdverteren.vue'
+    import {createAssortment}  from '../../apiService';
 
     
+    /* attempt at trying to showcase how many items there are in the database
+    const data = ref(null);
+    const getItemCount = async () => {
+    try {
+        const response = await apiService.getItemCount();
+        console.log('aantal database:', response);
+        data = response;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+    };
+
+
+
+    getItemCount();*/
+    // Create a reactive state to store the radio button state
+ 
+
+// Function to update the radio button state when the event is emitted from the child component
+const updateRadioButtonState = (newValue) => {
+  radioButtonState.value = newValue;
+  console.log('Button state in parent component:', newValue);
+};
     
+    const formData = {
+        
+        
+
+    item:{
+        art_name: '',
+        user: '4',
+        price: '',
+        waarborg: '',
+        available_from: '24 mei 2024',
+        available_until: '18 mei 2024',
+        art_desc: '',
+        art_category: '',
+        condition:'',
+        size: '',
+        brand: '',
+        complete_set: true,
+        free: true,
+        premium: false,
+    },
+    user:{
+        posted_by: 'Zegher',
+        location : 'Herentals',
+    },
+        // Add other form fields here
+    };
+
+    // Method to handle form submission
+    const submitForm = async () => {
+        try {
+        // Call the createAssortment function from apiService.js and pass formData.value
+
+        const response = await createAssortment(formData);
+        console.log('Assortment created successfully:', response);
+
+        console.log('Assortment created successfully:', formData.value);
+
+        // Clear the form after successful submission
+        formData.value = {
+            item:{
+                art_name: '',
+                user: '4',
+                price: '',
+                waarborg: '',
+                available_from: '24 mei 2024',
+                available_until: '18 mei 2024',
+                art_desc: '',
+                art_category: '',
+                condition:'',
+                size: '',
+                brand: '',
+                complete_set: true,
+                free: true,
+                premium: false,
+            },
+            user:{
+                posted_by: 'Zegher',
+                location : 'Herentals',
+            },
+            // Reset other form fields if needed
+        };
+        } catch (error) {
+        console.error('Error creating assortment:', error);
+        // Handle error if needed
+        }
+    };
+
+    onMounted(() => {
+        const imageInputs = document.querySelectorAll('input[data-type="image"]');
+        const reader = new FileReader();
+
+        imageInputs.forEach(imageInput => {
+
+            imageInput.onchange = handleImageChange;
+
+        })
+
+        function handleImageChange (e) {
+            if (e.target.files && e.target.files[0]) {
+
+                reader.readAsDataURL(e.target.files[0]);
+
+                reader.onload = () => {
+                    document.querySelector(`label[for="${e.target.id}"]`).style.backgroundImage = `url(${reader.result})`;
+                    document.querySelector(`label[for="${e.target.id}"]`).classList.remove('example-image');
+                }
+
+            } else {
+                document.querySelector(`label[for="${e.target.id}"]`).style.backgroundImage = '';
+                document.querySelector(`label[for="${e.target.id}"]`).classList.add('example-image');
+            }
+        }
+    })
+
+
 </script>
 
 <template>
     <h1 class="header-title">Plaats een advertentie</h1>
+    <form @submit.prevent="submitForm">
     <div class="post-container">
         <div class="table-display">
             <div class="cell-display">
                 <div class="div3" id="post-image">
-                    <div class="main-image">
-                        <i class="fa-solid fa-camera"></i>
-                    </div>
+
+
+
+                    <label 
+                        style="background-image: url('/public/Images/cambg.png');"
+                        class="main-image main example-image" 
+                        for="header-image">
+                        <i></i>
+                    </label>
+                    <input 
+                        data-type="image" 
+                        type="file" 
+                        id="header-image"
+                        name="art-picture" 
+                        accept=".jpg, .jpeg, .png, .webp" 
+                        class="hidden"
+                    >
+
+                    
+
+
                     <div class="added-images">
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="image">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
+                            <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image1">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image1"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image2">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image2"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image3">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image3"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >
+
+                        <label 
+                            style="background-image: url('/public/Images/plusj.png');"
+                            class="image main example-image" 
+                            for="image4">
+                            <i></i>
+                        </label>
+                        <input 
+                            data-type="image" 
+                            type="file" 
+                            id="image4"
+                            name="header-image" 
+                            accept=".jpg, .jpeg, .png, .webp" 
+                            class="hidden"
+                        >                      
                     </div>
+
+
                 </div>
-                
-                
             </div>
             <div class="cell-display">
                 
@@ -53,11 +240,11 @@
                 <div class="div4">
                     <h1>Details</h1>
                     <h2>Titel</h2>
-                    <input type="text" class="input-simple" placeholder="Aanpasbare titel:">
+                    <input type="text" class="input-simple" placeholder="Aanpasbare titel:" v-model="formData.item.art_name" required>
                     <h2>Beschrijving</h2>
-                    <input type="text" class="input-description" placeholder="descriptie">
+                    <input type="text" class="input-description" placeholder="descriptie" v-model="formData.item.art_desc" required>
                     <h2>Categorie</h2>
-                    <select class="conditie" name="Conditie">
+                    <select class="conditie" name="Conditie" v-model="formData.item.art_category" required>
                         <option value="Kookpotten">Kookpotten</option>
                         <option value="Servies">Servies</option>
                         <option value="Bestek">Bestek</option>
@@ -89,35 +276,43 @@
                 <div class="kenmerken-container">
                     <div class="Kenmerk-links">
                     <h2>Conditie</h2>
-                    <select class="conditie" name="Conditie">
-                        <option value="Beschadigd">Beschadigd</option>
-                        <option value="Defect">Defect</option>
-                        <option value="Matig">Matig</option>
-                        <option value="Goed">Goed</option>
-                        <option value="Perfect">Perfect</option>
+                    <select class="conditie" name="Conditie" v-model="formData.item.condition" required>
+                        <option value="1">Beschadigd</option>
+                        <option value="2">Defect</option>
+                        <option value="3">Matig</option>
+                        <option value="4">Goed</option>
+                        <option value="5">Perfect</option>
                     </select>
                     <h2>Merk</h2>
-                    <select class="conditie" name="Conditie">
-                        <option value="Beschadigd">Beschadigd</option>
-                        <option value="Defect">Defect</option>
-                        <option value="Matig">Matig</option>
-                        <option value="Goed">Goed</option>
-                        <option value="Perfect">Perfect</option>
+                    <select class="conditie" name="Conditie" v-model="formData.item.brand" required>
+                        <option value="Dometic">Dometic</option>
+                        <option value="Eurotrail">Eurotrail</option>
+                        <option value="Kampa">Kampa</option>
+                        <option value="Nemo">Nemo</option>
+                        <option value="Outwell">Outwell</option>
+                        <option value="Robens">Robens</option>
+                        <option value="Vango">Vango</option>
+                        <option value="Quechua">Quechua</option>
                     </select>
                 </div>
                 <div class="Kenmerk-rechts">
                     <h2>Formaat</h2>
-                    <select class="conditie" name="Conditie">
-                        <option value="Beschadigd">Beschadigd</option>
-                        <option value="Defect">Defect</option>
-                        <option value="Matig">Matig</option>
-                        <option value="Goed">Goed</option>
-                        <option value="Perfect">Perfect</option>
+                    <select class="conditie" name="Conditie" v-model="formData.item.size" required>
+                        <option value="3x4m">3x4m</option>
+                        <option value="4x4m">4x4m</option>
+                        <option value="3x5m">3x5m</option>
+                        <option value="4x6m">4x6m</option>
+                        <option value="4x5m">4x5m</option>
+                        <option value="5x4m">5x4m</option>
+                        <option value="5x5m">5x5m</option>
+                        <option value="4x8m">4x8m</option>
+                        <option value="5x10m">5x10m</option>
+                        <option value="6x10m">6x10m</option>
                     </select>
                     <h2>Is het product volledig?</h2>
-                    <select class="conditie" name="Conditie">
-                        <option value="Ja">Ja</option>
-                        <option value="Nee">Nee</option>
+                    <select class="conditie" name="Conditie" v-model="formData.complete_set" required>
+                        <option value="true">Ja</option>
+                        <option value="false">Nee</option>
                     </select>
                 </div>
             </div> 
@@ -127,37 +322,32 @@
             <div class="cell-display">
                 <div class="div3">
                     <h1>Prijs</h1>
-                    <h2>Ik will...</h2>
-                    <select class="conditie" name="intentie">
-                        <option value="Verhuren">Verhuren</option>
-                        <option value="Verkopen">Verkopen</option>
-                    </select>
                     <h2>Vraagprijs</h2>
-                    <input type="text" class="input-simple" placeholder="">
+                    <input type="text" class="input-simple" placeholder="" v-model="formData.item.price" required>
                 </div>
                 <div class="div4">
                     <h1>Beschikbaarheid</h1>
-                    <Calendar borderless class="Date-picker"/>
+                    <div class="my-calendar">
+                        <Calendar borderless class="Date-picker" />
+                    </div>
+                    
                 </div>
                 
             </div>
             <div class="cell-display">
                 <div class="div3">
-                    <div class="tip">
+                    <!-- <div class="tip">
                         <i class="fa-solid fa-pen"></i>
-                        <p>Naast verhuren kan je ook materiaal verkopen!</p>
-                    </div>
-                    <h2>Per...</h2>
-                    <select class="conditie" name="intentie">
-                        <option value="Verhuren">Verhuren</option>
-                        <option value="Verkopen">Verkopen</option>
-                    </select>
+                        <p>Tip hier</p>
+                    </div> -->
+                    <h2>Waarborg</h2>
+                    <input class="conditie" v-model="formData.item.waarborg">
                     
                 </div>
                 <div class="div4">
                     <h1>Levering</h1>
                     <label class="container">Levering
-                        <input type="radio" checked="checked" name="radio">
+                        <input type="radio"  name="radio">
                         <span class="checkmark"></span>
                     </label>
                     <label class="container">Ophalen
@@ -171,7 +361,7 @@
             <div class="div3">
                 <h1>Hoe wil je adverteren?</h1>
                 <div class="adverteer-opties">
-                    <adverteergratis></adverteergratis>
+                    <adverteergratis :radioButtonState="radioButtonState" @update:radioButtonState="updateRadioButtonState" ></adverteergratis>
                     <adverteerpremium></adverteerpremium>
                 </div>
                 
@@ -179,16 +369,29 @@
         </div><div class="cell-display2">
             <div class="div3">
                 <h1>Totaal: € </h1>
-                <button class="post">Zet online</button>
+                <button class="post" type="submit">Zet online</button>
                 <button class="preview">Bekijk preview</button>
             </div>
         </div>
     </div>
+    </form>
 </template>
 
 <style scoped>
 
+    .example-image {
+        background-size: 50% !important;
+    }
 
+    .main{
+        background-size: cover;
+        background-repeat: no-repeat; 
+        background-position: center;
+    }
+
+    .hidden{
+        display: none;
+    }
 
     .header-title {
         font-size: 48px;
@@ -198,7 +401,7 @@
     }
 
     .post-container {
-        width: 80%;
+        width: 70%;
         height: 100%;
         margin: 1% auto;
         border-radius: 9px;
@@ -219,7 +422,7 @@
     }
     
     #camera-tip {
-        top: 0;
+        top: -6.5em;
         position: relative;
     }
 
@@ -230,7 +433,9 @@
         width: 60%;
         right: 0;
         position: relative;
+        padding: 0.5em;
     }
+
 
     .tip i {
         font-size: 3rem;
@@ -340,6 +545,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  
 }
 
 /* Hide the browser's default radio button */
@@ -358,6 +564,9 @@
   width: 25px;
   background-color: #d9d9d9;
   border-radius: 50%;
+  display: flex; /* Use flexbox for container */
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
 }
 
 /* On mouse-over, add a grey background color */
@@ -406,5 +615,21 @@
     width: 241px;
     margin-left: 2%;
 }
+
+.my-calendar :deep(.vc-container) {
+  background-color: #f5f5f5;
+  border-radius: 9px;
+}
+
+.my-calendar :deep(.vc-title) {
+  background-color: #f5f5f5;
+  
+}
+
+.my-calendar :deep( .vc-base-icon) {
+  background-color: #f5f5f5;
+}
+
+
 
 </style>

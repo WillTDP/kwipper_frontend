@@ -1,10 +1,16 @@
 <script setup>
+  import {defineEmits } from 'vue';
+
+  const emit = defineEmits();
+
+  const filter = (brand) => {
+        emit('filter', brand);
+    };
 
 </script>
 
 <template>
-    <div class="overlap-3">
-        
+    <div class="overlap-3"  @click="filter('quechua')">
         <img class="rectangle-2" src="https://c.animaapp.com/CwoIaQCm/img/rectangle-417.svg" />
         <img class="TRENDING" src="https://c.animaapp.com/CwoIaQCm/img/trending@2x.png" />
         <img class="quechua-producten" src="https://c.animaapp.com/CwoIaQCm/img/quechua-producten@2x.png" />
@@ -22,7 +28,7 @@
   background-image: url(https://c.animaapp.com/CwoIaQCm/img/rectangle-416.png);
   background-size: cover;
   position: relative;
-  
+  cursor: pointer;
 }
 
  .rectangle-2 {
