@@ -155,7 +155,6 @@ const handleFilterButtonClick = () => {
   flex-grow: 1;
   width: 100%;
   color: black;
-  font-family: "Inter", Helvetica;
 }
 
 .input-limited {

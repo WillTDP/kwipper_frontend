@@ -109,6 +109,17 @@ label {
   font-family: 'Museo Sans', sans-serif;
 }
 
+input {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Museo Sans', sans-serif;
+}
+
+input[type="date"] {
+  font-weight: 500;
+  font-family: 'Museo Sans', sans-serif;
+}
+
 /*#app {
   max-width: 1280px;
   margin: 0 auto;
