@@ -147,7 +147,7 @@ import { ref } from 'vue';
         text-align: left;
         margin: 0 auto;
         padding: 2rem;
-        background: url("../public/Images/bg.jpeg");
+        background: url('/Images/bg.jpeg');        
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
