@@ -197,10 +197,11 @@ watch(route, () => {
   .selected {
     margin: 16px;
     font-size: 16px;
+    padding: 0px;
+    margin: 0px;
     color: #2B5740;
     display: flex;
     align-items: center;
-    gap: 8px;
   }
 
   .filter {
@@ -212,9 +213,9 @@ watch(route, () => {
     padding-right: 8px;
     padding-top: 0px;
     padding-bottom: 0px;
-    height: 32px;
     background-color: #F0F2F1;
     border-radius: 32px;
+    font-weight: 400;
   }
 
   .x {

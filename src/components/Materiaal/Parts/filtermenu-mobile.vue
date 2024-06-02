@@ -37,6 +37,7 @@
         console.log('Filter button is pressed');
         emit('filterByPrice', selectedPriceValue.value);
         emit('filterByCondition', selectedConditionValue.value);
+        isPressed1.value = false;
     };
 </script>
 
@@ -107,20 +108,20 @@
         <div class="filter-menu-categories" v-if="isPressed2">
             <div class="segment">
                 <p class="title">Keukenmateriaal</p>
-                <p class="link" @click="filter('kookpotten')">Kookpotten</p>
-                <p class="link" @click="filter('servies')">Servies</p>
-                <p class="link" @click="filter('bestek')">Bestek</p>
+                <p class="link" @click="filter('Kookpotten')">Kookpotten</p>
+                <p class="link" @click="filter('Servies')">Servies</p>
+                <p class="link" @click="filter('Bestek')">Bestek</p>
             </div>
             <div class="segment">
                 <p class="title">Legermateriaal</p>
-                <p class="link" @click="filter('legertenten')">Legertenten</p>
+                <p class="link" @click="filter('Legertenten')">Legertenten</p>
                 <p class="link" @click="filter('seniorentent')">Seniortenten</p>
-                <p class="link" @click="filter('patrouilletenten')">Patrouilletenten</p>
+                <p class="link" @click="filter('Patrouilletenten')">Patrouilletenten</p>
             </div>
             <div class="segment">
                 <p class="title">Kampmateriaal</p>
                 <p class="link" @click="filter('gasbakken')" >Gasbakken en flessen</p>
-                <p class="link" @click="filter('tent')">Tenten</p>
+                <p class="link" @click="filter('Tenten')">Tenten</p>
                 <p class="link" @click="filter('zeilen')">Zeilen</p>
             </div>
             <div class="segment">
