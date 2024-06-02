@@ -152,7 +152,7 @@ watch(route, () => {
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
       <div class="grid-wrap" v-if="data">
-        <ProductTrending @filter="filterProductsByBrand"/>
+        <ProductTrending class="producttrending" @filter="filterProductsByBrand"/>
         <ProductItemPremium v-for="item in filteredPremiumItems" :key="item._id" :item="item"/>
         <ProductItem v-for="item in filteredNonPremiumItems" :key="item._id" :item="item" />
       </div>
@@ -180,12 +180,18 @@ watch(route, () => {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-start;
     float: right;
     margin-top: 16px;
     margin-left: 16px;
     margin-right: 16px;
     width: 64%;
+  }
+
+  .producttrending {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .selected {
