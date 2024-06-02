@@ -183,6 +183,7 @@ const sendMessage = () => {
   .title {
     margin: 0;
     font-size: 32px;
+    font-family: 'Amazing Slab Medium';
   }
 
   .flag {
