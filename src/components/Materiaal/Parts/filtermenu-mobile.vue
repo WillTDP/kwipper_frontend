@@ -33,17 +33,11 @@
         isPressed2.value = false;
     };
 
-    watch(selectedPriceValue, (newVal) => {
-        // Implement your filter logic here
-        emit('filterByPrice', newVal);
-
-    });
-
-    watch(selectedConditionValue, (newVal) => {
-        // Implement your filter logic here
-        emit('filterByCondition', newVal);
-
-    });
+    const handleFilterButtonClick = () => {
+        console.log('Filter button is pressed');
+        emit('filterByPrice', selectedPriceValue.value);
+        emit('filterByCondition', selectedConditionValue.value);
+    };
 </script>
 
 <template>
@@ -69,10 +63,6 @@
         <div class="filter-menu-categories" v-if="isPressed1">
             <div class="segment">
                 <p class="title">Locatie</p>
-                <input type="text"></input>
-            </div>
-            <div class="segment">
-                <p class="title">Soort Contact</p>
                 <input type="text"></input>
             </div>
             <div class="segment">
@@ -112,6 +102,7 @@
                     <option value="5">Perfect</option>
                 </select>
             </div>
+            <button  @click="handleFilterButtonClick">Filter</button>
         </div>
         <div class="filter-menu-categories" v-if="isPressed2">
             <div class="segment">
@@ -158,6 +149,7 @@
     justify-content: flex-start;
     gap: 2em;
     width: 100%;
+    height: 100%;
     max-width: 1280px;
     padding-left: 2.5em;
 }
@@ -197,6 +189,20 @@
 .filter-menu-categories > * {
     flex-basis: 100%;
 }
+
+
+button {
+  background-color: #1C98D6;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  width: 75%;
+  margin-top: 1em;
+  padding: 1em;
+  font-size: 10px;
+  cursor: pointer;
+}
+
 @media (max-width: 413px) {
     .filter-menu-categories > * {
         flex-basis: calc(50% - 1em);

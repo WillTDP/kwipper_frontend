@@ -88,7 +88,8 @@ const handleFilterButtonClick = () => {
 <style scoped>
 .header-title {
   font-size: 48px;
-  font-family: "Bitter-ExtraBold", Helvetica;
+  font-family: "Bitter", serif;
+  font-weight: 700;
   color: #2b5740;
   margin-left: 18%;
 }
