@@ -111,7 +111,8 @@ h2 {
 }
 
 .title {
-  font-weight: bold;
+  font-weight: 700;
+  font-family: 'Museo Sans', sans-serif;
   margin-bottom: 8px;
 }
 
