@@ -98,6 +98,7 @@ footer {
     font-size: 2.25rem;
     margin: 0;
     font-family: 'Bitter', serif;
+    font-weight: 600;
 }
 
 .newsletter-input {
