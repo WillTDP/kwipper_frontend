@@ -1,9 +1,9 @@
 <script setup>
 import { defineProps, onMounted, ref } from 'vue';
-import productRating from './Parts/StarRating.vue';
-import campImage1 from '../../assets/fouragetent.png';
+import productRating from './StarRating.vue';
+import campImage1 from '../../../assets/fouragetent.png';
 
-import apiService from '../../../apiService';
+import apiService from '../../../../apiService';
 
 const camp = campImage1;
 const props = defineProps({

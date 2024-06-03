@@ -230,12 +230,14 @@ button {
 .title {
     color: #F0F2F1;
     font-weight: 700;
+    font-family: 'Museo Sans', sans-serif;
 }
 
 .link {
     color: #F0F2F1;
     font-weight: 500;
     cursor: pointer;
+    font-family: 'Museo Sans', sans-serif;
 }
 
 input {

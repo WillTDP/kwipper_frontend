@@ -1,5 +1,5 @@
 <script setup>
-import ProductItem from '../Materiaal/ProductItem.vue';
+import ProductItem from '../Materiaal/Parts/ProductItem.vue';
 import { computed } from 'vue';
 import { products } from '../../fake-data.js';
 

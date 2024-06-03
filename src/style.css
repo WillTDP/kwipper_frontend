@@ -18,7 +18,7 @@
   font-family: 'Museo Sans';
   src: url('/fonts/MuseoSans_900.ttf') format('truetype');
   font-weight: 900;
-  font-style: bold;
+  font-style: normal;
 }
 
 @font-face {
