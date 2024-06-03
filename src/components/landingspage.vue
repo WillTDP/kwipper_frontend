@@ -125,6 +125,11 @@ import { ref } from 'vue';
         width: 95%;
     }
 
+    .number {
+        font-family: 'Bitter', serif;
+        color: #809A8C;
+    }
+
     .landingspage__text .number {
         font-size: 100px;
         font-weight: 900;
