@@ -333,6 +333,12 @@ const sendMessage = () => {
     line-height: 0.5;
   }
 
+  #price {
+    font-size: 24px;
+    font-family: 'Museo Sans', serif;
+    font-weight: 900;
+  } 
+
   .price_info {
     display: flex;
     flex-direction: row;

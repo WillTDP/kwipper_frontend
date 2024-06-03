@@ -212,6 +212,12 @@ const sendMessage = () => {
     align-items: center;
   }
 
+  .seller_name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
   .icons {
     display: flex;
     flex-direction: row;
@@ -257,6 +263,12 @@ const sendMessage = () => {
     justify-content: space-between;
     align-items: flex-start;
   }
+
+  #price {
+    font-size: 24px;
+    font-family: 'Museo Sans', serif;
+    font-weight: 700;
+  } 
 
   .price_available {
     margin: 0;
