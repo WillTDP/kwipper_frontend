@@ -1,9 +1,9 @@
 <script setup>
 import { defineProps, onMounted, ref } from 'vue';
-import productRating from './Parts/StarRating.vue';
-import campImage1 from '../../assets/fouragetent.png';
+import productRating from './StarRating.vue';
+import campImage1 from '../../../assets/fouragetent.png';
 
-import apiService from '../../../apiService';
+import apiService from '../../../../apiService';
 
 const camp = campImage1;
 const props = defineProps({
@@ -102,6 +102,9 @@ const props = defineProps({
         margin-bottom: 0;
         padding-bottom: 0;
         color: #2B5740;
+        font-size: 1em;
+        font-weight: 900;
+        font-family: 'Museo Sans', sans-serif;
     }
 
     img {

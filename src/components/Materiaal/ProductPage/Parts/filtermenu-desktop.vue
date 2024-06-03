@@ -88,7 +88,8 @@ const handleFilterButtonClick = () => {
 <style scoped>
 .header-title {
   font-size: 48px;
-  font-family: "Bitter-ExtraBold", Helvetica;
+  font-family: "Bitter", serif;
+  font-weight: 700;
   color: #2b5740;
   margin-left: 18%;
 }
@@ -100,7 +101,7 @@ const handleFilterButtonClick = () => {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 1245px;
+  max-width: 1285px;
   height: 179px;
   background-color: #f0f2f1;
   border-radius: 9px;
@@ -155,7 +156,6 @@ const handleFilterButtonClick = () => {
   flex-grow: 1;
   width: 100%;
   color: black;
-  font-family: "Inter", Helvetica;
 }
 
 .input-limited {

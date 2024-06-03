@@ -45,7 +45,12 @@ const sendMessage = () => {
                               <p> {{ userData.data.user.email}} </p>
                           </div>
                       </div>
-                      <p class="verification">v</p>
+                      <div class="verification">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32" fill="none">
+                          <path d="M34 25.2H30.8L18 2.40002L5.2 25.2H2" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M2 30H34M10.8 15.6C10.8 15.6 14.8 12.4 18 12.4C21.2 12.4 25.2 15.6 25.2 15.6M18 22C15.7912 22 14 24.8656 14 28.4V30H22V28.4C22 24.8656 20.2088 22 18 22ZM30.8 2L29.2 4.4L30.8 6.8L32.4 4.4L30.8 2ZM4.4 10.8L3.6 12.4L4.4 14L5.2 12.4L4.4 10.8Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
                   </div>
                   <p>deze gebruiker is geverifierd</p>
                   <div class="score_name">
@@ -208,6 +213,7 @@ const sendMessage = () => {
   .title {
     margin: 0;
     font-size: 32px;
+    font-family: 'Amazing Slab Medium';
   }
 
   img {
@@ -253,6 +259,12 @@ const sendMessage = () => {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .verification {
+    background-color: #4EA385;
+    padding: 0.5em;
+    border-radius: 12px;
   }
 
   .icons {
@@ -320,6 +332,12 @@ const sendMessage = () => {
     padding: 0;
     line-height: 0.5;
   }
+
+  #price {
+    font-size: 24px;
+    font-family: 'Museo Sans', serif;
+    font-weight: 900;
+  } 
 
   .price_info {
     display: flex;

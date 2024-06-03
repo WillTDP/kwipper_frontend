@@ -33,17 +33,12 @@
         isPressed2.value = false;
     };
 
-    watch(selectedPriceValue, (newVal) => {
-        // Implement your filter logic here
-        emit('filterByPrice', newVal);
-
-    });
-
-    watch(selectedConditionValue, (newVal) => {
-        // Implement your filter logic here
-        emit('filterByCondition', newVal);
-
-    });
+    const handleFilterButtonClick = () => {
+        console.log('Filter button is pressed');
+        emit('filterByPrice', selectedPriceValue.value);
+        emit('filterByCondition', selectedConditionValue.value);
+        isPressed1.value = false;
+    };
 </script>
 
 <template>
@@ -69,10 +64,6 @@
         <div class="filter-menu-categories" v-if="isPressed1">
             <div class="segment">
                 <p class="title">Locatie</p>
-                <input type="text"></input>
-            </div>
-            <div class="segment">
-                <p class="title">Soort Contact</p>
                 <input type="text"></input>
             </div>
             <div class="segment">
@@ -112,24 +103,25 @@
                     <option value="5">Perfect</option>
                 </select>
             </div>
+            <button  @click="handleFilterButtonClick">Filter</button>
         </div>
         <div class="filter-menu-categories" v-if="isPressed2">
             <div class="segment">
                 <p class="title">Keukenmateriaal</p>
-                <p class="link" @click="filter('kookpotten')">Kookpotten</p>
-                <p class="link" @click="filter('servies')">Servies</p>
-                <p class="link" @click="filter('bestek')">Bestek</p>
+                <p class="link" @click="filter('Kookpotten')">Kookpotten</p>
+                <p class="link" @click="filter('Servies')">Servies</p>
+                <p class="link" @click="filter('Bestek')">Bestek</p>
             </div>
             <div class="segment">
                 <p class="title">Legermateriaal</p>
-                <p class="link" @click="filter('legertenten')">Legertenten</p>
+                <p class="link" @click="filter('Legertenten')">Legertenten</p>
                 <p class="link" @click="filter('seniorentent')">Seniortenten</p>
-                <p class="link" @click="filter('patrouilletenten')">Patrouilletenten</p>
+                <p class="link" @click="filter('Patrouilletenten')">Patrouilletenten</p>
             </div>
             <div class="segment">
                 <p class="title">Kampmateriaal</p>
                 <p class="link" @click="filter('gasbakken')" >Gasbakken en flessen</p>
-                <p class="link" @click="filter('tent')">Tenten</p>
+                <p class="link" @click="filter('Tenten')">Tenten</p>
                 <p class="link" @click="filter('zeilen')">Zeilen</p>
             </div>
             <div class="segment">
@@ -158,6 +150,7 @@
     justify-content: flex-start;
     gap: 2em;
     width: 100%;
+    height: 100%;
     max-width: 1280px;
     padding-left: 2.5em;
 }
@@ -197,6 +190,20 @@
 .filter-menu-categories > * {
     flex-basis: 100%;
 }
+
+
+button {
+  background-color: #1C98D6;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  width: 75%;
+  margin-top: 1em;
+  padding: 1em;
+  font-size: 10px;
+  cursor: pointer;
+}
+
 @media (max-width: 413px) {
     .filter-menu-categories > * {
         flex-basis: calc(50% - 1em);
@@ -223,12 +230,14 @@
 .title {
     color: #F0F2F1;
     font-weight: 700;
+    font-family: 'Museo Sans', sans-serif;
 }
 
 .link {
     color: #F0F2F1;
     font-weight: 500;
     cursor: pointer;
+    font-family: 'Museo Sans', sans-serif;
 }
 
 input {

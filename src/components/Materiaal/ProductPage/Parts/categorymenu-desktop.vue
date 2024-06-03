@@ -13,7 +13,7 @@ const filter = (category) => {
 
 <template>
   <div class="category">
-    <h2>Categorieën</h2>
+    <h3>Categorieën</h3>
     <div class="segment">
       <p class="title">Keukenmateriaal</p>
       <p :class="{'link': true, 'selected': selectedCategory === 'Kookpotten'}" 
@@ -111,7 +111,8 @@ h2 {
 }
 
 .title {
-  font-weight: bold;
+  font-weight: 700;
+  font-family: 'Museo Sans', sans-serif;
   margin-bottom: 8px;
 }
 

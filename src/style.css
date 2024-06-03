@@ -1,6 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
 
 @font-face {
+  font-family: 'Museo Sans';
+  src: url('/fonts/MuseoSans_500.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Museo Sans';
+  src: url('/fonts/MuseoSans_700.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Museo Sans';
+  src: url('/fonts/MuseoSans_900.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Amazing Slab Medium';
   src: url('/fonts/Amazing-Slab-Medium-trial.ttf') format('truetype');
   font-weight: 500;
@@ -27,14 +48,47 @@ a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
+  font-family: 'Museo Sans', sans-serif;
 }
 a:hover {
   color: #535bf2;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 36px;
+  font-weight: bold, 900;
+  font-family: 'Bitter', serif;
+}
+
+h2 {
+  font-size: 2.8em;
   line-height: 1.1;
+  font-weight: 900;
+  font-family: 'Bitter', serif;
+}
+
+h3 {
+  font-size: 2.2em;
+  font-weight: medium, 700;
+  font-family: 'Amazing Slab Medium', serif;
+}
+
+p {
+  font-size: 1em;
+  font-weight: 500;
+  font-family: 'Museo Sans', sans-serif;
+}
+
+input {
+  font-size: 1em;
+  font-weight: 500;
+  font-family: 'Museo Sans', sans-serif;
+}
+
+router-link {
+  font-size: 1em;
+  font-weight: 500;
+  font-family: 'Museo Sans', sans-serif;
 }
 
 button {
@@ -43,7 +97,7 @@ button {
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
+  font-family: 'Museo Sans', sans-serif;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -56,6 +110,22 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+label {
+  font-size: 1em;
+  font-weight: 500;
+  font-family: 'Museo Sans', sans-serif;
+}
+
+input {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Museo Sans', sans-serif;
+}
+
+input[type="date"] {
+  font-weight: 500;
+  font-family: 'Museo Sans', sans-serif;
+}
 
 /*#app {
   max-width: 1280px;

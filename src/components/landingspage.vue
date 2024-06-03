@@ -122,6 +122,12 @@ import { ref } from 'vue';
 
     .landingspage__text p {
         color: #090D0B;
+        width: 95%;
+    }
+
+    .number {
+        font-family: 'Bitter', serif;
+        color: #809A8C;
     }
 
     .landingspage__text .number {
@@ -158,9 +164,8 @@ import { ref } from 'vue';
 
     .text h2 {
         font-size: 40px;
-        font-weight: 900;
-        margin: 0;
-        padding: 0;
+        font-weight: bold;
+        font-family: 'Bitter', serif;
         color: #2B5740;
     }
 

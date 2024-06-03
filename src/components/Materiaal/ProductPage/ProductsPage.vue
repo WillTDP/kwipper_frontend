@@ -1,13 +1,13 @@
 <script setup>
 import { ref, reactive ,computed, onMounted, onUnmounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import ProductItem from './ProductItem.vue';
-import ProductItemPremium from './ProductItemPremium.vue';
+import ProductItem from '../Parts/ProductItem.vue';
+import ProductItemPremium from '../Parts/ProductItemPremium.vue';
 import filtermenuMobile from './Parts/filtermenu-mobile.vue';
 import filtermenuDesktop from './Parts/filtermenu-desktop.vue';
 import categorymenuDesktop from './Parts/categorymenu-desktop.vue';
-import ProductTrending from './Parts/ProductTrending.vue';
-import apiService from '../../../apiService';
+import ProductTrending from '../Parts/ProductTrending.vue';
+import apiService from '../../../../apiService';
 
 const route = useRoute();
 
@@ -84,7 +84,7 @@ const filteredNonPremiumItems = computed(() => {
     (selectedPrice.value ? item.item.price >= selectedPrice.value.lower && item.item.price <= selectedPrice.value.upper : true) &&
     (selectedCondition.value ? String(item.item.condition) === String(selectedCondition.value) : true) &&
     (selectedName.value ? item.item.art_name.toLowerCase().includes(selectedName.value.toLowerCase()) : true)
-    && (selectedBrand.value ? item.item.brand.toLowerCase().includes(selectedBrand.value.toLowerCase()) : true)
+    && (selectedBrand.value && item.item.brand ? item.item.brand.toLowerCase().includes(selectedBrand.value.toLowerCase()) : true)
   );
 });
 
@@ -127,6 +127,10 @@ const fetchData = async () => {
   }
 };
 
+const clearSelection = () => {
+  selectedCategory.value = "";
+  selectedBrand.value = null;
+};
 
 
 
@@ -141,18 +145,18 @@ watch(route, () => {
 <template>
   <div id="page-wrap">
     <filtermenuMobile  @filter="filterProducts" @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" v-if="state.mobile" />
-      <div v-if="selectedCategory && state.mobile" class="selected">
+      <div v-if="(selectedCategory || selectedBrand) && state.mobile" class="selected">        
         <p>Selected Category: </p>
         <div class="filter">
-          <p @click="selectedCategory = null" class="x">x</p>
-          <p> {{ selectedCategory }}</p>
+          <p @click="clearSelection" class="x">x</p>
+          <p> {{ selectedCategory || selectedBrand }}</p>
         </div>
       </div>
   <filtermenuDesktop @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" @filterByName="filterProductsByName" v-if="state.desktop" />
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
       <div class="grid-wrap" v-if="data">
-        <ProductTrending @filter="filterProductsByBrand"/>
+        <ProductTrending class="producttrending" @filter="filterProductsByBrand"/>
         <ProductItemPremium v-for="item in filteredPremiumItems" :key="item._id" :item="item"/>
         <ProductItem v-for="item in filteredNonPremiumItems" :key="item._id" :item="item" />
       </div>
@@ -180,7 +184,7 @@ watch(route, () => {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-start;
     float: right;
     margin-top: 16px;
     margin-left: 16px;
@@ -188,13 +192,20 @@ watch(route, () => {
     width: 64%;
   }
 
+  .producttrending {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
   .selected {
     margin: 16px;
     font-size: 16px;
+    padding: 0px;
+    margin: 0px;
     color: #2B5740;
     display: flex;
     align-items: center;
-    gap: 8px;
   }
 
   .filter {
@@ -206,9 +217,9 @@ watch(route, () => {
     padding-right: 8px;
     padding-top: 0px;
     padding-bottom: 0px;
-    height: 32px;
     background-color: #F0F2F1;
     border-radius: 32px;
+    font-weight: 400;
   }
 
   .x {
