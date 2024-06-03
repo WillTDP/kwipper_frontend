@@ -7,7 +7,7 @@
         <div class="footer">
             <div>
                 <h2 class="newsletter-title">Abonneer op onze nieuwsbrief</h2>
-                <form class="newsletter-input">
+                <form class="newsletter_input" style="display: flex;">
                     <input type="email" placeholder="Vul hier je email adres in" class="emailinput"/>
                     <button class="subscribe" type="submit">
                         Abonneer   
@@ -101,7 +101,7 @@ footer {
     font-weight: 600;
 }
 
-.newsletter-input {
+.newsletter_input {
     display: flex;
     align-items: center;
     gap: 1rem;
