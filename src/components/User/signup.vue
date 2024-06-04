@@ -2,6 +2,9 @@
 import { ref } from 'vue';
 import multistepform from './multistepform.vue';
 import {createUser}  from '../../../apiService';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 
 const signupData = {
@@ -114,7 +117,7 @@ const submitForm = async () => {
             gemeente: '',
             // Reset other form fields if needed
         };
-        window.location.href = '/login';
+        router.push('/login');
         } catch (error) {
         console.error('Error creating user:', error);
         // Handle error if needed
