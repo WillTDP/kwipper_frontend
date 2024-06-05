@@ -226,7 +226,7 @@ const updateRadioButtonState = (newValue) => {
                 </div>
             </div>
             <div class="cell-display">
-                
+                <br>
                 <div class="tip" id="camera-tip">
                         
                     <i class="fa-solid fa-camera"></i>
@@ -261,6 +261,7 @@ const updateRadioButtonState = (newValue) => {
             <div class="cell-display">
                 
                 <div class="div4">
+                    <br><br><br>
                     <div class="tip">
                         
                         <i class="fa-solid fa-pen"></i>
@@ -340,7 +341,8 @@ const updateRadioButtonState = (newValue) => {
                         <i class="fa-solid fa-pen"></i>
                         <p>Tip hier</p>
                     </div> -->
-                    <h2>Waarborg</h2>
+                    <br><br>
+                    <h2 id="waarborg">Waarborg</h2>
                     <input class="conditie" v-model="formData.item.waarborg">
                     
                 </div>
@@ -378,6 +380,11 @@ const updateRadioButtonState = (newValue) => {
 </template>
 
 <style scoped>
+
+    h2{
+        font-family: 'museo sans';
+        font-size: 1em;
+    }
 
     .example-image {
         background-size: 50% !important;
@@ -433,7 +440,8 @@ const updateRadioButtonState = (newValue) => {
         width: 60%;
         right: 0;
         position: relative;
-        padding: 0.5em;
+        margin: 1em;
+        padding: 2em;
     }
 
 
