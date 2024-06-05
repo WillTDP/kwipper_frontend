@@ -41,7 +41,7 @@ import { ref } from 'vue';
         <div class="img_segment">
             <div class="text">
                 <div class="big_text">
-                    <h2>Waarom Kwipper</h2>
+                    <h2 id="why">Waarom Kwipper</h2>
                     <p>Ontdek Kwipper voor stressvrij huren en verhuren van kwalitatief kampmateriaal. Met handige filters vind je snel tenten, kookgerei en meer. Optimaliseer uitwisselingen, vul tekorten aan met overschotten en genereer nieuwe inkomsten voor je jeugdbeweging.</p>
                 </div>
                 <button>
@@ -184,15 +184,19 @@ import { ref } from 'vue';
         max-width: 200px;
         background-color: #1C98D6;
         color: #F0F2F1;
+        margin-left: 3em;
     }
 
     .big_text {
-        margin-top: 1em;
-        margin-bottom: 1em;
-        padding: 1em;
-        background-color: #F0F2F1;
+        margin: 3em;
+        padding: 3em;
+        background-color: white;
         border-radius: 12px;
         max-width: 839px;
+    }
+
+    #why{
+        margin-top: -0.25em;
     }
 
     .catalogus_CTA {
