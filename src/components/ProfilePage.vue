@@ -2,6 +2,7 @@
 import { reactive, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import apiService from '../../apiService';
+import StarRating from './Materiaal/Parts/StarRating.vue';
 
 const store = useStore();
 
@@ -22,13 +23,9 @@ onMounted(async () => {
     <div class="particulier-profiel" v-if="user.data">
         <div class="overlap">
             <div class="overlap-group">
-            <div class="rectangle"></div>
-            <img class="badge-jeugdbeweging" src="https://c.animaapp.com/rqXPDOkF/img/badge-jeugdbeweging-1.svg" />
-            <img class="star" src="https://c.animaapp.com/rqXPDOkF/img/star-4.svg" />
-            <img class="img" src="https://c.animaapp.com/rqXPDOkF/img/star-4.svg" />
-            <img class="star-2" src="https://c.animaapp.com/rqXPDOkF/img/star-4.svg" />
-            <img class="star-3" src="https://c.animaapp.com/rqXPDOkF/img/star-4.svg" />
-            <img class="star-4" src="https://c.animaapp.com/rqXPDOkF/img/star-5.svg" />
+              <div class="rectangle"></div>
+              <img class="badge-jeugdbeweging" src="https://c.animaapp.com/rqXPDOkF/img/badge-jeugdbeweging-1.svg" />
+              <StarRating class="starrating"/>
             </div>
             <div class="text-wrapper">{{ user.data.email }}</div>
             <div class="div">{{ user.data.gemeente }}</div>
@@ -109,7 +106,6 @@ onMounted(async () => {
   display: flex;
   width: 20%;
   height: 100%;
-  float: left;
 }
 
 .particulier-profiel .overlap {
@@ -150,45 +146,14 @@ onMounted(async () => {
   left: 128px;
 }
 
-.particulier-profiel .star {
-  left: 19px;
+.particulier-profiel .starrating {
   position: absolute;
-  width: 16px;
+  width: 80px;
   height: 15px;
-  top: 159px;
+  top: 155px;
+  left: 10px;
 }
 
-.particulier-profiel .img {
-  left: 38px;
-  position: absolute;
-  width: 16px;
-  height: 15px;
-  top: 159px;
-}
-
-.particulier-profiel .star-2 {
-  left: 57px;
-  position: absolute;
-  width: 16px;
-  height: 15px;
-  top: 159px;
-}
-
-.particulier-profiel .star-3 {
-  left: 76px;
-  position: absolute;
-  width: 16px;
-  height: 15px;
-  top: 159px;
-}
-
-.particulier-profiel .star-4 {
-  left: 95px;
-  position: absolute;
-  width: 16px;
-  height: 15px;
-  top: 159px;
-}
 
 .particulier-profiel .text-wrapper {
   position: absolute;
