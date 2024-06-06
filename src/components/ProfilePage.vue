@@ -1,19 +1,25 @@
 <script setup>
-import { computed } from 'vue';
+import { reactive, onMounted } from 'vue';
 import { useStore } from 'vuex';
+import apiService from '../../apiService';
 
 const store = useStore();
 
-const userId = computed(() => store.getters.userId);
+const userId = store.getters.userId;
+const user = reactive({ data: null });
 
-//call getUserData action from store with userId as parameter
-store.dispatch('getUserData', userId.value);
-
-
+onMounted(async () => {
+  if (userId) {
+    const response = await apiService.getUserById(userId);
+    user.data = response.data.data.user;
+    console.log('User data:', user.data);
+  }
+});
 </script>
 
 <template>
-    <div class="particulier-profiel" v-if="user">
+  <div class="profile">
+    <div class="particulier-profiel" v-if="user.data">
         <div class="overlap">
             <div class="overlap-group">
             <div class="rectangle"></div>
@@ -24,8 +30,8 @@ store.dispatch('getUserData', userId.value);
             <img class="star-3" src="https://c.animaapp.com/rqXPDOkF/img/star-4.svg" />
             <img class="star-4" src="https://c.animaapp.com/rqXPDOkF/img/star-5.svg" />
             </div>
-            <div class="text-wrapper">{{ user.email }}</div>
-            <div class="div">{{ user.gemeente }}</div>
+            <div class="text-wrapper">{{ user.data.email }}</div>
+            <div class="div">{{ user.data.gemeente }}</div>
             <img class="group" src="https://c.animaapp.com/rqXPDOkF/img/group-423@2x.png" />
             <img class="map-pin" src="https://c.animaapp.com/rqXPDOkF/img/map-pin.svg" />
         </div>
@@ -34,7 +40,7 @@ store.dispatch('getUserData', userId.value);
         <div class="text-wrapper-20">Verfijn je resultaten</div>
         <div class="group-7">
           <div class="text-wrapper-21">Categoriën</div>
-          <p class="text-wrapper-22">(die {{user.jb_name}} gebruikt)</p>
+          <p class="text-wrapper-22">(die {{user.data.jb_name}} gebruikt)</p>
         </div>
         <div class="text-wrapper-23">Tenten</div>
         <div class="text-wrapper-24">Gasvuren</div>
@@ -58,8 +64,8 @@ store.dispatch('getUserData', userId.value);
       </div>
     </div>
     
-    <div class="product-container">
-        <h1>{{ user.jb_name }}'s inventaris</h1>
+    <div class="product-container" v-if="user && user.data">
+        <h1>{{ user.data.jb_name }}'s inventaris</h1>
         <div class="grid-wrap">
             <div 
             v-for="product in cartItems"
@@ -75,7 +81,7 @@ store.dispatch('getUserData', userId.value);
                 
                 <div class="product-locatie">
                     <img class="vector-4" src="https://c.animaapp.com/rqXPDOkF/img/vector-13.svg" />
-                    <p>{{ user.jb_name }}</p>
+                    <p>{{ user.data.jb_name }}</p>
                 </div>
                 
                 <router-link v-bind:to="'/products/' + product.id">
@@ -85,13 +91,22 @@ store.dispatch('getUserData', userId.value);
             </div>
         </div>
     </div>
-    
+  </div>
     
 </template>
 
 <style scoped>
+
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100vw;
+    margin-top: 50px;
+    margin-bottom: 10%;
+}
 .particulier-profiel {
-  position: relative;
+  display: flex;
   width: 20%;
   height: 100%;
   float: left;

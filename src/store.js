@@ -44,17 +44,6 @@ const store = createStore({
       commit('clearAuth');
       delete axios.defaults.headers.common['Authorization'];
     },
-    async getUserData({ commit, state }) {
-      console.log("getUserData called with userId:", state.userId);
-      try {
-        const response = await axios.get(`http://localhost:3000/api/v1/user/${state.userId}`); // replace with your API endpoint
-        console.log("getUserData response:", response.data);
-        commit('setUser', response.data);
-        console.log("User data after commit:", state.user); // log the user data after commit
-      } catch (error) {
-        console.error("Failed to get user data", error);
-      }
-    },
   },
   getters: {
     isAuthenticated: state => !!state.token,

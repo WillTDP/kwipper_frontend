@@ -102,13 +102,7 @@ onMounted(async () => {
   } else {
     // User is logged in
     console.log("User is logged in");
-
-    // Dispatch getUserData action
-    console.log("Dispatching getUserData action...");
-    await store.dispatch('getUserData');
-    console.log("getUserData action dispatched");
-
-    // Get user data from Vuex state
+    
     const userId = store.getters.userId; // or store.getters.user
     console.log("User data", userId);
   }
