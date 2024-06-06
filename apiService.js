@@ -80,7 +80,13 @@ export default {
   // Return the Axios request using the constructed full URL
   return apiClient2.get(fullUrl);
   },
+  getUserByIdsmall(id){
+    return apiClient2.get(`/api/v1/user/${id}`);
+  },
   getUserById(id){
     return apiClient2.get(`/api/v1/user/full/${id}`);
+  },
+  getAssortmentbyUser(id){
+    return apiClient2.get(`/api/v1/two/user/${id}`);
   }
 };

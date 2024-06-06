@@ -371,7 +371,7 @@ const updateRadioButtonState = (newValue) => {
         </div><div class="cell-display2">
             <div class="div3">
                 <h1>Totaal: € </h1>
-                <button class="post" type="submit">Zet online</button>
+                <button class="post" type="submit">Zet online</button><!--user_id moe worden meegegeven-->
                 <button class="preview">Bekijk preview</button>
             </div>
         </div>

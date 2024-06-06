@@ -26,10 +26,10 @@ app.component('VDatePicker', DatePicker)
 
 
 const routes = [
-        { path: '/', component: landingspage, meta: { requiresAuth: false } },
+        { path: '/', component: landingspage, name: 'login', meta: { requiresAuth: false } },
         { path: '/materiaal', name: 'materiaal',component: materiaalpagina, meta: { requiresAuth: false } },
         { path: '/products/:id', component: materiaaldetail, meta: { requiresAuth: false } },
-        { path: '/user', component: profilepagina, meta: { requiresAuth: true } },
+        { path: '/user/:id', component: profilepagina, name: 'User', meta: { requiresAuth: true } },
         { path: '/zoekertje', component: zoekertjespage, meta: { requiresAuth: true } },
         { path: '/verhuurder', component: verhuurder, meta: { requiresAuth: true } },
         { path: '/winkelmand', component: winkelmand, meta: { requiresAuth: true } },

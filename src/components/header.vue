@@ -1,9 +1,9 @@
 <script setup>
 import { RouterLink, useRoute, useRouter } from 'vue-router';
-import { reactive, onMounted, onBeforeUnmount, watch, ref, defineEmits } from 'vue';
+import { reactive, onMounted, onBeforeUnmount, watch, ref, defineEmits, computed } from 'vue';
+import { useStore } from 'vuex';
 import headerpopupmobile from './headerpopupmobile.vue';
 import headerpopupaccount from './headerpopupaccount.vue';
-import store from '../store';
 
 
 const route = useRoute()
@@ -90,14 +90,23 @@ const navigateToMateriaal = () => {
     }
 };
 
-let isLoggedIn = store.getters.isAuthenticated;
-if (!isLoggedIn) {
-  // User is not logged in
-  console.log("User is not logged in");
-} else {
-  // User is logged in
-  console.log("User is logged in");
-}
+const store = useStore();
+
+// Computed properties for user and authentication status
+const isLoggedIn = computed(() => store.getters.isAuthenticated);
+
+onMounted(async () => {
+  if (!isLoggedIn.value) { // use .value to get the value from a computed property
+    // User is not logged in
+    console.log("User is not logged in");
+  } else {
+    // User is logged in
+    console.log("User is logged in");
+    
+    const userId = store.getters.userId; // or store.getters.user
+    console.log("User data", userId);
+  }
+});
 
 </script>
 

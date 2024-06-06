@@ -5,11 +5,18 @@ import axios from 'axios';
 const store = createStore({
   state: {
     user: null,
-    token: localStorage.getItem('authToken') || ''
+    token: localStorage.getItem('authToken') || '',
+    userId: localStorage.getItem('userId') || null // retrieve userId from localStorage
   },
   mutations: {
     setUser(state, user) {
+      console.log('setUser mutation called with', user);
       state.user = user;
+    },
+    setUserId(state, userId) {
+      console.log('setUserId mutation called with', userId);
+      localStorage.setItem('userId', userId);
+      state.userId = userId;
     },
     setToken(state, token) {
       state.token = token;
@@ -26,24 +33,21 @@ const store = createStore({
       const response = await axios.post('https://kwipper-back.onrender.com/api/v1/user/login', loginData);
       const token = response.data.token;
       const user = response.data.user;
+      const userId = user._id;
+      console.log("user:", user);
       commit('setToken', token);
       commit('setUser', user);
+      commit('setUserId', userId);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     },
     logout({ commit }) {
       commit('clearAuth');
       delete axios.defaults.headers.common['Authorization'];
     },
-    async fetchUser({ commit }) {
-      if (!state.token) return;
-      const response = await axios.get('https://kwipper-back.onrender.com/api/v1/user/me');
-      const user = response.data;
-      commit('setUser', user);
-    }
   },
   getters: {
     isAuthenticated: state => !!state.token,
-    user: state => state.user
+    userId: state => state.userId
   }
 });
 
