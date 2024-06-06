@@ -117,8 +117,8 @@ const handleFilterButtonClick = () => {
 .option-label {
   position: absolute;
   display: flex;
-  font-family: "Inter", Helvetica;
-  font-weight: 400;
+  font-family: "Museo sans", sans-serif;
+  font-weight: 700;
   color: #000000;
   font-size: 12px;
   line-height: normal;
