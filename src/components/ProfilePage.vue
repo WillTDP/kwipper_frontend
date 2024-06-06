@@ -23,7 +23,6 @@ onMounted(async () => {
     <div class="particulier-profiel" v-if="user.data">
         <div class="overlap">
             <div class="overlap-group">
-              <div class="rectangle"></div>
               <img class="badge-jeugdbeweging" src="https://c.animaapp.com/rqXPDOkF/img/badge-jeugdbeweging-1.svg" />
               <StarRating class="starrating"/>
             </div>
@@ -115,8 +114,12 @@ onMounted(async () => {
 
 .particulier-profiel .overlap {
   display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
   background-color: #f0f2f1;
   border-radius: 12px;
+  gap: 20px;
   margin: 50px;
   padding: 20px;
 }
@@ -129,15 +132,20 @@ onMounted(async () => {
   background-position: 50% 50%;
 }
 
-.particulier-profiel .rectangle {
-  width: 183px;
-  height: 183px;
-  border-radius: 24px;
-}
-
 .particulier-profiel .badge-jeugdbeweging {
+  position: relative;
+  top: 128px;
+  left: 128px;
   width: 55px;
   height: 55px;
+}
+
+.particulier-profiel .starrating {
+  position: relative;
+  top: 95px;
+  left: 10px;
+  width: 80px;
+  height: 15px;
 }
 
 .info {
@@ -158,11 +166,6 @@ onMounted(async () => {
 .user_info > * {
   margin: 0;
   padding: 0;
-}
-
-.particulier-profiel .starrating {
-  width: 80px;
-  height: 15px;
 }
 
 .particulier-profiel .group {
