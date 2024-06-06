@@ -16,6 +16,8 @@ let selectedPrice = ref(null);
 let selectedCondition = ref(null);
 let selectedName = ref(null);
 let selectedBrand = ref(null);
+const assortments = ref([]);
+
 
 const data = ref(null);
 
@@ -122,10 +124,27 @@ const fetchData = async () => {
     const response = await apiService.fetchData();
     console.log('API Response:', response.data);
     data.value = response.data;
+
+    // Create an array of promises
+    const promises = response.data.data.twoAssortment.map((assortment) => {
+      if (assortment.user) {
+        // Return a promise to fetch assortment by user
+        return apiService.getUserByIdsmall(assortment.user.user_id);
+      }
+    });
+
+    // Filter out any undefined values (from assortments without a user)
+    const validPromises = promises.filter(Boolean);
+
+    // Wait for all promises to resolve
+    assortments.value = await Promise.all(validPromises);
+
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
+
+
 
 const clearSelection = () => {
   selectedCategory.value = "";
@@ -157,8 +176,8 @@ watch(route, () => {
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
       <div class="grid-wrap" v-if="data">
         <ProductTrending class="producttrending" @filter="filterProductsByBrand"/>
-        <ProductItemPremium v-for="item in filteredPremiumItems" :key="item._id" :item="item"/>
-        <ProductItem v-for="item in filteredNonPremiumItems" :key="item._id" :item="item" />
+        <ProductItemPremium v-for="(item, index) in filteredPremiumItems" :key="item._id" :item="item" :jb_name="assortments[index] && assortments[index].data.data.user.jb_name ? assortments[index].data.data.user.jb_name : ''"/>
+        <ProductItem v-for="item in filteredNonPremiumItems" :key="item._id" :item="item"/>
       </div>
     </div>
   </div>

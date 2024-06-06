@@ -85,7 +85,7 @@ defineExpose({
     <div class="product-container" v-if="user && user.data">
         <h1>{{ user.data.jb_name }}'s inventaris</h1>
         <div class="grid-wrap">
-            <ProductItemPremium v-for="(product, index) in products.data" :key="index" :item="product" class="ProductItemPremium"/>     
+            <ProductItemPremium v-for="(product, index) in products.data" :key="index" :item="product" class="ProductItemPremium" :jb_name="user.data.jb_name"/>     
             <ProductItem v-for="(product, index) in products.data" :key="index" :item="product" class="ProductItem"/>
         </div>
     </div>

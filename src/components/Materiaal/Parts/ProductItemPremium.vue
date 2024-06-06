@@ -9,6 +9,8 @@ const camp = campImage1;
 const props = defineProps({
   
   item: Object,
+  jb_name: String, // declare jb_name as a prop
+
 });
 
 
@@ -20,7 +22,7 @@ const props = defineProps({
         <router-link v-bind:to="'/products/' + item._id">
             <div class="image-container">
                 <img class="verhuurder" src="https://c.animaapp.com/rqXPDOkF/img/rectangle-260@2x.png" />
-                <p class="product-owner">{{item.user.posted_by}}</p>
+                <p class="product-owner">{{ jb_name ? jb_name : item.user.posted_by }}</p>
                 <productRating class="product-rating" />
                 <img :src="camp" onerror="this.onerror=null; this.src='../../assets/fouragetent.png'"  >
             </div>
