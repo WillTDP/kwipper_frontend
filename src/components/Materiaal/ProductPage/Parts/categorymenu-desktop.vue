@@ -102,6 +102,14 @@ const filter = (category) => {
   margin: 0.5%;
 }
 
+.category h3{
+  margin-top: -0.1em;
+}
+
+.segment p:hover{
+  font-weight: bold;
+}
+
 h2 {
   margin-bottom: 16px;
 }
