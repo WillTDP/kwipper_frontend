@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 import apiService from '../../apiService';
 import StarRating from './Materiaal/Parts/StarRating.vue';
@@ -12,6 +12,25 @@ const userId = store.getters.userId;
 const user = reactive({ data: null });
 const products = reactive({ data: [] });
 
+let selectedPriceValue = ref(null);
+let selectedConditionValue = ref(null);
+
+const filterProductsByPrice = (priceRange) => {
+  if (!priceRange || priceRange === "") {
+    selectedPriceValue.value = null; // Reset the filter
+    return;
+  }
+  const [lower, upper] = priceRange.split('-').map(Number);
+  selectedPriceValue.value = { lower, upper };
+};
+
+
+const filterProductsByCondition = (condition) => {
+  selectedConditionValue.value = condition;
+  console.log(selectedConditionValue.value);
+};
+
+
 onMounted(async () => {
   if (userId) {
     const response = await apiService.getUserById(userId);
@@ -23,15 +42,41 @@ onMounted(async () => {
   }
 });
 
+const filteredPremiumItems = computed(() => {
+  if (!products.data) {
+    // Check if products data is valid
+    return [];
+  }
+  
+  return products.data.filter(product => 
+    product.item && product.item.premium === true &&
+    // Add any additional filters here
+    (selectedPriceValue.value ? product.item.price >= selectedPriceValue.value.lower && product.item.price <= selectedPriceValue.value.upper : true) &&
+    (selectedConditionValue.value ? String(product.item.condition) === String(selectedConditionValue.value) : true)
+  );
+});
+
+const filteredNonPremiumItems = computed(() => {
+  if (!products.data) {
+    // Check if products data is valid
+    return [];
+  }
+  
+  return products.data.filter(product => 
+    product.item && product.item.premium === false &&
+    // Add any additional filters here
+    (selectedPriceValue.value ? product.item.price >= selectedPriceValue.value.lower && product.item.price <= selectedPriceValue.value.upper : true) &&
+    (selectedConditionValue.value ? String(product.item.condition) === String(selectedConditionValue.value) : true)
+  );
+});
+
+
 const getAssortmentbyUser = async () => {
   const response = await apiService.getAssortmentbyUser(userId);
   console.log('Assortment by user:', response.data);
   return response.data;
 };
 
-defineExpose({
-  products,
-});
 </script>
 
 <template>
@@ -60,9 +105,28 @@ defineExpose({
           <div class="filters">
             <div class="Prijs">
               <p>Prijs</p>
+              <select class="input-limited" v-model="selectedPriceValue" @change="filterProductsByPrice($event.target.value)">
+                <option value="" disabled selected>Sorteer op prijs</option>
+                <option value="">Reset</option>
+                <option value="0-5">€0-€5</option>
+                <option value="5-10">€5-€10</option>
+                <option value="10-20">€10-€20</option>
+                <option value="20-30">€20-€30</option>
+                <option value="30-40">€30-€40</option>
+                <option value="40-50">€40-€50</option>
+                <option value="50-100">€50-€100</option>
+                <option value="100-200">€100-€200</option>
+              </select>
             </div>
             <div class="Conditie">
               <p>Conditie</p>
+              <select class="input-limited" v-model="selectedConditionValue" @change="filterProductsByCondition($event.target.value)">
+                <option value="" disabled selected>Sorteer op</option>
+                <option value="">Reset</option>
+                <option value="3">Matig</option>
+                <option value="4">Goed</option>
+                <option value="5">Perfect</option>
+              </select>
             </div>
           </div>
           <div class="group-7">
@@ -85,8 +149,8 @@ defineExpose({
     <div class="product-container" v-if="user && user.data">
         <h1>{{ user.data.jb_name }}'s inventaris</h1>
         <div class="grid-wrap">
-            <ProductItemPremium v-for="(product, index) in products.data" :key="index" :item="product" class="ProductItemPremium" :jb_name="user.data.jb_name"/>     
-            <ProductItem v-for="(product, index) in products.data" :key="index" :item="product" class="ProductItem"/>
+            <ProductItemPremium v-for="(product, index) in filteredPremiumItems" :key="index" :item="product" class="ProductItemPremium" :jb_name="user.data.jb_name"/>     
+            <ProductItem v-for="(product, index) in filteredNonPremiumItems" :key="index" :item="product" class="ProductItem"/>
         </div>
     </div>
   </div>
@@ -259,6 +323,29 @@ defineExpose({
   top: 0px;
   left: 0px;
 }
+
+.input-limited {
+  background: none;
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  width: 100%;
+  color: black;
+  background-color: #D9D9D9;
+}
+
+button {
+  position: absolute;
+  background-color: #1C98D6;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  width: 85px;
+  padding: 0.5em 1em;
+  font-size: 10px;
+  cursor: pointer;
+}
+
 
 .product-container {
   display: flex;

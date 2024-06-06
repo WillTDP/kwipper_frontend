@@ -7,6 +7,14 @@ import { useCalendar } from 'v-calendar';
 const props = defineProps(['itemData', 'userData','showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
 const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'update:showFlagPopup']);
 
+const conditionMapping = {
+  1: 'Beschadigd',
+  2: 'Defect',
+  3: 'Matig',
+  4: 'Goed',
+  5: 'Perfect',
+};
+
 const openFlagPopup = () => {
   emits('update:showFlagPopup', true);
   emits('openPopup');
@@ -66,7 +74,7 @@ const sendMessage = () => {
                   </div>
                   <div v-if="itemData && itemData.data.assortment.item">
                     <p><b>Stock:</b> {{ itemData.data.assortment.item.price }}</p>
-                    <p><b>Staat:</b> {{ itemData.data.assortment.item.condition }}</p>
+                    <p><b>Staat:</b> {{ conditionMapping[itemData.data.assortment.item.condition] }}</p>
                     <p><b>Waarborg:</b> €{{ itemData.data.assortment.item.waarborg }} per product</p>
                   </div>
                 </div>
