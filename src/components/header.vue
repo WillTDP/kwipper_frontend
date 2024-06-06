@@ -93,7 +93,6 @@ const navigateToMateriaal = () => {
 const store = useStore();
 
 // Computed properties for user and authentication status
-const currentUser = computed(() => store.getters.user);
 const isLoggedIn = computed(() => store.getters.isAuthenticated);
 
 onMounted(async () => {
@@ -110,8 +109,8 @@ onMounted(async () => {
     console.log("getUserData action dispatched");
 
     // Get user data from Vuex state
-    const userData = store.getters.user; // or store.getters.user
-    console.log("User data", userData);
+    const userId = store.getters.userId; // or store.getters.user
+    console.log("User data", userId);
   }
 });
 

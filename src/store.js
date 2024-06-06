@@ -6,7 +6,7 @@ const store = createStore({
   state: {
     user: null,
     token: localStorage.getItem('authToken') || '',
-    userId: null
+    userId: localStorage.getItem('userId') || null // retrieve userId from localStorage
   },
   mutations: {
     setUser(state, user) {
@@ -15,6 +15,7 @@ const store = createStore({
     },
     setUserId(state, userId) {
       console.log('setUserId mutation called with', userId);
+      localStorage.setItem('userId', userId);
       state.userId = userId;
     },
     setToken(state, token) {
@@ -57,7 +58,7 @@ const store = createStore({
   },
   getters: {
     isAuthenticated: state => !!state.token,
-    user: state => state.user
+    userId: state => state.userId
   }
 });
 

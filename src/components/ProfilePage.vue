@@ -1,22 +1,13 @@
 <script setup>
-    import { ref, computed, onMounted } from 'vue';
-    import {  products, cartItems } from '../fake-data.js';
-    import apiService from '../../apiService';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-    const user = ref(null);
+const store = useStore();
 
-    const getUserById = async (id) => {
-      try {
-        const response = await apiService.getUserById(id);
-        user.value = response.data.data.user;
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
+const userId = computed(() => store.getters.userId);
 
-  onMounted(() => {
-    getUserById();
-  });
+//call getUserData action from store with userId as parameter
+store.dispatch('getUserData', userId.value);
 
 </script>
 
