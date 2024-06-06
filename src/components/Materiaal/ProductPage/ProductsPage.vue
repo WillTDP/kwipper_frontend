@@ -127,7 +127,7 @@ const fetchData = async () => {
 
     // Create an array of promises
     const promises = response.data.data.twoAssortment.map((assortment) => {
-      if (assortment.user) {
+      if (assortment.user && assortment.user.user_id) {
         // Return a promise to fetch assortment by user
         return apiService.getUserByIdsmall(assortment.user.user_id);
       }
