@@ -82,5 +82,8 @@ export default {
   },
   getUserById(id){
     return apiClient2.get(`/api/v1/user/full/${id}`);
+  },
+  getAssortmentbyUser(id){
+    return apiClient2.get(`/api/v1/two/user/${id}`);
   }
 };

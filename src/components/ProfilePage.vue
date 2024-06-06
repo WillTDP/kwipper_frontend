@@ -3,18 +3,34 @@ import { reactive, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import apiService from '../../apiService';
 import StarRating from './Materiaal/Parts/StarRating.vue';
+import ProductItem from './Materiaal/Parts/ProductItem.vue';
+import ProductItemPremium from './Materiaal/Parts/ProductItemPremium.vue';
 
 const store = useStore();
 
 const userId = store.getters.userId;
 const user = reactive({ data: null });
+const products = reactive({ data: [] });
 
 onMounted(async () => {
   if (userId) {
     const response = await apiService.getUserById(userId);
     user.data = response.data.data.user;
     console.log('User data:', user.data);
+
+    const assortmentResponse = await getAssortmentbyUser(); // Call getAssortmentbyUser here
+    products.data = assortmentResponse.data.assortment; // Access the 'assortment' property of the response
   }
+});
+
+const getAssortmentbyUser = async () => {
+  const response = await apiService.getAssortmentbyUser(userId);
+  console.log('Assortment by user:', response.data);
+  return response.data;
+};
+
+defineExpose({
+  products,
 });
 </script>
 
@@ -69,28 +85,8 @@ onMounted(async () => {
     <div class="product-container" v-if="user && user.data">
         <h1>{{ user.data.jb_name }}'s inventaris</h1>
         <div class="grid-wrap">
-            <div 
-            v-for="product in cartItems"
-            class="product-item"
-            v-bind:key="product.id" 
-            >
-                <img v-bind:src="product.imageUrl" class="product-image">    
-                <div class="item-info">
-                    <h3 class="product-name">{{ product.name }}</h3>
-                    <p class="product-price">€ {{ product.item.price }}</p>
-                    <p class="product-description">{{ product.description }}</p>
-                </div>
-                
-                <div class="product-locatie">
-                    <img class="vector-4" src="https://c.animaapp.com/rqXPDOkF/img/vector-13.svg" />
-                    <p>{{ user.data.jb_name }}</p>
-                </div>
-                
-                <router-link v-bind:to="'/products/' + product.id">
-                    <button class="button-details">Details</button>
-                </router-link>
-                
-            </div>
+            <ProductItemPremium v-for="(product, index) in products.data" :key="index" :item="product" class="ProductItemPremium"/>     
+            <ProductItem v-for="(product, index) in products.data" :key="index" :item="product" class="ProductItem"/>
         </div>
     </div>
   </div>
@@ -266,6 +262,7 @@ onMounted(async () => {
 
 .product-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
 
 }
@@ -273,51 +270,28 @@ onMounted(async () => {
 .product-container h1 {
     font-size: 48px;
     font-family: "Bitter-ExtraBold", Helvetica;
+    padding: 0;
 }
 
 .grid-wrap {
-    
-    
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    display: flex;
     margin-top: 16px;
     margin-right: 10%;
-    
+    max-width: 1250px;
 }
 
-.product-image{
-    border-radius: 12px;
-    margin: 50px;
-    float: left;
-    height: 183px;
-    width: 183px;
+.ProductItemPremium {
+  margin: 0;
+  padding: 0;
+  width: 425px;
 }
 
-.product-item{
-    background-color: #f0f2f1;
-    border-radius: 12px;
+.ProductItem {
+  margin: 0;
+  padding: 0;
+  width: 185px;
 }
-
-.item-info{
-    
-    position: relative;
-    width: 60%;
-}
-
-
-
-.button-details{
-    background-color: #1C98D6;
-    color: #f0f2f1;
-}
-
-.product-name {
-    margin-bottom: 0;
-    color: #2B5740;
-    font-family: "Amazing Slab Trial-Medium", Helvetica;
-    font-weight: 500;
-    font-size: 32px;
-}
-
-
 
 </style>
