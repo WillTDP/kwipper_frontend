@@ -39,6 +39,7 @@ onMounted(async () => {
 
     const assortmentResponse = await getAssortmentbyUser(); // Call getAssortmentbyUser here
     products.data = assortmentResponse.data.assortment; // Access the 'assortment' property of the response
+    console.log('Products data:', products.data);
   }
 });
 
@@ -133,16 +134,16 @@ const getAssortmentbyUser = async () => {
             <p>Categoriën</p>
             <p class="smol_text">(die {{user.data.jb_name}} gebruikt)</p>
           </div>
-          <div class="tags">
-            <div class="tag">
-              <div class="img-wrapper"><img class="vector-7" src="https://c.animaapp.com/rqXPDOkF/img/vector-11.svg" /></div>
-              <p>Tenten</p>
+          <div v-if="products.data.length > 0">
+            <div class="tags" v-for="(product, productIndex) in products.data" :key="'product-' + productIndex">
+              <template v-if="product.item && product.item.art_category && typeof product.item.art_category === 'string'">
+                <div class="tag" v-for="(category, categoryIndex) in product.item.art_category.split(', ')" :key="'category-' + categoryIndex">
+                  <div class="img-wrapper"><img class="vector-7" src="https://c.animaapp.com/rqXPDOkF/img/vector-11.svg" /></div>
+                  <p>{{ category }}</p>
+                </div>
+              </template>
             </div>
-            <div class="tag">
-              <div class="img-wrapper"><img class="vector-7" src="https://c.animaapp.com/rqXPDOkF/img/vector-11.svg" /></div>
-              <p>Gasvuren</p>
-            </div>
-          </div>
+        </div>
         </div>
     </div>
     
