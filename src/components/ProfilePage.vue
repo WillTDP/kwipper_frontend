@@ -9,6 +9,7 @@ const userId = computed(() => store.getters.userId);
 //call getUserData action from store with userId as parameter
 store.dispatch('getUserData', userId.value);
 
+
 </script>
 
 <template>
