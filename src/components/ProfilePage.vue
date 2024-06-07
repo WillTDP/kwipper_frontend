@@ -496,7 +496,7 @@ button {
     top: 60px;
   }
 
-  /deep/ .starrating .star {
+  ::v-deep .starrating .star {
     font-size: 10px;
   }
 
