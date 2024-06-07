@@ -10,7 +10,7 @@ const apiClient2 = axios.create({
 });
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:5173/', // zet hier de webservice url
+    baseURL: 'http://localhost:3000/', // zet hier de webservice url
     headers: {
       'Content-Type': 'application/json',
     },
