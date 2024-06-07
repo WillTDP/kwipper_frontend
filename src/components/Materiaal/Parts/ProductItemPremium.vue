@@ -21,7 +21,7 @@ const props = defineProps({
         
         <router-link v-bind:to="'/products/' + item._id">
             <div class="image-container">
-                <img class="verhuurder" src="https://c.animaapp.com/rqXPDOkF/img/rectangle-260@2x.png" />
+                <img class="verhuurder" :src="item.item.pictures[0] ? item.item.pictures[0] : '../../../../src/assets/seniorentent.png'"/>
                 <p class="product-owner">{{ jb_name ? jb_name : item.user.posted_by }}</p>
                 <productRating class="product-rating" />
                 <img :src="camp" onerror="this.onerror=null; this.src='../../assets/fouragetent.png'"  >
