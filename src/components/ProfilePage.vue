@@ -244,7 +244,7 @@ const getAssortmentbyUser = async () => {
 .particulier-profiel .filter_block {
   width: 306px;
   max-width: 306px;
-  height: 280px;
+  height: auto;
   background-color: #f0f2f1;
   border-radius: 12px;
   padding: 15px;
