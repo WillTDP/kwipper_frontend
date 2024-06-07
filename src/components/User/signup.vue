@@ -17,7 +17,9 @@ const signupData = {
     role: '',
     what_jeugdbeweging: '',
     jb_name: '',
+    verenigiging_name: '',
     group_number: '',
+    ondnr: '',
     straatnaam: '',
     huisnummer: '',
     postcode: '',
@@ -49,7 +51,7 @@ const validateStep = (step) => {
             steps.value[step - 1].step_valid = true;
         }
     }
-    else if (step === 3) {
+    else if (step === 3 && signupData.role === 'Jeugdbeweging') {
         if (!signupData.what_jeugdbeweging) {
             steps.value[step - 1].step_valid = false;
             console.log('Step 3 is not valid');
@@ -59,7 +61,7 @@ const validateStep = (step) => {
             console.log(signupData.what_jeugdbeweging);
         }
     }
-    else if (step === 4) {
+    else if (step === 4 && signupData.role === 'Jeugdbeweging') {
         if (!signupData.group_number || !signupData.jb_name || !signupData.phone || !signupData.straatnaam || !signupData.huisnummer || !signupData.postcode || !signupData.gemeente || !signupData.postbus) {
             steps.value[step - 1].step_valid = false;
             console.log('Step 4 is not valid');
@@ -90,6 +92,7 @@ const previousStep = () => {
     console.log(`Current step is now: ${currentStep.value}`);
 };
 
+
 const submitForm = async () => {
     try {
         // Call the createUser function from apiService.js and pass signupData.value
@@ -110,7 +113,9 @@ const submitForm = async () => {
             role: '',
             what_jeugdbeweging: '',
             jb_name: '',
+            verenigiging_name: '',
             group_number: '',
+            ondnr: '',
             straatnaam: '',
             huisnummer: '',
             postcode: '',
@@ -177,10 +182,47 @@ const updateStep = (step) => {
             <template v-slot:step3>
                 <div v-if="currentStep === 3 && signupData.role === 'Particulier'">
                     <p>Ik ben Particulier...</p>
+                    <label for="phone">Telefoonnummer:</label>
+                    <input type="text" id="phone" name="phone" v-model="signupData.phone" required>
+
+                    <label for="straatnaam">Straatnaam:</label>
+                    <input type="text" id="straatnaam" name="straatnaam" v-model="signupData.straatnaam" required>
+
+                    <label for="huisnummer">Huisnummer:</label>
+                    <input type="text" id="huisnummer" name="huisnummer" v-model="signupData.huisnummer" required>
+
+                    <label for="postcode">Postcode:</label>
+                    <input type="text" id="postcode" name="postcode" v-model="signupData.postcode" required>
+
+                    <label for="gemeente">Gemeente:</label>
+                    <input type="text" id="gemeente" name="gemeente" v-model="signupData.gemeente" required>
+
+                    <label for="postbus">Postbus:</label>
+                    <input type="text" id="postbus" name="postbus" v-model="signupData.postbus" required>
                     
                 </div>
                 <div v-if="currentStep === 3 && signupData.role === 'Vereniging'">
-                    <p>Ik ben Vereniging...</p>
+                    <p>Vereniging gegevens</p>
+                    <label for="vereniging_name">Vereniging naam:</label>
+                    <input type="text" id="vereniging_name" name="vereniging_name" v-model="signupData.verenigiging_name" required>
+
+                    <label for="phone">Telefoonnummer:</label>
+                    <input type="text" id="phone" name="phone" v-model="signupData.phone" required>
+
+                    <label for="straatnaam">Straatnaam:</label>
+                    <input type="text" id="straatnaam" name="straatnaam" v-model="signupData.straatnaam" required>
+
+                    <label for="huisnummer">Huisnummer:</label>
+                    <input type="text" id="huisnummer" name="huisnummer" v-model="signupData.huisnummer" required>
+
+                    <label for="postcode">Postcode:</label>
+                    <input type="text" id="postcode" name="postcode" v-model="signupData.postcode" required>
+
+                    <label for="gemeente">Gemeente:</label>
+                    <input type="text" id="gemeente" name="gemeente" v-model="signupData.gemeente" required>
+
+                    <label for="postbus">Postbus:</label>
+                    <input type="text" id="postbus" name="postbus" v-model="signupData.postbus" required>
                     
                 </div>
                 <div v-if="currentStep === 3 && signupData.role === 'Jeugdbeweging'">
@@ -218,6 +260,11 @@ const updateStep = (step) => {
 
                     <label for="postbus">Postbus:</label>
                     <input type="text" id="postbus" name="postbus" v-model="signupData.postbus" required>
+                    
+                </div>
+                <div v-if="currentStep === 4 && signupData.role === 'Vereniging'">
+                    <label for="Ondernemingsnummer">Ondernemingsnummer:</label>
+                    <input type="text" id="Ondernemingsnummer" name="Ondernemingsnummer" v-model="signupData.ondnr" required>
                     
                 </div>
             </template>

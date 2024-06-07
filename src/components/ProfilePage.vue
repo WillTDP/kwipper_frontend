@@ -91,6 +91,7 @@ const getAssortmentbyUser = async () => {
               </div>
             </div>
             <div class="info">
+              <p class="user_name">{{ user.data.jb_name }}</p>
               <div class="user_info mail">
                 <img class="email-icon" src="https://c.animaapp.com/rqXPDOkF/img/group-423@2x.png" />
                 <p>{{ user.data.email }}</p>
@@ -222,6 +223,13 @@ const getAssortmentbyUser = async () => {
   justify-content: center;
   margin: 0;
   padding: 0;
+}
+
+.user_name {
+  font-family: 'Amazing Slab Medium', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  display: none;
 }
 
 .user_info {
@@ -356,8 +364,9 @@ button {
 }
 
 .product-container h1 {
-    font-size: 48px;
-    font-family: "Bitter-ExtraBold", Helvetica;
+    font-size: 36px;
+    font-family: "Bitter", Helvetica;
+    font-weight: 700;
     padding: 0;
 }
 
@@ -380,6 +389,138 @@ button {
   margin: 0;
   padding: 0;
   width: 185px;
+}
+
+@media screen and (max-width: 811px) {
+  .profile {
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  } 
+
+  .particulier-profiel {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .particulier-profiel .overlap {
+    flex-direction: row;
+    background-color: transparent;
+    height: auto;
+  }
+
+  .user_info {
+    display: flex;
+    word-wrap:break-word;
+    white-space: wrap;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .user_name {
+    display: block;
+  }
+
+  .user_info.mail p {
+    /* your styles here */
+    white-space: normal;
+    word-wrap:break-all;
+    width: 100%;
+    max-width: max-content;
+    min-width: 150px;
+  }
+
+  .particulier-profiel .filter_block {
+    display: none;
+  }
+
+  .product-container {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .product-container h1 {
+    font-size: 32px;
+    font-family: 'Amazing Slab Medium', sans-serif;
+    text-align: center;
+  }
+
+  .grid-wrap {
+      width: 95%;
+      flex-wrap: wrap;
+      padding: 6px;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+    
+    ProductItemPremium {
+      width: auto;
+    }
+
+}
+
+@media screen and (max-width: 420px) {
+  .particulier-profiel {
+    margin: 0;
+    padding: 0%;
+  }
+  .user_info.mail p {
+    word-wrap: break-word;
+    max-width: 85%;
+  }
+
+  .particulier-profiel .overlap {
+    height: auto;
+  }
+  .particulier-profiel .overlap-group {
+    margin: 0;
+    padding: 0;
+    width: 127px;
+    height: 127px;
+  }
+
+  .particulier-profiel .badge-jeugdbeweging {
+    width: 40px;
+    height: 40px;
+    top: 87px;
+    left: 87px;
+  }
+
+  .particulier-profiel .starrating {
+    top: 60px;
+  }
+
+  ::v-deep .starrating .star {
+    font-size: 10px;
+  }
+
+}
+@media screen and (max-width: 400px) {
+  .profile .overlap{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .particulier-profiel {
+    margin: 1em;
+    padding: 0%;
+  }
+
+  .particulier-profiel .overlap {
+    gap: 0px;
+    height: auto;
+  }
+
+  .user_info.mail p {
+    word-wrap: break-word;
+    max-width: 100%;
+  }
 }
 
 </style>
