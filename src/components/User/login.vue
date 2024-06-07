@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import {loginUser}  from '../../../apiService';
 import { useStore } from 'vuex';
 
 const store = useStore();

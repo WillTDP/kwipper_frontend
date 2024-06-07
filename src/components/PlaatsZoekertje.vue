@@ -7,6 +7,53 @@
     import adverteergratis from './GratisAdverteren.vue'
     import adverteerpremium from './PremiumAdverteren.vue'
     import {createAssortment}  from '../../apiService';
+    import apiService from '../../apiService';
+    import { useStore } from 'vuex';
+
+    const store = useStore();
+
+    const userId = store.getters.userId;
+    const user = reactive({ data: null });
+
+    const formData = reactive({
+
+    item:{
+        art_name: '',
+        user: '4',
+        price: '',
+        waarborg: '',
+        available_from: '24 mei 2024',
+        available_until: '18 mei 2024',
+        art_desc: '',
+        art_category: '',
+        condition:'',
+        size: '',
+        brand: '',
+        complete_set: true,
+        free: true,
+        premium: false,
+    },
+    user: {
+        user_id: null,
+        posted_by: null,
+        location: null,
+    },
+        // Add other form fields here
+    }); console.log('formData:', formData);
+
+    onMounted(async () => {
+    if (userId) {
+        const response = await apiService.getUserById(userId);
+        user.data = response.data.data.user;
+
+        //make sure to initialize the user data in the form data here
+        formData.user.user_id = user.data._id;
+        formData.user.posted_by = user.data.first_name + ' ' + user.data.last_name; 
+        formData.user.location = user.data.gemeente;
+        console.log('User data:', user.data);
+    }
+    });
+
 
     
     /* attempt at trying to showcase how many items there are in the database
@@ -27,38 +74,13 @@
     // Create a reactive state to store the radio button state
  
 
-// Function to update the radio button state when the event is emitted from the child component
-const updateRadioButtonState = (newValue) => {
-  radioButtonState.value = newValue;
-  console.log('Button state in parent component:', newValue);
-};
-    
-    const formData = {
-        
-        
-
-    item:{
-        art_name: '',
-        user: '4',
-        price: '',
-        waarborg: '',
-        available_from: '24 mei 2024',
-        available_until: '18 mei 2024',
-        art_desc: '',
-        art_category: '',
-        condition:'',
-        size: '',
-        brand: '',
-        complete_set: true,
-        free: true,
-        premium: false,
-    },
-    user:{
-        posted_by: 'Zegher',
-        location : 'Herentals',
-    },
-        // Add other form fields here
+    // Function to update the radio button state when the event is emitted from the child component
+    const updateRadioButtonState = (newValue) => {
+    radioButtonState.value = newValue;
+    console.log('Button state in parent component:', newValue);
     };
+    
+    
 
     // Method to handle form submission
     const submitForm = async () => {
@@ -89,12 +111,14 @@ const updateRadioButtonState = (newValue) => {
                 premium: false,
             },
             user:{
-                posted_by: 'Zegher',
-                location : 'Herentals',
+                user_id: user.data._id,
+                posted_by: user.data.first_name + ' ' + user.data.last_name,
+                location : user.data.gemeente,
             },
             // Reset other form fields if needed
         };
         } catch (error) {
+        console.log('tried to upload:', formData);
         console.error('Error creating assortment:', error);
         // Handle error if needed
         }
@@ -371,7 +395,7 @@ const updateRadioButtonState = (newValue) => {
         </div><div class="cell-display2">
             <div class="div3">
                 <h1>Totaal: € </h1>
-                <button class="post" type="submit">Zet online</button>
+                <button class="post" type="submit">Zet online</button><!--user_id moe worden meegegeven-->
                 <button class="preview">Bekijk preview</button>
             </div>
         </div>

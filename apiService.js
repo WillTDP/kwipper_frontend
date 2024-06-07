@@ -10,7 +10,7 @@ const apiClient = axios.create({
 });
 
 const apiClient2 = axios.create({
-    baseURL: 'http://localhost:3000/', // zet hier de webservice url
+    baseURL: 'http://localhost:5173/', // zet hier de webservice url
     headers: {
       'Content-Type': 'application/json',
     },
@@ -80,7 +80,13 @@ export default {
   // Return the Axios request using the constructed full URL
   return apiClient2.get(fullUrl);
   },
+  getUserByIdsmall(id){
+    return apiClient2.get(`/api/v1/user/${id}`);
+  },
   getUserById(id){
     return apiClient2.get(`/api/v1/user/full/${id}`);
+  },
+  getAssortmentbyUser(id){
+    return apiClient2.get(`/api/v1/two/user/${id}`);
   }
 };

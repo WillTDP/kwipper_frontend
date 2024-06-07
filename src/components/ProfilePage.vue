@@ -1,458 +1,526 @@
 <script setup>
-    import { ref, computed, onMounted } from 'vue';
-    import {  products, cartItems } from '../fake-data.js';
-    import apiService from '../../apiService';
+import { ref, reactive, onMounted, computed } from 'vue';
+import { useStore } from 'vuex';
+import apiService from '../../apiService';
+import StarRating from './Materiaal/Parts/StarRating.vue';
+import ProductItem from './Materiaal/Parts/ProductItem.vue';
+import ProductItemPremium from './Materiaal/Parts/ProductItemPremium.vue';
 
-    const user = ref(null);
+const store = useStore();
 
-    const getUserById = async (id) => {
-      try {
-        const response = await apiService.getUserById(id);
-        user.value = response.data.data.user;
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
+const userId = store.getters.userId;
+const user = reactive({ data: null });
+const products = reactive({ data: [] });
 
-  onMounted(() => {
-    getUserById();
-  });
+let selectedPriceValue = ref(null);
+let selectedConditionValue = ref(null);
+
+const filterProductsByPrice = (priceRange) => {
+  if (!priceRange || priceRange === "") {
+    selectedPriceValue.value = null; // Reset the filter
+    return;
+  }
+  const [lower, upper] = priceRange.split('-').map(Number);
+  selectedPriceValue.value = { lower, upper };
+};
+
+
+const filterProductsByCondition = (condition) => {
+  selectedConditionValue.value = condition;
+  console.log(selectedConditionValue.value);
+};
+
+
+onMounted(async () => {
+  if (userId) {
+    const response = await apiService.getUserById(userId);
+    user.data = response.data.data.user;
+    console.log('User data:', user.data);
+
+    const assortmentResponse = await getAssortmentbyUser(); // Call getAssortmentbyUser here
+    products.data = assortmentResponse.data.assortment; // Access the 'assortment' property of the response
+    console.log('Products data:', products.data);
+  }
+});
+
+const filteredPremiumItems = computed(() => {
+  if (!products.data) {
+    // Check if products data is valid
+    return [];
+  }
+  
+  return products.data.filter(product => 
+    product.item && product.item.premium === true &&
+    // Add any additional filters here
+    (selectedPriceValue.value ? product.item.price >= selectedPriceValue.value.lower && product.item.price <= selectedPriceValue.value.upper : true) &&
+    (selectedConditionValue.value ? String(product.item.condition) === String(selectedConditionValue.value) : true)
+  );
+});
+
+const filteredNonPremiumItems = computed(() => {
+  if (!products.data) {
+    // Check if products data is valid
+    return [];
+  }
+  
+  return products.data.filter(product => 
+    product.item && product.item.premium === false &&
+    // Add any additional filters here
+    (selectedPriceValue.value ? product.item.price >= selectedPriceValue.value.lower && product.item.price <= selectedPriceValue.value.upper : true) &&
+    (selectedConditionValue.value ? String(product.item.condition) === String(selectedConditionValue.value) : true)
+  );
+});
+
+
+const getAssortmentbyUser = async () => {
+  const response = await apiService.getAssortmentbyUser(userId);
+  console.log('Assortment by user:', response.data);
+  return response.data;
+};
 
 </script>
 
 <template>
-    <div class="particulier-profiel" v-if="user">
+  <div class="profile">
+    <div class="particulier-profiel" v-if="user.data">
         <div class="overlap">
-            <div class="overlap-group">
-            <div class="rectangle"></div>
-            <img class="badge-jeugdbeweging" src="https://c.animaapp.com/rqXPDOkF/img/badge-jeugdbeweging-1.svg" />
-            <img class="star" src="https://c.animaapp.com/rqXPDOkF/img/star-4.svg" />
-            <img class="img" src="https://c.animaapp.com/rqXPDOkF/img/star-4.svg" />
-            <img class="star-2" src="https://c.animaapp.com/rqXPDOkF/img/star-4.svg" />
-            <img class="star-3" src="https://c.animaapp.com/rqXPDOkF/img/star-4.svg" />
-            <img class="star-4" src="https://c.animaapp.com/rqXPDOkF/img/star-5.svg" />
+            <div class="overlap-folder">
+              <div class="overlap-group">
+                <img class="badge-jeugdbeweging" src="https://c.animaapp.com/rqXPDOkF/img/badge-jeugdbeweging-1.svg" />
+                <StarRating class="starrating"/>
+              </div>
             </div>
-            <div class="text-wrapper">{{ user.email }}</div>
-            <div class="div">{{ user.gemeente }}</div>
-            <img class="group" src="https://c.animaapp.com/rqXPDOkF/img/group-423@2x.png" />
-            <img class="map-pin" src="https://c.animaapp.com/rqXPDOkF/img/map-pin.svg" />
+            <div class="info">
+              <p class="user_name">{{ user.data.jb_name }}</p>
+              <div class="user_info mail">
+                <img class="email-icon" src="https://c.animaapp.com/rqXPDOkF/img/group-423@2x.png" />
+                <p>{{ user.data.email }}</p>
+              </div>
+              <div class="user_info map">
+                <img class="map-pin" src="https://c.animaapp.com/rqXPDOkF/img/map-pin.svg" />
+                <p>{{ user.data.gemeente }}</p>
+              </div>
+            </div>
         </div>
-
-        <div class="overlap-5">
-        <div class="text-wrapper-20">Verfijn je resultaten</div>
-        <div class="group-7">
-          <div class="text-wrapper-21">Categoriën</div>
-          <p class="text-wrapper-22">(die {{user.jb_name}} gebruikt)</p>
-        </div>
-        <div class="text-wrapper-23">Tenten</div>
-        <div class="text-wrapper-24">Gasvuren</div>
-        <div class="img-wrapper"><img class="vector-7" src="https://c.animaapp.com/rqXPDOkF/img/vector-11.svg" /></div>
-        <div class="overlap-6"><img class="vector-7" src="https://c.animaapp.com/rqXPDOkF/img/vector-11.svg" /></div>
-        <div class="text-wrapper-25">Prijs</div>
-        <div class="group-8">
-          <div class="text-wrapper-21">Conditie</div>
-          <img class="group-9" src="https://c.animaapp.com/rqXPDOkF/img/group-410@2x.png" />
-        </div>
-        <div class="group-10">
-          <div class="group-11">
-            <div class="text-wrapper-8">Van</div>
-            <img class="group-9" src="https://c.animaapp.com/rqXPDOkF/img/group-410@2x.png" />
+        <div class="filter_block">
+          <p class="title">Verfijn je resultaten</p>
+          <div class="filters">
+            <div class="Prijs">
+              <p>Prijs</p>
+              <select class="input-limited" v-model="selectedPriceValue" @change="filterProductsByPrice($event.target.value)">
+                <option value="" disabled selected>Sorteer op prijs</option>
+                <option value="">Reset</option>
+                <option value="0-5">€0-€5</option>
+                <option value="5-10">€5-€10</option>
+                <option value="10-20">€10-€20</option>
+                <option value="20-30">€20-€30</option>
+                <option value="30-40">€30-€40</option>
+                <option value="40-50">€40-€50</option>
+                <option value="50-100">€50-€100</option>
+                <option value="100-200">€100-€200</option>
+              </select>
+            </div>
+            <div class="Conditie">
+              <p>Conditie</p>
+              <select class="input-limited" v-model="selectedConditionValue" @change="filterProductsByCondition($event.target.value)">
+                <option value="" disabled selected>Sorteer op</option>
+                <option value="">Reset</option>
+                <option value="3">Matig</option>
+                <option value="4">Goed</option>
+                <option value="5">Perfect</option>
+              </select>
+            </div>
           </div>
-          <div class="group-12">
-            <div class="text-wrapper-8">Tot</div>
-            <img class="group-13" src="https://c.animaapp.com/rqXPDOkF/img/group-410@2x.png" />
+          <div class="group-7">
+            <p>Categoriën</p>
+            <p class="smol_text">(die {{user.data.jb_name}} gebruikt)</p>
           </div>
+          <div v-if="products.data.length > 0">
+            <div class="tags" v-for="(product, productIndex) in products.data" :key="'product-' + productIndex">
+              <template v-if="product.item && product.item.art_category && typeof product.item.art_category === 'string'">
+                <div class="tag" v-for="(category, categoryIndex) in product.item.art_category.split(', ')" :key="'category-' + categoryIndex">
+                  <div class="img-wrapper"><img class="vector-7" src="https://c.animaapp.com/rqXPDOkF/img/vector-11.svg" /></div>
+                  <p>{{ category }}</p>
+                </div>
+              </template>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
     
-    <div class="product-container">
-        <h1>{{ user.jb_name }}'s inventaris</h1>
+    <div class="product-container" v-if="user && user.data">
+        <h1>{{ user.data.jb_name }}'s inventaris</h1>
         <div class="grid-wrap">
-            <div 
-            v-for="product in cartItems"
-            class="product-item"
-            v-bind:key="product.id" 
-            >
-                <img v-bind:src="product.imageUrl" class="product-image">    
-                <div class="item-info">
-                    <h3 class="product-name">{{ product.name }}</h3>
-                    <p class="product-price">€ {{ product.item.price }}</p>
-                    <p class="product-description">{{ product.description }}</p>
-                </div>
-                
-                <div class="product-locatie">
-                    <img class="vector-4" src="https://c.animaapp.com/rqXPDOkF/img/vector-13.svg" />
-                    <p>{{ user.jb_name }}</p>
-                </div>
-                
-                <router-link v-bind:to="'/products/' + product.id">
-                    <button class="button-details">Details</button>
-                </router-link>
-                
-            </div>
+            <ProductItemPremium v-for="(product, index) in filteredPremiumItems" :key="index" :item="product" class="ProductItemPremium" :jb_name="user.data.jb_name"/>     
+            <ProductItem v-for="(product, index) in filteredNonPremiumItems" :key="index" :item="product" class="ProductItem"/>
         </div>
     </div>
-    
+  </div>
     
 </template>
 
 <style scoped>
+
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+}
 .particulier-profiel {
-  position: relative;
-  width: 20%;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  float: left;
+  margin: 50px;
+  gap: 24px;
 }
 
 .particulier-profiel .overlap {
-  position: absolute;
-  width: 306px;
-  height: 297px;
-  top: 84px;
-  left: 134px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #f0f2f1;
   border-radius: 12px;
+  gap: 30px;
+  padding: 15px;
+  width: 306px;
+  height: 280px;
+}
+
+.overlap-folder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .particulier-profiel .overlap-group {
-  position: absolute;
   width: 183px;
   height: 183px;
-  top: 34px;
-  left: 73px;
   background-image: url(https://c.animaapp.com/rqXPDOkF/img/rectangle-260@2x.png);
   background-size: cover;
   background-position: 50% 50%;
 }
 
-.particulier-profiel .rectangle {
-  position: absolute;
-  width: 183px;
-  height: 183px;
-  top: 0;
-  left: 0;
-  border-radius: 24px;
-}
-
 .particulier-profiel .badge-jeugdbeweging {
-  position: absolute;
-  width: 55px;
-  height: 55px;
+  position: relative;
   top: 128px;
   left: 128px;
+  width: 55px;
+  height: 55px;
 }
 
-.particulier-profiel .star {
-  left: 19px;
-  position: absolute;
-  width: 16px;
+.particulier-profiel .starrating {
+  position: relative;
+  top: 95px;
+  left: 10px;
+  width: 80px;
   height: 15px;
-  top: 159px;
 }
 
-.particulier-profiel .img {
-  left: 38px;
-  position: absolute;
-  width: 16px;
-  height: 15px;
-  top: 159px;
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
-.particulier-profiel .star-2 {
-  left: 57px;
-  position: absolute;
-  width: 16px;
-  height: 15px;
-  top: 159px;
+.user_name {
+  font-family: 'Amazing Slab Medium', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  display: none;
 }
 
-.particulier-profiel .star-3 {
-  left: 76px;
-  position: absolute;
-  width: 16px;
-  height: 15px;
-  top: 159px;
+.user_info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
-.particulier-profiel .star-4 {
-  left: 95px;
-  position: absolute;
-  width: 16px;
-  height: 15px;
-  top: 159px;
+.user_info > * {
+  margin: 0;
+  padding: 0;
 }
 
-.particulier-profiel .text-wrapper {
-  position: absolute;
-  top: 241px;
-  left: 45px;
-  font-family: "Museo Sans-700", Helvetica;
-  font-weight: 400;
-  color: #090d0b;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.particulier-profiel .div {
-  position: absolute;
-  top: 266px;
-  left: 44px;
-  font-family: "Museo Sans-700", Helvetica;
-  font-weight: 400;
-  color: #090d0b;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.particulier-profiel .group {
-  position: absolute;
+.particulier-profiel .email-icon {
   width: 17px;
   height: 19px;
-  top: 241px;
-  left: 20px;
 }
 
-.particulier-profiel .map-pin {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  top: 269px;
-  left: 19px;
-}
-
-.particulier-profiel .overlap-5 {
-  position: absolute;
+.particulier-profiel .filter_block {
   width: 306px;
-  height: 280px;
-  top: 405px;
-  left: 134px;
+  max-width: 306px;
+  height: auto;
   background-color: #f0f2f1;
   border-radius: 12px;
+  padding: 15px;
 }
 
-.particulier-profiel .text-wrapper-20 {
-  position: absolute;
-  top: 14px;
-  left: 19px;
-  font-family: "Museo Sans-900", Helvetica;
-  font-weight: 400;
+.particulier-profiel .title {
+  font-family: "Museo Sans", Helvetica;
+  font-weight: 900;
   color: #000000;
   font-size: 24px;
   letter-spacing: 0;
   line-height: normal;
+  white-space: nowrap;
 }
 
 .particulier-profiel .group-7 {
-  position: absolute;
-  width: 274px;
-  height: 19px;
-  top: 197px;
-  left: 19px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
 }
 
-.particulier-profiel .text-wrapper-21 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-family: "Museo Sans-700", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.particulier-profiel .text-wrapper-22 {
-  position: absolute;
-  top: 6px;
-  left: 95px;
-  font-family: "Museo Sans-300", Helvetica;
-  font-weight: 400;
-  color: #000000;
+.particulier-profiel .smol_text {
+  display: flex;
+  font-family: "Museo Sans", Helvetica;
+  font-weight: 300;
   font-size: 10px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
+  flex-wrap: nowrap;
+  width: 100%;
+  white-space: nowrap; /* Add this line */
 }
 
-.particulier-profiel .text-wrapper-23 {
-  position: absolute;
-  top: 226px;
-  left: 43px;
-  font-family: "Museo Sans-500", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
+.filters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.particulier-profiel .text-wrapper-24 {
-  position: absolute;
-  top: 250px;
-  left: 43px;
-  font-family: "Museo Sans-500", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
+.particulier-profiel .tags {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+}
+
+.tag > * {
+  margin: 0;
+  padding: 0;
+}
+
+.particulier-profiel .tag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
 }
 
 .particulier-profiel .img-wrapper {
-  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 14px;
   height: 14px;
-  top: 228px;
-  left: 19px;
   background-color: #2b5740;
   border-radius: 2px;
 }
 
 .particulier-profiel .vector-7 {
-  position: absolute;
+  position: relative;
   width: 8px;
   height: 9px;
-  top: 2px;
-  left: 3px;
+  top: 0px;
+  left: 0px;
 }
 
-.particulier-profiel .overlap-6 {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  top: 252px;
-  left: 19px;
-  background-color: #2b5740;
-  border-radius: 2px;
+.input-limited {
+  background: none;
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  width: 100%;
+  color: black;
+  background-color: #D9D9D9;
 }
 
-.particulier-profiel .text-wrapper-25 {
+button {
   position: absolute;
-  top: 54px;
-  left: 19px;
-  font-family: "Museo Sans-700", Helvetica;
-  font-weight: 400;
-  color: #000000;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
+  background-color: #1C98D6;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  width: 85px;
+  padding: 0.5em 1em;
+  font-size: 10px;
+  cursor: pointer;
 }
 
-.particulier-profiel .group-8 {
-  position: absolute;
-  width: 125px;
-  height: 45px;
-  top: 141px;
-  left: 19px;
-}
-
-.particulier-profiel .group-9 {
-  position: absolute;
-  width: 123px;
-  height: 25px;
-  top: 20px;
-  left: 0;
-}
-
-.particulier-profiel .group-10 {
-  position: absolute;
-  width: 276px;
-  height: 45px;
-  top: 85px;
-  left: 19px;
-}
-
-.particulier-profiel .group-11 {
-  position: absolute;
-  width: 125px;
-  height: 45px;
-  top: 0;
-  left: 0;
-}
-
-.particulier-profiel .group-12 {
-  position: absolute;
-  width: 126px;
-  height: 45px;
-  top: 0;
-  left: 152px;
-}
-
-.particulier-profiel .group-13 {
-  position: absolute;
-  width: 123px;
-  height: 25px;
-  top: 20px;
-  left: 1px;
-}
 
 .product-container {
-    position: relative;
-    width: 70%;
-    height: 100%;
-    float: right;
-    margin-top: 50px;
-    margin-bottom: 10%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
 }
 
 .product-container h1 {
-    font-size: 48px;
-    font-family: "Bitter-ExtraBold", Helvetica;
+    font-size: 36px;
+    font-family: "Bitter", Helvetica;
+    font-weight: 700;
+    padding: 0;
 }
 
 .grid-wrap {
-    
-    
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    display: flex;
     margin-top: 16px;
     margin-right: 10%;
-    
+    max-width: 1250px;
 }
 
-.product-image{
-    border-radius: 12px;
-    margin: 50px;
-    float: left;
-    height: 183px;
-    width: 183px;
+.ProductItemPremium {
+  margin: 0;
+  padding: 0;
+  width: 425px;
 }
 
-.product-item{
-    background-color: #f0f2f1;
-    border-radius: 12px;
+.ProductItem {
+  margin: 0;
+  padding: 0;
+  width: 185px;
 }
 
-.item-info{
-    
-    position: relative;
-    width: 60%;
-}
+@media screen and (max-width: 811px) {
+  .profile {
+    height: auto;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  } 
 
+  .particulier-profiel {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
 
-.button-details{
-    background-color: #1C98D6;
-    color: #f0f2f1;
-}
+  .particulier-profiel .overlap {
+    flex-direction: row;
+    background-color: transparent;
+    height: auto;
+  }
 
-.product-name {
-    margin-bottom: 0;
-    color: #2B5740;
-    font-family: "Amazing Slab Trial-Medium", Helvetica;
-    font-weight: 500;
+  .user_info {
+    display: flex;
+    word-wrap:break-word;
+    white-space: wrap;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .user_name {
+    display: block;
+  }
+
+  .user_info.mail p {
+    /* your styles here */
+    white-space: normal;
+    word-wrap:break-all;
+    width: 100%;
+    max-width: max-content;
+    min-width: 150px;
+  }
+
+  .particulier-profiel .filter_block {
+    display: none;
+  }
+
+  .product-container {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .product-container h1 {
     font-size: 32px;
+    font-family: 'Amazing Slab Medium', sans-serif;
+    text-align: center;
+  }
+
+  .grid-wrap {
+      width: 95%;
+      flex-wrap: wrap;
+      padding: 6px;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+    
+    ProductItemPremium {
+      width: auto;
+    }
+
 }
 
+@media screen and (max-width: 420px) {
+  .particulier-profiel {
+    margin: 0;
+    padding: 0%;
+  }
+  .user_info.mail p {
+    word-wrap: break-word;
+    max-width: 85%;
+  }
 
+  .particulier-profiel .overlap {
+    height: auto;
+  }
+  .particulier-profiel .overlap-group {
+    margin: 0;
+    padding: 0;
+    width: 127px;
+    height: 127px;
+  }
+
+  .particulier-profiel .badge-jeugdbeweging {
+    width: 40px;
+    height: 40px;
+    top: 87px;
+    left: 87px;
+  }
+
+  .particulier-profiel .starrating {
+    top: 60px;
+  }
+
+  ::v-deep .starrating .star {
+    font-size: 10px;
+  }
+
+}
+@media screen and (max-width: 400px) {
+  .profile .overlap{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .particulier-profiel {
+    margin: 1em;
+    padding: 0%;
+  }
+
+  .particulier-profiel .overlap {
+    gap: 0px;
+    height: auto;
+  }
+
+  .user_info.mail p {
+    word-wrap: break-word;
+    max-width: 100%;
+  }
+}
 
 </style>
