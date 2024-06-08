@@ -24,7 +24,7 @@ const props = defineProps({
                 <img class="verhuurder" src="https://c.animaapp.com/rqXPDOkF/img/rectangle-260@2x.png" />
                 <p class="product-owner">{{ jb_name ? jb_name : item.user.posted_by }}</p>
                 <productRating class="product-rating" />
-                <img :src="item.item.pictures[0] ? item.item.pictures[1] : '../../assets/seniorentent.png'" >
+                <img :src="item.item.pictures[0] ? item.item.pictures[0] : '../../../../src/assets/seniorentent.png'" alt="materiaal foto">
             </div>
             
             <div class="product-text-container" >
