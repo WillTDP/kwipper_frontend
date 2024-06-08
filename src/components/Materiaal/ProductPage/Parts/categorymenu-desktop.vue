@@ -14,6 +14,7 @@ const filter = (category) => {
 <template>
   <div class="category">
     <h3>Categorieën</h3>
+
     <div class="segment">
       <p class="title">Keukenmateriaal</p>
       <p :class="{'link': true, 'selected': selectedCategory === 'Kookpotten'}" 
@@ -32,6 +33,7 @@ const filter = (category) => {
         <span v-if="selectedCategory === 'Bestek'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
       </p>
     </div>
+
     <div class="segment">
       <p class="title">Legermateriaal</p>
       <p :class="{'link': true, 'selected': selectedCategory === 'Legertenten'}" 
@@ -50,6 +52,7 @@ const filter = (category) => {
         <span v-if="selectedCategory === 'Patrouilletenten'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
       </p>
       </div>
+
       <div class="segment">
         <p class="title">Kampmateriaal</p>
         <p :class="{'link': true, 'selected': selectedCategory === 'gasbakken'}" 
@@ -68,7 +71,8 @@ const filter = (category) => {
           <span v-if="selectedCategory === 'zeilen'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
         </p>
         </div>
-        <div class="segment">
+
+      <div class="segment">
           <p class="title">Tafels en Banken</p>
           <p :class="{'link': true, 'selected': selectedCategory === 'uitklaptafel'}" 
             @click="selectedCategory !== 'uitklaptafel' && filter('uitklaptafel')">
@@ -85,7 +89,32 @@ const filter = (category) => {
             Slaapmateriaal
             <span v-if="selectedCategory === 'slaapmateriaal'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
           </p>
+          <p :class="{'link': true, 'selected': selectedCategory === 'tafel'}" 
+            @click="selectedCategory !== 'tafel' && filter('tafel')">
+            Gewone Tafel
+            <span v-if="selectedCategory === 'slaapmateriaal'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+          </p>
         </div>
+
+        <div class="segment">
+          <p class="title">Werkmateriaal</p>
+          <p :class="{'link': true, 'selected': selectedCategory === 'gereedschap'}" 
+            @click="selectedCategory !== 'gereedschap' && filter('gereedschap')">
+            Gereedschap
+            <span v-if="selectedCategory === 'gereedschap'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+          </p>
+          <p :class="{'link': true, 'selected': selectedCategory === 'hamer'}" 
+            @click="selectedCategory !== 'hamer' && filter('hamer')">
+            Hamers
+            <span v-if="selectedCategory === 'hamer'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+          </p>
+          <p :class="{'link': true, 'selected': selectedCategory === 'houweel'}" 
+            @click="selectedCategory !== 'houweel' && filter('houweel')">
+            Houweel
+            <span v-if="selectedCategory === 'houweel'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+          </p>
+        </div>
+
   </div>
 </template>
 
