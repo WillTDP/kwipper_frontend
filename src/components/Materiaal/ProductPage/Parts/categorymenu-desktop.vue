@@ -17,20 +17,20 @@ const filter = (category) => {
 
     <div class="segment">
       <p class="title">Keukenmateriaal</p>
-      <p :class="{'link': true, 'selected': selectedCategory === 'Kookpotten'}" 
-        @click="selectedCategory !== 'Kookpotten' && filter('Kookpotten')">
+      <p :class="{'link': true, 'selected': selectedCategory === 'kookpotten'}" 
+        @click="selectedCategory !== 'kookpotten' && filter('kookpotten')">
         Kookpotten
-        <span v-if="selectedCategory === 'Kookpotten'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+        <span v-if="selectedCategory === 'kookpotten'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
       </p>
-      <p :class="{'link': true, 'selected': selectedCategory === 'Servies'}" 
-        @click="selectedCategory !== 'Servies' && filter('Servies')">
+      <p :class="{'link': true, 'selected': selectedCategory === 'servies'}" 
+        @click="selectedCategory !== 'servies' && filter('servies')">
         Servies
-        <span v-if="selectedCategory === 'Servies'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+        <span v-if="selectedCategory === 'servies'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
       </p>
-      <p :class="{'link': true, 'selected': selectedCategory === 'Bestek'}" 
-        @click="selectedCategory !== 'Bestek' && filter('Bestek')">
+      <p :class="{'link': true, 'selected': selectedCategory === 'bestek'}" 
+        @click="selectedCategory !== 'bestek' && filter('bestek')">
         Bestek
-        <span v-if="selectedCategory === 'Bestek'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+        <span v-if="selectedCategory === 'bestek'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
       </p>
     </div>
 
@@ -60,10 +60,10 @@ const filter = (category) => {
           Gasbakken en flessen
           <span v-if="selectedCategory === 'gasbakken'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
         </p>
-        <p :class="{'link': true, 'selected': selectedCategory === 'Tenten'}" 
-          @click="selectedCategory !== 'Tenten' && filter('Tenten')">
+        <p :class="{'link': true, 'selected': selectedCategory === 'tent'}" 
+          @click="selectedCategory !== 'tent' && filter('tent')">
           Tenten
-          <span v-if="selectedCategory === 'Tenten'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+          <span v-if="selectedCategory === 'tent'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
         </p>
         <p :class="{'link': true, 'selected': selectedCategory === 'zeilen'}" 
           @click="selectedCategory !== 'zeilen' && filter('zeilen')">
