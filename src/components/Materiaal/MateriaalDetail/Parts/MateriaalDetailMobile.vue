@@ -54,7 +54,7 @@ const sendMessage = () => {
                 </svg>
               </a>
             </div>
-              <img src="../../../../assets/fouragetent.png">
+            <img :src="itemData.data.assortment.item.pictures[0]">
           </div>
       </div>
       <div class="middle_detail_element">

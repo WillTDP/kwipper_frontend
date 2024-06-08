@@ -40,7 +40,7 @@ const sendMessage = () => {
                   <h1 class="title">{{ itemData.data.assortment.item.art_name }}</h1>
                   <p class="seller_name">{{  userData.data.user.jb_name}} </p>
                 </div>
-                <img src="../../../../assets/fouragetent.png">
+                <img :src="itemData.data.assortment.item.pictures[0]">
             </div>
             </div>
             <div class="middle_detail_element">
@@ -60,7 +60,7 @@ const sendMessage = () => {
                         </svg>
                       </div>
                   </div>
-                  <p>deze gebruiker is geverifierd</p>
+                  <p>Deze gebruiker is geverifiëerd!</p>
                   <div class="score_name">
                       <StarRating :rating="Number(4)" :readOnly="true" class="star" />   
                   </div>
