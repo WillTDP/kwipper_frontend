@@ -144,6 +144,38 @@ const filter = (category) => {
           </p>
         </div>
 
+        <div class="segment">
+          <p class="title">Feest- én evenementuitrusting</p>
+          <p :class="{'link': true, 'selected': selectedCategory === 'partytent'}" 
+            @click="selectedCategory !== 'partytent' && filter('partytent')">
+            Partytenten
+            <span v-if="selectedCategory === 'partytent'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+          </p>
+          <p :class="{'link': true, 'selected': selectedCategory === 'feestverlichtingmer'}" 
+            @click="selectedCategory !== 'feestverlichting' && filter('feestverlichting')">
+            Feestverlichting
+            <span v-if="selectedCategory === 'feestverlichting'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+          </p>
+          <p :class="{'link': true, 'selected': selectedCategory === 'muziekinstallatie'}" 
+            @click="selectedCategory !== 'muziekinstallatie' && filter('muziekinstallatie')">
+            Muziekinstallatie
+            <span v-if="selectedCategory === 'muziekinstallatie'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+          </p>
+          <p :class="{'link': true, 'selected': selectedCategory === 'springkastelen'}" 
+            @click="selectedCategory !== 'springkastelen' && filter('springkastelen')">
+            Springkastelen en andere
+            <span v-if="selectedCategory === 'springkastelen'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+          </p>
+        </div>
+
+        <div class="segment">
+          <p class="title">Elektronica</p>
+          <p :class="{'link': true, 'selected': selectedCategory === 'projector'}" 
+            @click="selectedCategory !== 'projector' && filter('projector')">
+            Draagbare projectoren
+            <span v-if="selectedCategory === 'projector'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+          </p>
+        </div>
   </div>
 </template>
 
@@ -153,7 +185,7 @@ const filter = (category) => {
 .category {
   width: 100%;
   max-width: 240px;
-  height: 750px ;
+  height: 100%; ;
   background-color: #f0f2f1;
   border-radius: 9px;
   padding: 16px;
