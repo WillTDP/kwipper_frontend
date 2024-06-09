@@ -181,7 +181,7 @@ const updateStep = (step) => {
 
             <template v-slot:step3>
                 <div v-if="currentStep === 3 && signupData.role === 'Particulier'">
-                    <p>Ik ben Particulier...</p>
+                    <p class="step-3-title">Ik ben Particulier...</p>
                     <label for="phone">Telefoonnummer:</label>
                     <input type="text" id="phone" class="textbox" name="phone" v-model="signupData.phone" required>
 
@@ -202,7 +202,7 @@ const updateStep = (step) => {
                     
                 </div>
                 <div v-if="currentStep === 3 && signupData.role === 'Vereniging'">
-                    <p>Vereniging gegevens</p>
+                    <p class="step-3-title">Vereniging gegevens</p>
                     <label for="vereniging_name">Vereniging naam:</label>
                     <input type="text" id="vereniging_name" class="textbox" name="vereniging_name" v-model="signupData.verenigiging_name" required>
 
@@ -226,17 +226,19 @@ const updateStep = (step) => {
                     
                 </div>
                 <div v-if="currentStep === 3 && signupData.role === 'Jeugdbeweging'">
-                    <p>Ik wil een account aanmaken voor deze jeugdbeweging...</p>
+                    <p class="step-3-title">Ik wil een account aanmaken voor deze jeugdbeweging...</p>
                     <button class="type-user" @click="signupData.what_jeugdbeweging = 'Chiro'">Chiro</button>
                     <button class="type-user" @click="signupData.what_jeugdbeweging = 'KSA'">KSA</button>
                     <button class="type-user" @click="signupData.what_jeugdbeweging = 'KLJ'">KLJ</button>
                     <button class="type-user" @click="signupData.what_jeugdbeweging = 'Scouts'">Scouts en Gidsen Vlaanderen</button>
-                    <input type="text" id="jeugdbeweging" name="jeugdbeweging" placeholder="andere" v-model="signupData.what_jeugdbeweging" >
+                    <br>
+                    <input type="text" id="jeugdbeweging" class="other-jb-input" name="jeugdbeweging" placeholder="andere" v-model="signupData.what_jeugdbeweging" >
                     
                 </div>
             </template>
             <template v-slot:step4>
                 <div v-if="currentStep === 4 && signupData.role === 'Jeugdbeweging'">
+                    <br><br>
                     <label for="groepnummer">AD-nummer van je {{signupData.what_jeugdbeweging}}:</label>
                     <input type="text" id="groepnummer" name="groepnummer" class="textbox" v-model="signupData.group_number" required>
 
@@ -272,10 +274,10 @@ const updateStep = (step) => {
             <template v-slot:footer>
                 <button class="next-step" 
                         type="button" 
-                        @click="previousStep" v-if="currentStep>1">Previous Step</button>
+                        @click="previousStep" v-if="currentStep>1">Vorige stap</button>
                 <button class="next-step" 
                         type="button" 
-                        @click="nextStep" v-if="currentStep<4">Next Step</button>
+                        @click="nextStep" v-if="currentStep<4">Volgende stap</button>
                 <button class="next-step" 
                         type="button" 
                         @click="submitForm" v-if="currentStep===4">Account aanmaken</button>
@@ -361,11 +363,21 @@ button {
 .type-user, .type-user:hover, .type-user-clicked {
     background-color: #f0f2f1;
     color: black;
+    width: 100%;
 }
 
 .type-user:hover, .type-user-clicked {
     background-color: #2b5740;
     color: white;
+}
+
+.other-jb-input {
+    width: 70%;
+    height: 38px; 
+    border: 1px solid #2B5740;
+    border-radius: 10px;
+    margin-top: 8px;
+    padding-left: 10px;
 }
 
 @media screen and (max-width: 1250px) {
