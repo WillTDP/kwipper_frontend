@@ -157,16 +157,16 @@ const updateStep = (step) => {
                 <div v-if="currentStep === 1">
                     <h1>Maak account aan</h1>
                     <label for="voornaam">Voornaam:</label>
-                    <input type="text" id="username" name="username" v-model="signupData.first_name" required>
+                    <input type="text" id="username" class="textbox" name="username" v-model="signupData.first_name" required>
 
                     <label for="achternaam">Achternaam:</label>
-                    <input type="text" id="email" name="email" v-model="signupData.last_name" required>
+                    <input type="text" id="email" class="textbox" name="email" v-model="signupData.last_name" required>
 
                     <label for="email">Email:</label>
-                    <input type="text" id="password" name="password" v-model="signupData.email" required>
+                    <input type="text" id="password" class="textbox" name="password" v-model="signupData.email" required>
 
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" v-model="signupData.password" required>
+                    <input type="password" id="password" class="textbox" name="password" v-model="signupData.password" required>
                 </div>
             </template>
 
@@ -183,46 +183,46 @@ const updateStep = (step) => {
                 <div v-if="currentStep === 3 && signupData.role === 'Particulier'">
                     <p>Ik ben Particulier...</p>
                     <label for="phone">Telefoonnummer:</label>
-                    <input type="text" id="phone" name="phone" v-model="signupData.phone" required>
+                    <input type="text" id="phone" class="textbox" name="phone" v-model="signupData.phone" required>
 
                     <label for="straatnaam">Straatnaam:</label>
-                    <input type="text" id="straatnaam" name="straatnaam" v-model="signupData.straatnaam" required>
+                    <input type="text" id="straatnaam" class="textbox" name="straatnaam" v-model="signupData.straatnaam" required>
 
                     <label for="huisnummer">Huisnummer:</label>
-                    <input type="text" id="huisnummer" name="huisnummer" v-model="signupData.huisnummer" required>
+                    <input type="text" id="huisnummer" class="textbox" name="huisnummer" v-model="signupData.huisnummer" required>
 
                     <label for="postcode">Postcode:</label>
-                    <input type="text" id="postcode" name="postcode" v-model="signupData.postcode" required>
+                    <input type="text" id="postcode" class="textbox" name="postcode" v-model="signupData.postcode" required>
 
                     <label for="gemeente">Gemeente:</label>
-                    <input type="text" id="gemeente" name="gemeente" v-model="signupData.gemeente" required>
+                    <input type="text" id="gemeente" class="textbox" name="gemeente" v-model="signupData.gemeente" required>
 
                     <label for="postbus">Postbus:</label>
-                    <input type="text" id="postbus" name="postbus" v-model="signupData.postbus" required>
+                    <input type="text" id="postbus" class="textbox" name="postbus" v-model="signupData.postbus" required>
                     
                 </div>
                 <div v-if="currentStep === 3 && signupData.role === 'Vereniging'">
                     <p>Vereniging gegevens</p>
                     <label for="vereniging_name">Vereniging naam:</label>
-                    <input type="text" id="vereniging_name" name="vereniging_name" v-model="signupData.verenigiging_name" required>
+                    <input type="text" id="vereniging_name" class="textbox" name="vereniging_name" v-model="signupData.verenigiging_name" required>
 
                     <label for="phone">Telefoonnummer:</label>
-                    <input type="text" id="phone" name="phone" v-model="signupData.phone" required>
+                    <input type="text" id="phone" class="textbox" name="phone" v-model="signupData.phone" required>
 
                     <label for="straatnaam">Straatnaam:</label>
-                    <input type="text" id="straatnaam" name="straatnaam" v-model="signupData.straatnaam" required>
+                    <input type="text" id="straatnaam" class="textbox" name="straatnaam" v-model="signupData.straatnaam" required>
 
                     <label for="huisnummer">Huisnummer:</label>
-                    <input type="text" id="huisnummer" name="huisnummer" v-model="signupData.huisnummer" required>
+                    <input type="text" id="huisnummer" class="textbox" name="huisnummer" v-model="signupData.huisnummer" required>
 
                     <label for="postcode">Postcode:</label>
-                    <input type="text" id="postcode" name="postcode" v-model="signupData.postcode" required>
+                    <input type="text" id="postcode" class="textbox" name="postcode" v-model="signupData.postcode" required>
 
                     <label for="gemeente">Gemeente:</label>
-                    <input type="text" id="gemeente" name="gemeente" v-model="signupData.gemeente" required>
+                    <input type="text" id="gemeente" class="textbox" name="gemeente" v-model="signupData.gemeente" required>
 
                     <label for="postbus">Postbus:</label>
-                    <input type="text" id="postbus" name="postbus" v-model="signupData.postbus" required>
+                    <input type="text" id="postbus" class="textbox" name="postbus" v-model="signupData.postbus" required>
                     
                 </div>
                 <div v-if="currentStep === 3 && signupData.role === 'Jeugdbeweging'">
@@ -238,28 +238,28 @@ const updateStep = (step) => {
             <template v-slot:step4>
                 <div v-if="currentStep === 4 && signupData.role === 'Jeugdbeweging'">
                     <label for="groepnummer">AD-nummer van je {{signupData.what_jeugdbeweging}}:</label>
-                    <input type="text" id="groepnummer" name="groepnummer" v-model="signupData.group_number" required>
+                    <input type="text" id="groepnummer" name="groepnummer" class="textbox" v-model="signupData.group_number" required>
 
                     <label for="jb_name">Jeugdbeweging naam:</label>
-                    <input type="text" id="jb_name" name="jb_name" v-model="signupData.jb_name" required>
+                    <input type="text" id="jb_name" name="jb_name" class="textbox" v-model="signupData.jb_name" required>
 
                     <label for="phone">Telefoonnummer:</label>
-                    <input type="text" id="phone" name="phone" v-model="signupData.phone" required>
+                    <input type="text" id="phone" name="phone" class="textbox" v-model="signupData.phone" required>
 
                     <label for="straatnaam">Straatnaam:</label>
-                    <input type="text" id="straatnaam" name="straatnaam" v-model="signupData.straatnaam" required>
+                    <input type="text" id="straatnaam" name="straatnaam" class="textbox" v-model="signupData.straatnaam" required>
 
                     <label for="huisnummer">Huisnummer:</label>
-                    <input type="text" id="huisnummer" name="huisnummer" v-model="signupData.huisnummer" required>
+                    <input type="text" id="huisnummer" name="huisnummer" class="textbox" v-model="signupData.huisnummer" required>
 
                     <label for="postcode">Postcode:</label>
-                    <input type="text" id="postcode" name="postcode" v-model="signupData.postcode" required>
+                    <input type="text" id="postcode" name="postcode" class="textbox" v-model="signupData.postcode" required>
 
                     <label for="gemeente">Gemeente:</label>
-                    <input type="text" id="gemeente" name="gemeente" v-model="signupData.gemeente" required>
+                    <input type="text" id="gemeente" name="gemeente" class="textbox" v-model="signupData.gemeente" required>
 
                     <label for="postbus">Postbus:</label>
-                    <input type="text" id="postbus" name="postbus" v-model="signupData.postbus" required>
+                    <input type="text" id="postbus" name="postbus" class="textbox" v-model="signupData.postbus" required>
                     
                 </div>
                 <div v-if="currentStep === 4 && signupData.role === 'Vereniging'">
@@ -295,6 +295,19 @@ const updateStep = (step) => {
 
 .mood_image {
     display: flex;
+}
+
+.textbox{
+    width: 350px;
+    height: 38px; 
+    border: 1px solid #2B5740;
+    border-radius: 10px;
+    margin-top: 8px;
+    padding-left: 10px;
+}
+
+.textbox:first-child {
+    margin-top: 2em;
 }
 
 .signup_div {
@@ -342,6 +355,7 @@ button {
 .next-step {
     background-color: #2b5740;
     color: white;
+    width: 100%;
 }
 
 .type-user, .type-user:hover, .type-user-clicked {
