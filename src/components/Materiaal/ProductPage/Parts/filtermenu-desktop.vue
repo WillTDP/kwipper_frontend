@@ -91,7 +91,14 @@ const handleFilterButtonClick = () => {
   font-family: "Bitter", serif;
   font-weight: 700;
   color: #2b5740;
-  margin-left: 18%;
+  
+  /* display center */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+
 }
 
 .search-container {

@@ -105,7 +105,7 @@ const sendMessage = () => {
         <div v-if="itemData && itemData.data.assortment.item">
           <!-- <p><b>Nog op voorraad?</b> Ja </p> -->
           <p><b>Staat:</b> {{ conditionMapping[itemData.data.assortment.item.condition] }}</p>
-          <p><b>Waarborg:</b> €{{ itemData.data.assortment.item.waarborg }} per product</p>
+          <!-- <p><b>Waarborg:</b> €{{ itemData.data.assortment.item.waarborg }} per product</p> -->
         </div>
         <button id="add-to-cart">Toevoegen aan winkelmandje</button>
       </div>
