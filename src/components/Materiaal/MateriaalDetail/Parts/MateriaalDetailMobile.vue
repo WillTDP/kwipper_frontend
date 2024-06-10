@@ -54,7 +54,7 @@ const sendMessage = () => {
                 </svg>
               </a>
             </div>
-            <img :src="itemData.data.assortment.item.pictures[0]">
+            <img id="image-item" :src="itemData.data.assortment.item.pictures[0]">
           </div>
       </div>
       <div class="middle_detail_element">
@@ -103,7 +103,7 @@ const sendMessage = () => {
         <h4>Beschrijving</h4>
         <p>{{ itemData.data.assortment.item.art_desc }}</p>
         <div v-if="itemData && itemData.data.assortment.item">
-          <p><b>Stock:</b> {{ itemData.data.assortment.item.price }}</p>
+          <!-- <p><b>Nog op voorraad?</b> Ja </p> -->
           <p><b>Staat:</b> {{ conditionMapping[itemData.data.assortment.item.condition] }}</p>
           <p><b>Waarborg:</b> €{{ itemData.data.assortment.item.waarborg }} per product</p>
         </div>
@@ -368,4 +368,8 @@ const sendMessage = () => {
     padding: 16px;
   }
   
+  .image-item{
+    border-radius: 12px; 
+  }
+
 </style>
