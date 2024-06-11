@@ -269,15 +269,32 @@
                     <input type="text" class="input-description" placeholder="descriptie" v-model="formData.item.art_desc" required>
                     <h2>Categorie</h2>
                     <select class="conditie" name="Conditie" v-model="formData.item.art_category" required>
-                        <option value="Kookpotten">Kookpotten</option>
-                        <option value="Servies">Servies</option>
-                        <option value="Bestek">Bestek</option>
-                        <option value="Legertenten">Legertenten</option>
-                        <option value="Seniortenten">Seniortenten</option>
-                        <option value="Patrouilletenten">Patrouilletenten</option>
-                        <option value="Gasbakken">Gasbakken</option>
-                        <option value="Tenten">Tenten</option>
-                        <option value="Verlengtafels">Verlengtafels</option>
+                        <option value="kookpotten">Kookpotten</option>
+                        <option value="servies">Servies</option>
+                        <option value="bestek">Bestek</option>
+                        <option value="legertenten">Legertenten</option>
+                        <option value="seniortenten">Seniortenten</option>
+                        <option value="patrouilletenten">Patrouilletenten</option>
+                        <option value="gasbakken">Gasbakken</option>
+                        <option value="tent">Tenten</option>
+                        <option value="zeilen">Tentzeilen</option>
+                        <option value="uitklaptafel">Uitklaptafels</option>
+                        <option value="uitklapbanken">Uitklapbanken</option>
+                        <option value="slaapmateriaal">Slaapmateriaal</option>
+                        <option value="tafel">Gewone tafel</option>
+                        <option value="gereedschap">Gereedschap</option>
+                        <option value="kookmateriaal">Kookmateriaal</option>
+                        <option value="kookvuur">Kookvuur</option>
+                        <option value="kajak">Kajak</option>
+                        <option value="kano">Kano</option>
+                        <option value="fiets">Fiets</option>
+                        <option value="klimuitrusting">Klim uitrusting</option>
+                        <option value="kampvuurbenodigdheden">Kampvuurbenodigdheden</option>
+                        <option value="partytent">Partytent</option>
+                        <option value="feestverlichting">Feestverlichting</option>
+                        <option value="muziekinstallatie">Muziekinstallatie</option>
+                        <option value="springkastelen">Springkastelen</option>
+                        <option value="projector">Projector</option>
                     </select>
                 </div>
                 

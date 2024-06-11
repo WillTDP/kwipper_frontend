@@ -5,7 +5,7 @@ import StarRating from './../../Parts/StarRating.vue';
 import { useCalendar } from 'v-calendar';
 
 const props = defineProps(['itemData', 'userData','showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
-const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'update:showFlagPopup']);
+const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'sendEmail','update:showFlagPopup']);
 
 const conditionMapping = {
   1: 'Beschadigd',
@@ -28,7 +28,11 @@ const sendMessage = () => {
   emits('sendMessage');
 };
 
-</script> 
+const sendEmail = (email) => {
+  window.open(`mailto:${email}`);
+};
+</script>
+
 
 <template>
     <div id="page-wrap" v-if="itemData && userData && userData.data && userData.data.user">
@@ -64,7 +68,7 @@ const sendMessage = () => {
                   <div class="score_name">
                       <StarRating :rating="Number(4)" :readOnly="true" class="star" />   
                   </div>
-                </div>
+
                 <div class="price_info">
                   <div class="price_available">
                       <h3 id="price">€{{ itemData.data.assortment.item.price }} per dag</h3>
@@ -86,11 +90,13 @@ const sendMessage = () => {
                 </div>
                 <div class="buttons">
                     <div class="icons">
-                      <div class="message" @click="$emit('openPopup')">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 17 14" fill="none">
+                      <div class="message" @click="sendEmail(userData.data.user.email)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 17 14" fill="none">
                           <path d="M1.6637 14C1.20618 14 0.814659 13.8288 0.489128 13.4864C0.163597 13.144 0.000554567 12.7318 0 12.25V1.75C0 1.26875 0.163043 0.856916 0.489128 0.5145C0.815213 0.172083 1.20674 0.000583333 1.6637 0H14.9733C15.4308 0 15.8226 0.1715 16.1487 0.5145C16.4748 0.8575 16.6376 1.26933 16.637 1.75V12.25C16.637 12.7312 16.4742 13.1434 16.1487 13.4864C15.8232 13.8294 15.4314 14.0006 14.9733 14H1.6637ZM8.3185 7.875L1.6637 3.5V12.25H14.9733V3.5L8.3185 7.875ZM8.3185 6.125L14.9733 1.75H1.6637L8.3185 6.125ZM1.6637 3.5V1.75V12.25V3.5Z" fill="white"/>
                           </svg>
                           <p class="icon_text">Stuur een Bericht</p>
+                      </div>
+                        
                       </div>
                       <div class="wishlist">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="13" viewBox="0 0 16 13" fill="none">
@@ -136,35 +142,43 @@ const sendMessage = () => {
             </div>
             <div class="textfield-box">
                 <div class="textfield">
-                <label for="Name">Naam</label>
-                <input type="text" name="Name" placeholder="Name" v-model="formData.name">
+                  <label for="Name">Naam</label>
+                  <input type="text" name="Name" placeholder="Name" v-model="formData.name">
                 </div>
+
                 <div class="textfield">
-                <label for="Email">E-mail</label>
-                <input type="email" name="Email" placeholder="Email" v-model="formData.email">
+                  <label for="Email">E-mail</label>
+                  <input type="email" name="Email" placeholder="Email" v-model="formData.email">
                 </div>
+
                 <div class="textfield">
                   <label for="Subject">Onderwerp</label>
                   <input type="message" name="Subject" placeholder="Voeg je onderwerp hier in" v-model="formData.onderwerp">
                 </div>
+
                 <div v-if="showFlagPopup">
-                <div class="textfield">
+                  <div class="textfield">
                     <label for="flagging">Reden van Aangeven</label>
                     <input type="message" name="flagging" placeholder="Geef hier je titel" v-model="formData.flagreason">
                 </div>
+
                 </div>
+
                 <div class="textfield">
                 <label for="message">Je Bericht</label>
-                <textarea name="message" id="message" cols="30" rows="10"  v-model="formData.message"></textarea>
+                <textarea name="message" id="message" cols="30" rows="10" v-model="formData.message"></textarea>
                 </div>
+                
                 <button @click="sendMessage">Verstuur</button>
-            </div>
+              </div>
+              <div class="textfield"></div>
             </div>
             <div v-else >
             <div class="top_mss">
                 <p class="mss_title">Bericht</p>
                 <div class="button_close" @click="closePopup()">x</div>
             </div>
+            
             <div class="confirmation-box">
                 <h3>Bedankt voor je bericht!</h3>
                 <svg xmlns="http://www.w3.org/2000/svg" width="106" height="107" viewBox="0 0 106 107" fill="none">
@@ -285,7 +299,7 @@ const sendMessage = () => {
 
   .message {
     display: flex;
-    width: auto;
+    width: 78%;
     height: 35px;
     padding: 0 10px;
     gap: 6px;
@@ -293,6 +307,22 @@ const sendMessage = () => {
     align-items: center;
     border-radius: 6px;
     background-color: #1C98D6;
+    color: #F0F2F1 !important;
+    fill: #F0F2F1 !important;
+    cursor: pointer;
+  }
+
+  #add-to-cart {
+    display: flex;
+    width: 60%;
+    height: 35px;
+    padding: 0 10px;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background-color: #2B5740;
+    color: #F0F2F1;
     cursor: pointer;
   }
 
@@ -307,6 +337,17 @@ const sendMessage = () => {
     border-radius: 6px;
     background-color: #4EA385;
   }
+
+  .flag {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background-color: #1C98D6;
+  }
+
 
   .icon_text {
     margin: 0;
@@ -383,25 +424,6 @@ const sendMessage = () => {
     width: 100%;
   }
 
-  #add-to-cart {
-    width: 249px;
-    height: 26px;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    color: #F0F2F1;
-    background-color: #2B5740;
-  }
-
-  .flag {
-    display: flex;
-    width: 23.16px;
-    height: 23.16px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 6px;
-    background-color: #1C98D6;
-  }
 
   .bottom_detail_element {
     padding: 16px;
