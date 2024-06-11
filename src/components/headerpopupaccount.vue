@@ -80,13 +80,13 @@ defineExpose({ handleLogout, userRoute });
             </svg>
             <p>Winkelmandje</p>
         </router-link>
-        <router-link to="/user/:id/catalogus" class="link">
+        <!----<router-link to="/user/:id/catalogus" class="link">
             <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
                 <path d="M3.01337 5.40504C4.12532 5.40504 5.02674 4.51491 5.02674 3.41688C5.02674 2.31884 4.12532 1.42871 3.01337 1.42871C1.90142 1.42871 1 2.31884 1 3.41688C1 4.51491 1.90142 5.40504 3.01337 5.40504Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M13.0802 4.41096L16.1003 1.42871M16.1003 1.42871L19.1203 4.41096M16.1003 1.42871V13.3577M13.0802 9.38137L16.1003 6.39912L19.1203 9.38137M16.1003 13.3577H6.03342L1 21.3104H21.1337L16.1003 13.3577ZM7.04011 13.3577V21.3104M8.04679 13.3577L13.0802 21.3104" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <p>Mijn Materiaallijst</p>
-        </router-link>
+        </router-link>-->
         <router-link to="/user/:id/wishlist" class="link">
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 26 22" fill="none">
                 <path d="M22.3037 2.80846C21.7396 2.25123 21.0699 1.80919 20.3329 1.5076C19.5958 1.20601 18.8057 1.05078 18.0079 1.05078C17.21 1.05078 16.42 1.20601 15.6829 1.5076C14.9458 1.80919 14.2761 2.25123 13.7121 2.80846L12.5415 3.96439L11.3709 2.80846C10.2316 1.68341 8.68639 1.05136 7.07516 1.05136C5.46393 1.05136 3.91869 1.68341 2.77937 2.80846C1.64006 3.93352 1 5.45941 1 7.05048C1 8.64154 1.64006 10.1674 2.77937 11.2925L3.94995 12.4484L12.5415 20.9324L21.1331 12.4484L22.3037 11.2925C22.868 10.7355 23.3156 10.0742 23.621 9.34635C23.9264 8.61849 24.0836 7.83834 24.0836 7.05048C24.0836 6.26261 23.9264 5.48246 23.621 4.7546C23.3156 4.02675 22.868 3.36544 22.3037 2.80846Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
