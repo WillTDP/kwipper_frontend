@@ -126,7 +126,7 @@ onMounted(async () => {
         <div class="second_block">
             <div class="searchbar-container">
                 <div class="input-icon">
-                    <img src="../../public/search.svg" @click="navigateToMateriaal" class="icon" />
+                    <img src="/search.svg" @click="navigateToMateriaal" class="icon" />
                     <input type="text" class="search-input" name="searchbar" placeholder="Naar wat ben je op zoek?" v-model="selectedNameValue"  @keydown.enter="navigateToMateriaal">
                 </div>
             </div>
