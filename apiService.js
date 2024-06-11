@@ -9,7 +9,7 @@ const apiClient2 = axios.create({
   },
 });
 
-const apiClient0 = axios.create({
+const apiClient = axios.create({
     baseURL: 'http://localhost:3000/', // zet hier de webservice url
     headers: {
       'Content-Type': 'application/json',
