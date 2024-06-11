@@ -19,22 +19,27 @@ import { ref } from 'vue';
         <div class="landingspage__text">
             <div>
                 <p class="number">1</p>
+                <img id="list-img" src="../assets/addplus.svg" alt="">
                 <p>Maak een <b>gratis</b> account aan</p>
             </div>
             <div>
                 <p class="number">2</p>
+                <img id="list-img" src="../assets/vergrootglas.svg" alt="">
                 <p><b>Plaats een zoekertje</b> of neem eens een kijkje door onze <b>catalogus</b>.</p>
             </div>
             <div>
                 <p class="number">3</p>
+                <img id="list-img" src="../assets/cart.svg" alt="">
                 <p><b>Gevonden</b> wat je wilt? Plaats dit dan in je <b>winkelmandje!</b></p>
             </div>
             <div>
                 <p class="number">4</p>
+                <img id="list-img" src="../assets/chat.svg" alt="">
                 <p><b>Na betaling</b> wordt de <b>verhuurder</b> op de hoogte gebracht.</p>
             </div>    
             <div>
                 <p class="number">5</p>
+                <img id="list-img" src="../assets/doos.svg" alt="">
                 <p>Haal je <b>materiaal</b> op bij de verhuurder en <b>begin je avontuur</b>!</p>
             </div>
         </div>
@@ -57,6 +62,12 @@ import { ref } from 'vue';
     .landingspage__top {
         height: 100%;
         
+    }
+ 
+    
+
+    b{
+        font-weight:750;
     }
 
     .top-content {
@@ -125,17 +136,19 @@ import { ref } from 'vue';
         width: 95%;
     }
 
-    .number {
-        font-family: 'Bitter', serif;
-        color: #809A8C;
-    }
-
     .landingspage__text .number {
         font-size: 100px;
         font-weight: 900;
         margin: 0;
+        margin-left: -25px;
+        margin-bottom: -55px;
         padding: 0;
         color: #809A8C;
+    }
+
+    #list-img{
+        width: 50px;
+        height: 50px;
     }
 
     .img_segment {
