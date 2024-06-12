@@ -13,7 +13,7 @@ const apiClient2 = axios.create({
     baseURL: 'http://localhost:3000/', // zet hier de webservice url
     headers: {
       'Content-Type': 'application/json',
-    },
+    }, 
 });
 
 export async function createAssortment(twoAssortmentData) {
@@ -62,6 +62,20 @@ export async function addItemToCart(itemId, userId, quantity) {
   }
 }
 
+export async function getShoppingCart(userId) {
+
+  try {
+
+    const response = await apiClient2.get(`/api/v1/user/$shopping-cart`);
+    return response.data.data.shoppingCart;
+
+  } catch (error) {
+    console.error('Error getting shopping cart:', error);
+    throw error;
+  }
+
+}
+
 // Axios interceptor to attach token to requests
 axios.interceptors.request.use(
   (config) => {
@@ -103,5 +117,8 @@ export default {
   },
   getAssortmentbyUser(id){
     return apiClient2.get(`/api/v1/two/user/${id}`);
+  },
+  getUserCart(id){
+    return apiClient2.get(`/api/v1/user/${id}/shopping-cart`);
   }
 };

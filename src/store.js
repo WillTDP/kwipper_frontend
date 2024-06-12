@@ -1,12 +1,13 @@
-// src/store.js
+ // src/store.js
 import { createStore } from 'vuex';
 import axios from 'axios';
+
 
 const store = createStore({
   state: {
     user: null,
     token: localStorage.getItem('authToken') || '',
-    userId: localStorage.getItem('userId') || null, // retrieve userId from localStorage
+    userId: localStorage.getItem('userId') || null, // retrieve userId from localStrage
     shopping_cart: localStorage.getItem('shopping_cart') || null
   },
   mutations: {
@@ -35,7 +36,7 @@ const store = createStore({
   },
   actions: {
     async login({ commit }, loginData) {
-      const response = await axios.post('http://kwipper-back.onrender/api/v1/user/login', loginData);
+      const response = await axios.post('http://localhost:3000/api/v1/user/login', loginData);
       const token = response.data.token;
       const user = response.data.user;
       const userId = user._id;
