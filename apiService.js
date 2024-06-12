@@ -2,14 +2,14 @@
 import axios from 'axios';
 
 // Zet de basis URL van de API
-const apiClient2 = axios.create({
+const apiClient = axios.create({
   baseURL: 'https://kwipper-back.onrender.com', // zet hier de webservice url
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-const apiClient = axios.create({
+const apiClient2 = axios.create({
     baseURL: 'http://localhost:3000/', // zet hier de webservice url
     headers: {
       'Content-Type': 'application/json',
@@ -44,6 +44,21 @@ export async function loginUser(loginData) {
   } catch (error) {
       console.error('Error logging in:', error);
       throw error;
+  }
+}
+
+export async function addItemToCart(itemId, userId, quantity) {
+  try {
+
+    const response = await apiClient2.post(`/api/v1/user/${userId}/shopping-cart`, {
+      product_id: itemId,
+      amount: quantity
+    });
+    return response.data.data.shoppingCart;
+
+  } catch (error) {
+    console.error('Error adding item to cart:', error);
+    throw error;
   }
 }
 
