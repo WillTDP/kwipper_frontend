@@ -11,7 +11,7 @@ const props = defineProps({
 <template>
     <div class="product-item" v-if="item">
       <router-link :to="'/products/' + item._id">
-        <img :src="item.item.pictures[0] ? item.item.pictures[0] : '../../../../src/assets/seniorentent.png'" alt="materiaal foto">        
+        <img :src="item.item.pictures[0] ? item.item.pictures[0] : '../../../../src/assets/seniorentent.png'" alt="materiaal foto" class="product-image">        
         <div class="product-text">
           <h3 class="product-name">{{ item.item.art_name }}</h3>
           <p  id="price" class="product-price">Vanaf €{{ item.item.price }} per dag</p>
@@ -30,6 +30,10 @@ const props = defineProps({
         background-color: #F0F2F1;
         margin: 1%;
         max-height: 240px;
+    }
+
+    .product-image {
+        object-fit: cover; /* Ensure images don't stretch */
     }
 
     .product-text {
@@ -62,6 +66,7 @@ const props = defineProps({
     .product-price{
         color: black;
     }
+
 
     @media screen and (max-width: 768px){
         .product-item {
