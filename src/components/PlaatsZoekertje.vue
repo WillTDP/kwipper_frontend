@@ -165,7 +165,7 @@
 
 
                     <label 
-                        style="background-image: url('/public/Images/cambg.png');"
+                        style="background-image: url('/src/assets/cambg.png');"
                         class="main-image main example-image" 
                         for="header-image">
                         <i></i>
@@ -184,7 +184,7 @@
 
                     <div class="added-images">
                             <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image1">
                             <i></i>
@@ -200,7 +200,7 @@
 
 
                         <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image2">
                             <i></i>
@@ -216,7 +216,7 @@
 
 
                         <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image3">
                             <i></i>
@@ -231,7 +231,7 @@
                         >
 
                         <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image4">
                             <i></i>
@@ -411,7 +411,8 @@
             </div>
         </div><div class="cell-display2">
             <div class="div3">
-                <h1>Totaal: € </h1>
+                <h1>Totaal: € {{formData.item.price}}</h1>
+                <h2>Met een eventuele waarborg van € {{ formData.item.waarborg }}</h2>
                 <button class="post" type="submit">Zet online</button><!--user_id moe worden meegegeven-->
                 <button class="preview">Bekijk preview</button>
             </div>
@@ -492,6 +493,19 @@
 
     #post-image {
         display: flex;
+    }
+
+    #post-image label{
+        opacity: 0.5;
+    }
+
+    #post-image label:hover{
+        opacity: 1;
+    }
+
+    .main-image, .added-images {
+        height: 300px;
+        width: 300px;
     }
 
     .main-image, .added-images {
