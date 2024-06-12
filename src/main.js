@@ -30,7 +30,7 @@ const routes = [
         { path: '/materiaal', name: 'materiaal',component: materiaalpagina, meta: { requiresAuth: false } },
         { path: '/products/:id', component: materiaaldetail, meta: { requiresAuth: false } },
         { path: '/user/:id', component: profilepagina, name: 'User', meta: { requiresAuth: true } },
-        { path: '/zoekertje', component: zoekertjespage, meta: { requiresAuth: true } },
+        { path: '/zoekertje', component: zoekertjespage, meta: { requiresAuth: false } },
         { path: '/verhuurder', component: verhuurder, meta: { requiresAuth: true } },
         { path: '/winkelmand', component: winkelmand, meta: { requiresAuth: true } },
         { path: '/login', component: login },
