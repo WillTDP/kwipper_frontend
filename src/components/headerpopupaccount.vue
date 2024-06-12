@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, onBeforeUnmount, reactive, computed } from 'vue';
 import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
 
 
 function checkMobile() {
@@ -34,6 +35,17 @@ const handleLogout = async () => {
         }
 };
 
+const route = useRoute();
+
+const userRoute2 = computed(() => {
+  const userId = store.getters.userId; // get user from Vuex state
+  if (userId) {
+    return `/user/${userId}`;
+  } else {  
+    return '/login';
+  }
+});
+
 const userRoute = computed(() => {
   const userId = store.getters.userId; // get user from Vuex state
   if (userId) {
@@ -58,13 +70,20 @@ defineExpose({ handleLogout, userRoute });
 
 <template>
     <div class="header-popup">
-        <router-link :to="userRoute" class="link">
+        <router-link v-if="route.name !== 'User'" :to="userRoute" class="link">
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
                 <path d="M16.7779 17.529V15.8722C16.7779 14.9934 16.4244 14.1506 15.7951 13.5291C15.1658 12.9077 14.3123 12.5586 13.4223 12.5586H6.71108C5.82112 12.5586 4.96761 12.9077 4.33831 13.5291C3.70901 14.1506 3.35547 14.9934 3.35547 15.8722V17.529" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M10.0666 9.24538C11.9198 9.24538 13.4222 7.76183 13.4222 5.93177C13.4222 4.10172 11.9198 2.61816 10.0666 2.61816C8.2133 2.61816 6.71094 4.10172 6.71094 5.93177C6.71094 7.76183 8.2133 9.24538 10.0666 9.24538Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <p>Account</p>
         </router-link>
+        <a v-else :href="userRoute2" class="link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                <path d="M16.7779 17.529V15.8722C16.7779 14.9934 16.4244 14.1506 15.7951 13.5291C15.1658 12.9077 14.3123 12.5586 13.4223 12.5586H6.71108C5.82112 12.5586 4.96761 12.9077 4.33831 13.5291C3.70901 14.1506 3.35547 14.9934 3.35547 15.8722V17.529" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.0666 9.24538C11.9198 9.24538 13.4222 7.76183 13.4222 5.93177C13.4222 4.10172 11.9198 2.61816 10.0666 2.61816C8.2133 2.61816 6.71094 4.10172 6.71094 5.93177C6.71094 7.76183 8.2133 9.24538 10.0666 9.24538Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p>Account</p>
+        </a>
         <router-link to="/user/:id/cart" class="link" v-if="state.mobile">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                 <g clip-path="url(#clip0_2607_8578)">
