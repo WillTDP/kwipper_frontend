@@ -53,7 +53,7 @@ const sendEmail = (email) => {
                       <div class="pfp_details">
                           <img src="../../../../../public/Images/tent.png" alt="profile picture" class="pfp">
                           <div class="user_details">
-                              <p>{{  userData.data.user.jb_name}}</p>
+                              <router-link v-bind:to="'/user/' + userData.data.user._id" class="profile_link"><p>{{  userData.data.user.jb_name}}</p></router-link>
                               <p> {{ userData.data.user.email}} </p>
                           </div>
                       </div>
@@ -267,6 +267,14 @@ const sendEmail = (email) => {
     width: 50px;
     height: 50px;
     border-radius: 6px;
+  }
+
+  .profile_link {
+    color: #000000;
+  }
+
+  .profile_link:hover {
+    color: #1C98D6;
   }
 
   .pfp_details {
