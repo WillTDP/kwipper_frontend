@@ -6,8 +6,9 @@
 
     let selectedPriceValue = ref(null);
     let selectedConditionValue = ref(null);
+    let SortBy = ref(null);
 
-    const emit = defineEmits(['filterByCondition', 'filterByPrice', 'filter']);
+    const emit = defineEmits(['filterByCondition', 'filterByPrice', 'filter', 'SortBy']);
 
     const toggleButton1 = () => {
         if (isPressed1.value) {
@@ -37,6 +38,7 @@
         console.log('Filter button is pressed');
         emit('filterByPrice', selectedPriceValue.value);
         emit('filterByCondition', selectedConditionValue.value);
+        emit('SortBy', SortBy.value);
         isPressed1.value = false;
     };
 </script>
@@ -62,10 +64,6 @@
             </div>
         </div>
         <div class="filter-menu-categories" v-if="isPressed1">
-            <div class="segment">
-                <p class="title">Locatie</p>
-                <input type="text"></input>
-            </div>
             <div class="segment">
                 <p class="title">Prijs</p>
                 <select class="input-limited" v-model="selectedPriceValue">
@@ -101,6 +99,17 @@
                     <option value="3">Matig</option>
                     <option value="4">Goed</option>
                     <option value="5">Perfect</option>
+                </select>
+            </div>
+            <div class="segment">
+                <p class="title">Sorteer op</p>
+                <select class="input limited" v-model="SortBy">
+                    <option value="" disabled selected>Sorteer op</option>
+                    <option value="">Reset</option>
+                    <option value="1">Prijs oplopend</option>
+                    <option value="2">Prijs aflopend</option>
+                    <option value="3">Naam oplopend</option>
+                    <option value="4">Naam aflopend</option>
                 </select>
             </div>
             <button  @click="handleFilterButtonClick">Filter</button>
