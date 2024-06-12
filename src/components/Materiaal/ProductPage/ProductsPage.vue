@@ -210,7 +210,7 @@ watch(route, () => {
   <filtermenuDesktop @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" @filterByName="filterProductsByName" @SortBy="setSortBy" v-if="state.desktop" />
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
-      <div class="grid-wrap" v-if="data">
+      <div class="grid-wrap" v-if="data" :class="{ 'active-category': selectedCategory }">        
         <ProductTrending class="producttrending" @filter="filterProductsByBrand"/>
         <ProductItemPremium v-for="(item, index) in filteredPremiumItems" :key="item._id" :item="item" :jb_name="assortments[index] && assortments[index].data.data.user.jb_name ? assortments[index].data.data.user.jb_name : ''"/>
         <ProductItem v-for="item in filteredNonPremiumItems" :key="item._id" :item="item"/>
@@ -236,6 +236,7 @@ watch(route, () => {
   .grid-container {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
   }
 
   .grid-wrap {
@@ -243,11 +244,15 @@ watch(route, () => {
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: flex-start;
-    float: right;
+    float: left;
     margin-top: 16px;
     margin-left: 16px;
     margin-right: 16px;
     width: 64%;
+  }
+
+  .active-category {
+    justify-content: flex-start;
   }
 
   .producttrending {
