@@ -1,15 +1,41 @@
 <script setup>
 import ProductItem from '../Materiaal/Parts/ProductItem.vue';
-import { computed } from 'vue';
-import { products } from '../../fake-data.js';
+import { computed, ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import apiService from '../../../apiService';
 
-const sellerEmail = 'chirokuringen@gmail.com'; // replace with the actual seller's email
+const store = useStore();
 
-const sameSellerProducts = computed(() => {
-  return products.filter(product => product.seller.email === sellerEmail);
+// const sellerEmail = 'chirokuringen@gmail.com'; // replace with the actual seller's email
+
+// const sameSellerProducts = computed(() => {
+//   return products.filter(product => product.seller.email === sellerEmail);
+// });
+
+let products = [];
+
+const getProducts = async () => {
+
+    const userDataID = ref(store.getters.userId);
+    console.log('User Data:', userDataID.value);
+
+    const response = await apiService.getUserCart(userDataID.value);
+    const data = response.data.data.shoppingCart;
+
+    return data;
+}
+
+onMounted(async () => {
+    const shoppingCart = await getProducts();
+    
+    shoppingCart.forEach(async element => {
+        const product = await apiService.fetchDataById(element.product_id);
+        products.push(product);
+    });
+
 });
 
-
+console.log(products);
 </script>
 
 <template>
@@ -18,14 +44,15 @@ const sameSellerProducts = computed(() => {
         <div class="segments">
             <div class="stacked_segment"> 
                 <div class="items">
-                    <div class="item">
-                        <img src="../../assets/fouragetent.png" alt="placeholder" />
-                        <div class="item-info">
-                            <div class="name">
-                                <p>Productnaam</p>
-                                <button class="remove">Verwijderen</button>
-                            </div>
-                            <div class="item-amount">
+
+                <div v-for="product in products" :key="product.id" class="item">
+                    <img :src="product.image" alt="placeholder" />
+                    <div class="item-info">
+                        <div class="name">
+                            <p>{{ product.data.data.assortment.item.art_name }}</p>
+                            <button class="remove">Verwijderen</button>
+                        </div>
+                        <div class="item-amount">
                             <select class="input-limited">
                                 <option value="0-5">1</option>
                                 <option value="5-10">2</option>
@@ -34,30 +61,10 @@ const sameSellerProducts = computed(() => {
                                 <option value="30-40">5</option>
                             </select>            
                         </div>
-                        <p>€0,00</p>
-                        <p>x Dagen</p>
-                        </div>
+                        <p>€{{ product.data.data.assortment.item.price }}</p>
                     </div>
-                    <div class="item">
-                        <img src="../../assets/fouragetent.png" alt="placeholder" />
-                        <div class="item-info">
-                            <div class="name">
-                                <p>Productnaam</p>
-                                <button class="remove">Verwijderen</button>
-                            </div>
-                            <div class="item-amount">
-                                <select class="input-limited">
-                                <option value="0-5">1</option>
-                                <option value="5-10">2</option>
-                                <option value="10-20">3</option>
-                                <option value="20-30">4</option>
-                                <option value="30-40">5</option>
-                                </select>            
-                            </div>
-                            <p>€0,00</p>
-                            <p>x Dagen</p>
-                        </div>
-                    </div>
+                </div>
+                    
                 </div>
                 <div class="but_wait">
                     <p>Wacht! Deze gebruiker verkoopt ook:</p>
@@ -70,18 +77,16 @@ const sameSellerProducts = computed(() => {
                 <h2>Overzicht</h2>
                 <div class="artikelen">
                     <p>Artikelen</p>
-                    <div class="artikel">
-                        <p>Productnaam</p>
-                        <p>€0,00</p>
-                    </div>
-                    <div class="artikel">
-                        <p>Productnaam</p>
-                        <p>€0,00</p>
+                    <div v-for="product in products" :key="product.id" class="item">
+                        <div class="artikel">
+                            <p>{{ product.data.data.assortment.item.art_name }}</p>
+                            <p>€{{ product.data.data.assortment.item.price }}</p>  
+                        </div>                      
                     </div>
                 </div>
                 <div class="total">
                     <p>Totaal</p>
-                    <p>€0,00</p>
+                    <p>€{{ products.reduce((acc, product) => acc + product.data.data.assortment.item.price, 0) }}</p>
                 </div>
                 <button class="checkout">Verder naar bestellen</button>
             </div>
@@ -192,7 +197,7 @@ const sameSellerProducts = computed(() => {
     .artikelen {
         display: flex;
         flex-direction: column;
-        gap: 1em;
+        gap: -20px;
     }
 
     .artikel {

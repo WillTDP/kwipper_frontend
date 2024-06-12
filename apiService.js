@@ -2,18 +2,18 @@
 import axios from 'axios';
 
 // Zet de basis URL van de API
-const apiClient2 = axios.create({
+const apiClient = axios.create({
   baseURL: 'https://kwipper-back.onrender.com', // zet hier de webservice url
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-const apiClient = axios.create({
+const apiClient2 = axios.create({
     baseURL: 'http://localhost:3000/', // zet hier de webservice url
     headers: {
       'Content-Type': 'application/json',
-    },
+    }, 
 });
 
 export async function createAssortment(twoAssortmentData) {
@@ -45,6 +45,35 @@ export async function loginUser(loginData) {
       console.error('Error logging in:', error);
       throw error;
   }
+}
+
+export async function addItemToCart(itemId, userId, quantity) {
+  try {
+
+    const response = await apiClient2.post(`/api/v1/user/${userId}/shopping-cart`, {
+      product_id: itemId,
+      amount: quantity
+    });
+    return response.data.data.shoppingCart;
+
+  } catch (error) {
+    console.error('Error adding item to cart:', error);
+    throw error;
+  }
+}
+
+export async function getShoppingCart(userId) {
+
+  try {
+
+    const response = await apiClient2.get(`/api/v1/user/$shopping-cart`);
+    return response.data.data.shoppingCart;
+
+  } catch (error) {
+    console.error('Error getting shopping cart:', error);
+    throw error;
+  }
+
 }
 
 // Axios interceptor to attach token to requests
@@ -88,5 +117,8 @@ export default {
   },
   getAssortmentbyUser(id){
     return apiClient2.get(`/api/v1/two/user/${id}`);
+  },
+  getUserCart(id){
+    return apiClient2.get(`/api/v1/user/${id}/shopping-cart`);
   }
 };
