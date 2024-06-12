@@ -31,6 +31,10 @@ const handleSubmit = async () => {
         <img src="/logo.svg" alt="logo" />
       </div>
       <h1 class="h1">Login</h1>
+      <div class="notif" v-if="!authorized">
+        <p>Welkom terug!</p>
+        <p>Log in om zoekertjes te plaatsen en meer!</p>
+      </div>
       <form class="login" @submit.prevent="handleSubmit">
         <div class="inputfield">
           <label for="username">E-mailadres</label>
@@ -53,6 +57,25 @@ const handleSubmit = async () => {
 </template>
 
 <style scoped>
+
+  .notif{
+    background-color: #1c98d6;
+    color: #F0F2F1;
+    padding-top: 0.1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .notif p:last-child{
+    margin-top: -1em;
+  }
+
   .login_div {
     display: flex;
     flex-direction: row;
