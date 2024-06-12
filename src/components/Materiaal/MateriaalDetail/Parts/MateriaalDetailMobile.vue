@@ -2,9 +2,10 @@
 import { defineProps, defineEmits, ref } from 'vue';
 import Popup from './Popup.vue';
 import StarRating from './../../Parts/StarRating.vue';
+import { useCalendar } from 'v-calendar';
 
-const props = defineProps(['itemData', 'showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
-const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'update:showFlagPopup']);
+const props = defineProps(['itemData', 'userData','showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
+const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'sendEmail','update:showFlagPopup']);
 
 const conditionMapping = {
   1: 'Beschadigd',
@@ -27,6 +28,9 @@ const sendMessage = () => {
   emits('sendMessage');
 };
 
+const sendEmail = (email) => {
+  window.open(`mailto:${email}`);
+};
 </script> 
 
 <template>
@@ -61,7 +65,7 @@ const sendMessage = () => {
         <div v-if="itemData && itemData.data.assortment.user && itemData.data.assortment.item">
           <div class="seller">
             <div class="icons">
-              <div class="message" @click="$emit('openPopup')">
+              <div class="message" @click="sendEmail">
                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 17 14" fill="none">
                   <path d="M1.6637 14C1.20618 14 0.814659 13.8288 0.489128 13.4864C0.163597 13.144 0.000554567 12.7318 0 12.25V1.75C0 1.26875 0.163043 0.856916 0.489128 0.5145C0.815213 0.172083 1.20674 0.000583333 1.6637 0H14.9733C15.4308 0 15.8226 0.1715 16.1487 0.5145C16.4748 0.8575 16.6376 1.26933 16.637 1.75V12.25C16.637 12.7312 16.4742 13.1434 16.1487 13.4864C15.8232 13.8294 15.4314 14.0006 14.9733 14H1.6637ZM8.3185 7.875L1.6637 3.5V12.25H14.9733V3.5L8.3185 7.875ZM8.3185 6.125L14.9733 1.75H1.6637L8.3185 6.125ZM1.6637 3.5V1.75V12.25V3.5Z" fill="white"/>
                 </svg>

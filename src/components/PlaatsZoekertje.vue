@@ -164,8 +164,8 @@
 
 
 
-                    <label 
-                        style="background-image: url('/public/Images/cambg.png');"
+                    <label id="first-image"
+                        style="background-image: url('/src/assets/cambg.png');"
                         class="main-image main example-image" 
                         for="header-image">
                         <i></i>
@@ -184,7 +184,7 @@
 
                     <div class="added-images">
                             <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image1">
                             <i></i>
@@ -200,7 +200,7 @@
 
 
                         <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image2">
                             <i></i>
@@ -216,7 +216,7 @@
 
 
                         <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image3">
                             <i></i>
@@ -231,7 +231,7 @@
                         >
 
                         <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image4">
                             <i></i>
@@ -264,20 +264,37 @@
                 <div class="div4">
                     <h1>Details</h1>
                     <h2>Titel</h2>
-                    <input type="text" class="input-simple" placeholder="Aanpasbare titel:" v-model="formData.item.art_name" required>
+                    <input type="text" class="input-simple" placeholder="Titel" v-model="formData.item.art_name" required>
                     <h2>Beschrijving</h2>
-                    <input type="text" class="input-description" placeholder="descriptie" v-model="formData.item.art_desc" required>
+                    <input type="text" class="input-description" placeholder="Beschrijving van je product" v-model="formData.item.art_desc" required>
                     <h2>Categorie</h2>
-                    <select class="conditie" name="Conditie" v-model="formData.item.art_category" required>
-                        <option value="Kookpotten">Kookpotten</option>
-                        <option value="Servies">Servies</option>
-                        <option value="Bestek">Bestek</option>
-                        <option value="Legertenten">Legertenten</option>
-                        <option value="Seniortenten">Seniortenten</option>
-                        <option value="Patrouilletenten">Patrouilletenten</option>
-                        <option value="Gasbakken">Gasbakken</option>
-                        <option value="Tenten">Tenten</option>
-                        <option value="Verlengtafels">Verlengtafels</option>
+                    <select class="conditie" name="Conditie" placeholder="Je product is..." v-model="formData.item.art_category" required>
+                        <option value="kookpotten">Kookpotten</option>
+                        <option value="servies">Servies</option>
+                        <option value="bestek">Bestek</option>
+                        <option value="legertenten">Legertenten</option>
+                        <option value="seniortenten">Seniortenten</option>
+                        <option value="patrouilletenten">Patrouilletenten</option>
+                        <option value="gasbakken">Gasbakken</option>
+                        <option value="tent">Tenten</option>
+                        <option value="zeilen">Tentzeilen</option>
+                        <option value="uitklaptafel">Uitklaptafels</option>
+                        <option value="uitklapbanken">Uitklapbanken</option>
+                        <option value="slaapmateriaal">Slaapmateriaal</option>
+                        <option value="tafel">Gewone tafel</option>
+                        <option value="gereedschap">Gereedschap</option>
+                        <option value="kookmateriaal">Kookmateriaal</option>
+                        <option value="kookvuur">Kookvuur</option>
+                        <option value="kajak">Kajak</option>
+                        <option value="kano">Kano</option>
+                        <option value="fiets">Fiets</option>
+                        <option value="klimuitrusting">Klim uitrusting</option>
+                        <option value="kampvuurbenodigdheden">Kampvuurbenodigdheden</option>
+                        <option value="partytent">Partytent</option>
+                        <option value="feestverlichting">Feestverlichting</option>
+                        <option value="muziekinstallatie">Muziekinstallatie</option>
+                        <option value="springkastelen">Springkastelen</option>
+                        <option value="projector">Projector</option>
                     </select>
                 </div>
                 
@@ -348,7 +365,7 @@
                 <div class="div3">
                     <h1>Prijs</h1>
                     <h2>Vraagprijs</h2>
-                    <input type="text" class="input-simple" placeholder="" v-model="formData.item.price" required>
+                    <input type="text" class="input-simple" placeholder="Vraagprijs" v-model="formData.item.price" required>
                 </div>
                 <div class="div4">
                     <h1>Beschikbaarheid</h1>
@@ -367,7 +384,7 @@
                     </div> -->
                     <br><br>
                     <h2 id="waarborg">Waarborg</h2>
-                    <input class="conditie" v-model="formData.item.waarborg">
+                    <input class="conditie" placeholder="Waarborg" v-model="formData.item.waarborg">
                     
                 </div>
                 <div class="div4">
@@ -394,7 +411,8 @@
             </div>
         </div><div class="cell-display2">
             <div class="div3">
-                <h1>Totaal: € </h1>
+                <h1>Totaal: € {{formData.item.price}}</h1>
+                <h2>Met een eventuele waarborg van € {{ formData.item.waarborg }}</h2>
                 <button class="post" type="submit">Zet online</button><!--user_id moe worden meegegeven-->
                 <button class="preview">Bekijk preview</button>
             </div>
@@ -473,8 +491,25 @@
         font-size: 3rem;
     }
 
+    #first-image{
+        height: 305px;
+    }
+
     #post-image {
         display: flex;
+    }
+
+    #post-image label{
+        opacity: 0.5;
+    }
+
+    #post-image label:hover{
+        opacity: 1;
+    }
+
+    .main-image, .added-images {
+        height: 300px;
+        width: 300px;
     }
 
     .main-image, .added-images {
