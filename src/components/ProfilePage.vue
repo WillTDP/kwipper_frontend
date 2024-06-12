@@ -8,7 +8,16 @@ import ProductItemPremium from './Materiaal/Parts/ProductItemPremium.vue';
 
 const store = useStore();
 
-const userId = store.getters.userId;
+const extractUserIdFromUrl = () => {
+  const currentUrl = window.location.href;
+  const urlParts = currentUrl.split('/');
+  const id = urlParts[urlParts.length - 1];
+  userId.value = id;
+  console.log('User id:', userId.value);
+};
+
+const LoggedInuserId = store.getters.userId;
+const userId = ref(null);
 const user = reactive({ data: null });
 const products = reactive({ data: [] });
 
@@ -24,7 +33,6 @@ const filterProductsByPrice = (priceRange) => {
   selectedPriceValue.value = { lower, upper };
 };
 
-
 const filterProductsByCondition = (condition) => {
   selectedConditionValue.value = condition;
   console.log(selectedConditionValue.value);
@@ -32,14 +40,20 @@ const filterProductsByCondition = (condition) => {
 
 
 onMounted(async () => {
-  if (userId) {
-    const response = await apiService.getUserById(userId);
-    user.data = response.data.data.user;
-    console.log('User data:', user.data);
+  try {
+    extractUserIdFromUrl(); 
+    if (userId.value) {
+      const response = await apiService.getUserById(userId.value.toString());
+      user.data = response.data.data.user;
+      console.log('User data:', user.data);
 
-    const assortmentResponse = await getAssortmentbyUser(); // Call getAssortmentbyUser here
-    products.data = assortmentResponse.data.assortment; // Access the 'assortment' property of the response
-    console.log('Products data:', products.data);
+      const assortmentResponse = await getAssortmentbyUser(); // Call getAssortmentbyUser here
+      products.data = assortmentResponse.data.assortment; // Access the 'assortment' property of the response
+      console.log('Products data:', products.data);
+    }
+  } catch (error) {
+    console.error('Error during mounted hook:', error);
+    // Handle the error appropriately here, e.g. show an error message to the user
   }
 });
 
@@ -71,11 +85,19 @@ const filteredNonPremiumItems = computed(() => {
   );
 });
 
-
 const getAssortmentbyUser = async () => {
-  const response = await apiService.getAssortmentbyUser(userId);
+  const response = await apiService.getAssortmentbyUser(userId.value);
+  console.log('User id:', userId.value);
   console.log('Assortment by user:', response.data);
   return response.data;
+};
+
+const CheckLoggedIn = () => {
+  if (userId.value === LoggedInuserId) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 </script>
@@ -99,6 +121,9 @@ const getAssortmentbyUser = async () => {
               <div class="user_info map">
                 <img class="map-pin" src="https://c.animaapp.com/rqXPDOkF/img/map-pin.svg" />
                 <p>{{ user.data.gemeente }}</p>
+              </div>
+              <div class="user_info" v-if="CheckLoggedIn(true)">
+                <p>Dit is jouw account</p>
               </div>
             </div>
         </div>
@@ -133,7 +158,7 @@ const getAssortmentbyUser = async () => {
           </div>
           <div class="group-7">
             <p>Categoriën</p>
-            <p class="smol_text">(die {{user.data.jb_name}} gebruikt)</p>
+            <p class="smol_text">(die {{ user.data.jb_name ? user.data.jb_name : user.data.first_name + ' ' + user.data.last_name }} gebruikt)</p>
           </div>
           <div v-if="products.data.length > 0">
             <div class="tags" v-for="(product, productIndex) in products.data" :key="'product-' + productIndex">
@@ -149,10 +174,13 @@ const getAssortmentbyUser = async () => {
     </div>
     
     <div class="product-container" v-if="user && user.data">
-        <h1>{{ user.data.jb_name }}'s inventaris</h1>
-        <div class="grid-wrap">
+        <h1>{{ user.data.jb_name ? user.data.jb_name : user.data.first_name + ' ' + user.data.last_name }}'s inventaris</h1>        
+        <div class="grid-wrap"  v-if="filteredPremiumItems.length > 0 || filteredNonPremiumItems.length > 0">
             <ProductItemPremium v-for="(product, index) in filteredPremiumItems" :key="index" :item="product" class="ProductItemPremium" :jb_name="user.data.jb_name"/>     
             <ProductItem v-for="(product, index) in filteredNonPremiumItems" :key="index" :item="product" class="ProductItem"/>
+        </div>
+        <div v-else> 
+          <p>Geen producten gevonden</p>
         </div>
     </div>
   </div>
