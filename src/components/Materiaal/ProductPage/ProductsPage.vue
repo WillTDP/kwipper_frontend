@@ -192,11 +192,14 @@ watch(route, () => {
 
 <style scoped>
   
+  #page-wrap {
+    max-width: 1540px;
+    margin: 0 auto;
+  }
 
   .grid-container {
     display: flex;
     justify-content: center;
-    
   }
 
   .grid-wrap {
