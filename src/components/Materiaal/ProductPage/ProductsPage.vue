@@ -16,6 +16,7 @@ let selectedPrice = ref(null);
 let selectedCondition = ref(null);
 let selectedName = ref(null);
 let selectedBrand = ref(null);
+let SortBy = ref(null);
 const assortments = ref([]);
 
 
@@ -58,13 +59,18 @@ const filterProductsByName = (name) => {
   console.log(selectedName.value);
 };
 
+const setSortBy = (sort) => {
+  SortBy.value = sort;
+  console.log(SortBy.value);
+};
+
 const filteredPremiumItems = computed(() => {
   if (!data.value || !data.value.data || !data.value.data.twoAssortment) {
     // Check if data is valid and contains the necessary structure
     return [];
   }
   
-  return data.value.data.twoAssortment.filter(item => 
+  let filteredItems = data.value.data.twoAssortment.filter(item => 
     item.item && item.item.premium === true &&
     (selectedCategory.value ? item.item.art_category && item.item.art_category.includes(selectedCategory.value) : true) &&
     (selectedPrice.value ? item.item.price >= selectedPrice.value.lower && item.item.price <= selectedPrice.value.upper : true) &&
@@ -72,6 +78,21 @@ const filteredPremiumItems = computed(() => {
     (selectedName.value ? item.item.art_name.toLowerCase().includes(selectedName.value.toLowerCase()) : true)
     && (selectedBrand.value ? item.item.brand.toLowerCase().includes(selectedBrand.value.toLowerCase()) : true)
   );
+
+  // Sort filtered items based on SortBy value if it's not empty
+  if (SortBy.value) {
+    filteredItems.sort((a, b) => {
+      switch (SortBy.value) {
+        case '1': return a.item.price - b.item.price; // Prijs oplopend
+        case '2': return b.item.price - a.item.price; // Prijs aflopend
+        case '3': return a.item.art_name.localeCompare(b.item.art_name); // Naam oplopend
+        case '4': return b.item.art_name.localeCompare(a.item.art_name); // Naam aflopend
+        default: return 0;
+      }
+    });
+  }
+
+  return filteredItems;
 });
 
 const filteredNonPremiumItems = computed(() => {
@@ -80,7 +101,7 @@ const filteredNonPremiumItems = computed(() => {
     return [];
   }
   
-  return data.value.data.twoAssortment.filter(item => 
+  let filteredItems = data.value.data.twoAssortment.filter(item => 
     item.item && item.item.premium !== true &&
     (selectedCategory.value ? item.item.art_category && item.item.art_category.includes(selectedCategory.value) : true) &&
     (selectedPrice.value ? item.item.price >= selectedPrice.value.lower && item.item.price <= selectedPrice.value.upper : true) &&
@@ -88,6 +109,21 @@ const filteredNonPremiumItems = computed(() => {
     (selectedName.value ? item.item.art_name.toLowerCase().includes(selectedName.value.toLowerCase()) : true)
     && (selectedBrand.value && item.item.brand ? item.item.brand.toLowerCase().includes(selectedBrand.value.toLowerCase()) : true)
   );
+
+  // Sort filtered items based on SortBy value if it's not empty
+  if (SortBy.value) {
+    filteredItems.sort((a, b) => {
+      switch (SortBy.value) {
+        case '1': return a.item.price - b.item.price; // Prijs oplopend
+        case '2': return b.item.price - a.item.price; // Prijs aflopend
+        case '3': return a.item.art_name.localeCompare(b.item.art_name); // Naam oplopend
+        case '4': return b.item.art_name.localeCompare(a.item.art_name); // Naam aflopend
+        default: return 0;
+      }
+    });
+  }
+
+  return filteredItems;
 });
 
 
@@ -163,7 +199,7 @@ watch(route, () => {
 
 <template>
   <div id="page-wrap">
-    <filtermenuMobile  @filter="filterProducts" @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" v-if="state.mobile" />
+    <filtermenuMobile  @filter="filterProducts" @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" @SortBy="setSortBy" v-if="state.mobile" />
       <div v-if="(selectedCategory || selectedBrand) && state.mobile" class="selected">        
         <p>Selected Category: </p>
         <div class="filter">
@@ -171,7 +207,7 @@ watch(route, () => {
           <p> {{ selectedCategory || selectedBrand }}</p>
         </div>
       </div>
-  <filtermenuDesktop @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" @filterByName="filterProductsByName" v-if="state.desktop" />
+  <filtermenuDesktop @filterByPrice="filterProductsByPrice" @filterByCondition="filterProductsByCondition" @filterByName="filterProductsByName" @SortBy="setSortBy" v-if="state.desktop" />
     <div class="grid-container">
       <categorymenuDesktop @filter="filterProducts" v-if="state.desktop"/> 
       <div class="grid-wrap" v-if="data">
