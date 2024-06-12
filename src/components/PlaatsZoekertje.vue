@@ -164,7 +164,7 @@
 
 
 
-                    <label 
+                    <label id="first-image"
                         style="background-image: url('/src/assets/cambg.png');"
                         class="main-image main example-image" 
                         for="header-image">
@@ -264,11 +264,11 @@
                 <div class="div4">
                     <h1>Details</h1>
                     <h2>Titel</h2>
-                    <input type="text" class="input-simple" placeholder="Aanpasbare titel:" v-model="formData.item.art_name" required>
+                    <input type="text" class="input-simple" placeholder="Titel" v-model="formData.item.art_name" required>
                     <h2>Beschrijving</h2>
-                    <input type="text" class="input-description" placeholder="descriptie" v-model="formData.item.art_desc" required>
+                    <input type="text" class="input-description" placeholder="Beschrijving van je product" v-model="formData.item.art_desc" required>
                     <h2>Categorie</h2>
-                    <select class="conditie" name="Conditie" v-model="formData.item.art_category" required>
+                    <select class="conditie" name="Conditie" placeholder="Je product is..." v-model="formData.item.art_category" required>
                         <option value="kookpotten">Kookpotten</option>
                         <option value="servies">Servies</option>
                         <option value="bestek">Bestek</option>
@@ -365,7 +365,7 @@
                 <div class="div3">
                     <h1>Prijs</h1>
                     <h2>Vraagprijs</h2>
-                    <input type="text" class="input-simple" placeholder="" v-model="formData.item.price" required>
+                    <input type="text" class="input-simple" placeholder="Vraagprijs" v-model="formData.item.price" required>
                 </div>
                 <div class="div4">
                     <h1>Beschikbaarheid</h1>
@@ -384,7 +384,7 @@
                     </div> -->
                     <br><br>
                     <h2 id="waarborg">Waarborg</h2>
-                    <input class="conditie" v-model="formData.item.waarborg">
+                    <input class="conditie" placeholder="Waarborg" v-model="formData.item.waarborg">
                     
                 </div>
                 <div class="div4">
@@ -489,6 +489,10 @@
 
     .tip i {
         font-size: 3rem;
+    }
+
+    #first-image{
+        height: 305px;
     }
 
     #post-image {
