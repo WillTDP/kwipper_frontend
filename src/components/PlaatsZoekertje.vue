@@ -165,7 +165,7 @@
 
 
                     <label 
-                        style="background-image: url('/public/Images/cambg.png');"
+                        style="background-image: url('/src/assets/cambg.png');"
                         class="main-image main example-image" 
                         for="header-image">
                         <i></i>
@@ -184,7 +184,7 @@
 
                     <div class="added-images">
                             <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image1">
                             <i></i>
@@ -200,7 +200,7 @@
 
 
                         <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image2">
                             <i></i>
@@ -216,7 +216,7 @@
 
 
                         <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image3">
                             <i></i>
@@ -231,7 +231,7 @@
                         >
 
                         <label 
-                            style="background-image: url('/public/Images/plusj.png');"
+                            style="background-image: url('/src/assets/plusj.png');"
                             class="image main example-image" 
                             for="image4">
                             <i></i>
