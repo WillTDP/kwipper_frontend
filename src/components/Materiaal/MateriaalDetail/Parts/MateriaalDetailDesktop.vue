@@ -77,9 +77,9 @@ const sendEmail = (email) => {
                       </p>            
                   </div>
                   <div v-if="itemData && itemData.data.assortment.item">
-                    <p><b>Stock:</b> {{ itemData.data.assortment.item.price }}</p>
+                    <p v-if="itemData.data.assortment.item.stock"><b>Stock:</b> {{ itemData.data.assortment.item.stock }}</p>
                     <p><b>Staat:</b> {{ conditionMapping[itemData.data.assortment.item.condition] }}</p>
-                    <p><b>Waarborg:</b> €{{ itemData.data.assortment.item.waarborg }} per product</p>
+                    <p v-if="itemData.data.assortment.item.waarborg"><b>Waarborg:</b> €{{ itemData.data.assortment.item.waarborg }} per product</p>
                   </div>
                 </div>
                 <div class="location">
