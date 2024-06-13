@@ -37,7 +37,7 @@ const store = createStore({
       localStorage.removeItem('authToken');
       localStorage.removeItem('userId');
       localStorage.removeItem('shopping_cart');
-      localStorage.removeItem('wish_list');
+      localStorage.removeItem('shopping_cart');
     },
     setShoppingCart(state, shopping_cart) {
       state.shopping_cart = shopping_cart;

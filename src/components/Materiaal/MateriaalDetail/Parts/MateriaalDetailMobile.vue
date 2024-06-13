@@ -3,6 +3,9 @@ import { defineProps, defineEmits, ref } from 'vue';
 import Popup from './Popup.vue';
 import StarRating from './../../Parts/StarRating.vue';
 import { useCalendar } from 'v-calendar';
+import store from '../../../../store.js'
+import { addItemToCart } from '../../../../../apiService';
+
 
 const props = defineProps(['itemData', 'userData','showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
 const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'sendEmail','update:showFlagPopup']);
@@ -30,6 +33,37 @@ const sendMessage = () => {
 
 const sendEmail = (email) => {
   window.open(`mailto:${email}`);
+};
+
+const addToCart = async () => {
+  console.log("----------------");
+
+  console.log("Add To cart button is clicked");
+
+
+  const itemData = ref(props.itemData);
+  const itemID = itemData.value.data.assortment._id;
+  console.log('Item Data:', itemID);
+
+
+  const cartItem = {
+    id: itemID,
+    quantity: 1,
+  };
+  console.log('Cart Item:', cartItem);
+
+
+  const userDataID = ref(store.getters.userId);
+  console.log('User Data:', userDataID.value);
+  
+  
+  const cart = await addItemToCart(itemID, userDataID.value, 1);
+  console.log(cart);
+
+  store.commit('setShoppingCart', cart);
+
+  const cartLocalStorage = await store.getters.shopping_cart;
+  console.log('Cart Local Storage:', cartLocalStorage);
 };
 </script> 
 
@@ -112,7 +146,7 @@ const sendEmail = (email) => {
           <p><b>Staat:</b> {{ conditionMapping[itemData.data.assortment.item.condition] }}</p>
           <p v-if="itemData.data.assortment.item.waarborg"><b>Waarborg:</b> €{{ itemData.data.assortment.item.waarborg }} per product</p>
         </div>
-        <button id="add-to-cart">Toevoegen aan winkelmandje</button>
+        <button id="add-to-cart" @click="addToCart()">Toevoegen aan winkelmandje</button>
       </div>
       <Popup :showPopup="props.showPopup" @update:showPopup="$emit('closePopup')">
         <div v-if="!confirmationShown">  
