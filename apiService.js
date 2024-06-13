@@ -115,6 +115,19 @@ export async function getShoppingCart(userId) {
 
 }
 
+export async function removeItemFromCart(itemId, userId) {
+  
+    try {
+      const response = await apiClient2.delete(`/api/v1/user/${itemId}/shopping-cart/${userId}`);
+      return response.data.data.shoppingCart;
+  
+    } catch (error) {
+      console.error('Error removing item from cart:', error);
+      throw error;
+    }
+  
+  }
+
 // Axios interceptor to attach token to requests
 axios.interceptors.request.use(
   (config) => {
@@ -160,10 +173,11 @@ export default {
   getUserCart(id){
     return apiClient2.get(`/api/v1/user/${id}/shopping-cart`);
   },
-  getUserWishlist(id){
-    return apiClient2.get(`/api/v1/user/${id}/wishlist`);
-  },
   removeItemFromCart(itemId, userId){
     return apiClient2.delete(`/api/v1/user/${itemId}/shopping-cart/${userId}`);
   },
+  getUserWishlist(id){
+    return apiClient2.get(`/api/v1/user/${id}/wishlist`);
+  },
+ 
 };

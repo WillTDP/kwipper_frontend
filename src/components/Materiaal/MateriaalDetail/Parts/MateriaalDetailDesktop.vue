@@ -41,6 +41,7 @@ const addToCart = async () => {
 
 
   const itemData = ref(props.itemData);
+  
   const itemID = itemData.value.data.assortment._id;
   console.log('Item Data:', itemID);
 
