@@ -92,7 +92,7 @@ const navigateToMateriaal = () => {
 const store = useStore();
 console.log(store.getters.shopping_cart);
 const shoppingCartCount = computed(() => store.getters.shopping_cart_count);
-
+console.log(shoppingCartCount.value);
 
 // Computed properties for user and authentication status
 const isLoggedIn = computed(() => store.getters.isAuthenticated);

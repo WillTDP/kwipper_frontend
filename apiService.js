@@ -120,5 +120,5 @@ export default {
   },
   getUserCart(id){
     return apiClient2.get(`/api/v1/user/${id}/shopping-cart`);
-  }
+  },
 };

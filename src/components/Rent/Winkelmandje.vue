@@ -1,21 +1,12 @@
 <script setup>
-import ProductItem from '../Materiaal/Parts/ProductItem.vue';
-import { computed, ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import apiService from '../../../apiService';
 
 const store = useStore();
-
-// const sellerEmail = 'chirokuringen@gmail.com'; // replace with the actual seller's email
-
-// const sameSellerProducts = computed(() => {
-//   return products.filter(product => product.seller.email === sellerEmail);
-// });
-
-let products = ref([]);
+const products = ref([]);
 
 const getProducts = async () => {
-
     const userDataID = ref(store.getters.userId);
     console.log('User Data:', userDataID.value);
 
@@ -23,6 +14,15 @@ const getProducts = async () => {
     const data = response.data.data.shoppingCart;
 
     return data;
+};
+
+const removeProduct = (id) => {
+    const userDataID = ref(store.getters.userId);
+    const productID = id;
+    console.log(productID);
+    console.log('User Data Id:', userDataID.value);
+
+
 }
 
 onMounted(async () => {
@@ -34,10 +34,7 @@ onMounted(async () => {
     }
 
     console.log(products);
-
-
 });
-
 </script>
 
 <template>
@@ -46,27 +43,25 @@ onMounted(async () => {
         <div class="segments">
             <div class="stacked_segment"> 
                 <div class="items">
-
-                <div v-for="product in products" :key="product.id" class="item">
-                    <img :src="product.data.data.assortment.item.pictures" alt="placeholder" />
-                    <div class="item-info">
-                        <div class="name">
-                            <p>{{ product.data.data.assortment.item.art_name }}</p>
-                            <button class="remove">Verwijderen</button>
+                    <div v-for="product in products" :key="product.id" class="item">
+                        <img :src="product.data.data.assortment.item.pictures" alt="placeholder" />
+                        <div class="item-info">
+                            <div class="name">
+                                <p>{{ product.data.data.assortment.item.art_name }}</p>
+                                <button @click="removeProduct(product.data.data.assortment._id)" class="remove">Verwijderen</button>
+                            </div>
+                            <div class="item-amount">
+                                <select class="input-limited">
+                                    <option value="0-5">1</option>
+                                    <option value="5-10">2</option>
+                                    <option value="10-20">3</option>
+                                    <option value="20-30">4</option>
+                                    <option value="30-40">5</option>
+                                </select>            
+                            </div>
+                            <p>€{{ product.data.data.assortment.item.price }}</p>
                         </div>
-                        <div class="item-amount">
-                            <select class="input-limited">
-                                <option value="0-5">1</option>
-                                <option value="5-10">2</option>
-                                <option value="10-20">3</option>
-                                <option value="20-30">4</option>
-                                <option value="30-40">5</option>
-                            </select>            
-                        </div>
-                        <p>€{{ product.data.data.assortment.item.price }}</p>
                     </div>
-                </div>
-                    
                 </div>
                 <!-- <div class="but_wait">
                     <p>Wacht! Deze gebruiker verkoopt ook:</p>
@@ -92,7 +87,6 @@ onMounted(async () => {
                 </div>
                 <button class="checkout">Verder naar bestellen</button>
             </div>
-
         </div>
     </div>
 </template>
@@ -136,6 +130,7 @@ onMounted(async () => {
         background-color: #f0f2f1;
         width: 100%;
         border-radius: 12px;
+
     }
 
     .item {
@@ -157,6 +152,7 @@ onMounted(async () => {
         display: flex;
         flex-direction: column;
         gap: 0em;
+        margin-top: -1em;
     }
 
     .name {
