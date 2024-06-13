@@ -6,7 +6,6 @@ import apiService from '../../apiService';
 const store = useStore();
 
 let products = ref([]);
-let isWishlistEmpty = ref(false);
 
 const getProducts = async () => {
 
@@ -19,36 +18,49 @@ const getProducts = async () => {
     return data;
 }
 
-const removeItem = async (productId) => {
-  await store.dispatch('removeWishlistItem', productId);
-  await loadProducts();
-}
+const removeItem = async (id) => {
+    const userDataID = ref(store.getters.userId);
+    const productID = id;
+    const itemIndex = products.value.findIndex(item => item.id === id);
 
-const loadProducts = async () => {
-  const shoppingCart = await getProducts();
-  products.value = [];
+    console.log("product id", productID);
+    console.log('User Data Id:', userDataID.value);
 
-  if (shoppingCart.length === 0) {
-    isWishlistEmpty.value = true;
-  } else {
-    isWishlistEmpty.value = false;
-    for (const element of shoppingCart) {
-      const product = await apiService.fetchDataById(element.product_id);
-      products.value.push(product);
+    try {
+        const response = await apiService.removeWishlistItem(userDataID.value, productID);
+        const data = response.data.data.wishlist;
+        products.value.splice(itemIndex, 1);
+    } catch (error) {
+        console.log(error);
     }
-  }
 
-  console.log(products.value);
+    // return data;
 }
 
-onMounted(loadProducts);
+onMounted(async () => {
+    const wishlist = await getProducts();
+    
+    for (const element of wishlist) {
+        const product = await apiService.fetchDataById(element.product_id);
+
+        const wishlistObj = {
+        product: product,
+        id: element._id
+        }
+
+        products.value.push(wishlistObj)
+    }
+
+    console.log(products);
+});
+
 </script>
 
 <template>
     <h1>Je verlanglijstje</h1>
 
     <div class="page_container">
-        <div v-if="isWishlistEmpty" class="empty_wish">
+        <div v-if="products.length === 0" class="empty_wish">
             <img src="../assets/Heart.svg" alt="Heart Icon" class="heart">
             <h3>Sla je favorieten op!</h3>
             <p>Ga door onze catalogus en vul je <br> verlanglijstje aan!</p>
@@ -61,14 +73,14 @@ onMounted(loadProducts);
                 <div class="items">
 
                 <div v-for="product in products" :key="product.id" class="item">
-                    <img :src="product.data.data.assortment.item.pictures" alt="placeholder" />
+                    <img :src="product.product.data.data.assortment.item.pictures" alt="placeholder" />
                     <div class="item-info">
                         <div class="name">
-                            <p>{{ product.data.data.assortment.item.art_name }}</p>
+                            <p>{{ product.product.data.data.assortment.item.art_name }}</p>
                             <button @click="removeItem(product.id)" class="remove">Verwijderen</button>
                         </div>
-                        <p>{{ product.data.data.assortment.item.art_desc }}</p>
-                        <p>€{{ product.data.data.assortment.item.price }}</p>
+                        <p>{{ product.product.data.data.assortment.item.art_desc }}</p>
+                        <p>€{{ product.product.data.data.assortment.item.price }}</p>
                     </div>
                 </div>
                     

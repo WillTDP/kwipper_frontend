@@ -178,6 +178,8 @@ export default {
   },
   getUserWishlist(id){
     return apiClient2.get(`/api/v1/user/${id}/wishlist`);
+  },removeWishlistItem(itemId, userId){
+    return apiClient2.delete(`/api/v1/user/${itemId}/wishlist/${userId}`);
   },
  
 };
