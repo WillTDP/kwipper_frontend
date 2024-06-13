@@ -16,13 +16,23 @@ const getProducts = async () => {
     return data;
 };
 
-const removeProduct = (id) => {
+const removeProduct = async (id) => {
     const userDataID = ref(store.getters.userId);
     const productID = id;
-    console.log(productID);
+    const itemIndex = products.value.findIndex(item => item.id === id);
+
+    console.log("product id", productID);
     console.log('User Data Id:', userDataID.value);
 
+    try {
+        const response = await apiService.removeItemFromCart(userDataID.value, productID);
+        const data = response.data.data.shoppingCart;
+        products.value.splice(itemIndex, 1);
+    } catch (error) {
+        console.log(error);
+    }
 
+    // return data;
 }
 
 onMounted(async () => {
@@ -30,7 +40,14 @@ onMounted(async () => {
     
     for (const element of shoppingCart) {
         const product = await apiService.fetchDataById(element.product_id);
-        products.value.push(product);
+
+        const cartObj = {
+        product: product,
+        id: element._id,
+        amount: element.amount
+        }
+
+        products.value.push(cartObj)
     }
 
     console.log(products);
@@ -44,11 +61,11 @@ onMounted(async () => {
             <div class="stacked_segment"> 
                 <div class="items">
                     <div v-for="product in products" :key="product.id" class="item">
-                        <img :src="product.data.data.assortment.item.pictures" alt="placeholder" />
+                        <img :src="product.product.data.data.assortment.item.pictures" alt="placeholder" />
                         <div class="item-info">
                             <div class="name">
-                                <p>{{ product.data.data.assortment.item.art_name }}</p>
-                                <button @click="removeProduct(product.data.data.assortment._id)" class="remove">Verwijderen</button>
+                                <p>{{ product.product.data.data.assortment.item.art_name }}</p>
+                                <button @click="removeProduct(product.id)" class="remove">Verwijderen</button>
                             </div>
                             <div class="item-amount">
                                 <select class="input-limited">
@@ -59,7 +76,7 @@ onMounted(async () => {
                                     <option value="30-40">5</option>
                                 </select>            
                             </div>
-                            <p>€{{ product.data.data.assortment.item.price }}</p>
+                            <p>€{{ product.product.data.data.assortment.item.price }}</p>
                         </div>
                     </div>
                 </div>
@@ -76,14 +93,14 @@ onMounted(async () => {
                     <p>Artikelen</p>
                     <div v-for="product in products" :key="product.id" class="item">
                         <div class="sumup">
-                            <p>{{ product.data.data.assortment.item.art_name }}</p>
-                            <p>€{{ product.data.data.assortment.item.price }}</p>  
+                            <p>{{ product.product.data.data.assortment.item.art_name }}</p>
+                            <p>€{{ product.product.data.data.assortment.item.price }}</p>  
                         </div>                      
                     </div>
                 </div>
                 <div class="total">
                     <p>Totaal te betalen</p>
-                    <p>€{{ products.reduce((acc, product) => acc + product.data.data.assortment.item.price, 0) }}</p>
+                    <p>€{{ products.reduce((acc, product) => acc + product.product.data.data.assortment.item.price, 0) }}</p>
                 </div>
                 <button class="checkout">Verder naar bestellen</button>
             </div>
