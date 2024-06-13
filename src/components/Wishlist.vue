@@ -2,6 +2,7 @@
 import { computed, ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import apiService from '../../apiService';
+import '@fortawesome/fontawesome-free/css/all.css'
 
 const store = useStore();
 
@@ -69,24 +70,32 @@ onMounted(async () => {
             </RouterLink>
         </div>
         <div v-else class="wishlist_items">
-            <div class="stacked_segment"> 
-                <div class="items">
+            
+            <div class="items">
 
                 <div v-for="product in products" :key="product.id" class="item">
-                    <img :src="product.product.data.data.assortment.item.pictures" alt="placeholder" />
+                    <div class="image">
+                        <img :src="product.product.data.data.assortment.item.pictures" alt="placeholder" />
+                    </div>
                     <div class="item-info">
-                        <div class="name">
-                            <p>{{ product.product.data.data.assortment.item.art_name }}</p>
-                            <button @click="removeItem(product.id)" class="remove">Verwijderen</button>
-                        </div>
+                        <h3>{{ product.product.data.data.assortment.item.art_name }}</h3>
+                        <p>Vanaf €{{ product.product.data.data.assortment.item.price }} per dag</p>
                         <p>{{ product.product.data.data.assortment.item.art_desc }}</p>
-                        <p>€{{ product.product.data.data.assortment.item.price }}</p>
+                    </div>
+                    <div class="user-info">
+                        <p><i class="fas fa-user" id="person"></i>{{ product.product.data.data.assortment.user.posted_by }}</p>
+                        <button @click="removeItem(product.id)" class="remove">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <router-link :to="'/products/' + product.product.data.data.assortment._id">
+                            <button class="detail">Bekijk</button>
+                        </router-link>
                     </div>
                 </div>
-                    
-                </div>
-
+                
             </div>
+
+            
         </div>
 
     </div>
@@ -124,15 +133,58 @@ onMounted(async () => {
     }
 
     .remove {
-        background-color: #2b5740;
+        background-color: #ff0000;
         color: white;
         border: none;
         border-radius: 9px;
-        padding: 0.5em;
-        margin-top: 1em;
+        position: absolute;
+        top: 0;
+        right: 0;
     }
 
     .remove:hover {
         background-color: #1e3d2b;
+    }
+
+    .items {
+        position: relative;
+    }
+
+    .item {
+        background-color: #f0f2f1;
+        display: flex;  /* Changed from grid to flex */
+        align-items: center;  /* Center items vertically */
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .image {
+        margin-right: 20px;  /* Space between the image and item info */
+    }
+
+    .image img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 9px;
+    }
+
+    .item-info {
+        flex: 1;
+        margin-right: 20px;
+    }
+
+    #person {
+        margin-right: 10px;
+    }
+
+    .item-info h3 {
+        color: #2b5740;
+    }
+
+    .detail {
+        background-color: #1c98d6;
+        color: white;
     }
 </style>

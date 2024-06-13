@@ -411,6 +411,10 @@ const addToWishlist = async () => {
     background-color: #4EA385;
   }
 
+  .wishlist:hover {
+    cursor: pointer;
+  }
+
   .flag {
     display: flex;
     width: 36px;
