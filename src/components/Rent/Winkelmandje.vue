@@ -12,7 +12,7 @@ const store = useStore();
 //   return products.filter(product => product.seller.email === sellerEmail);
 // });
 
-let products = [];
+let products = ref([]);
 
 const getProducts = async () => {
 
@@ -28,14 +28,16 @@ const getProducts = async () => {
 onMounted(async () => {
     const shoppingCart = await getProducts();
     
-    shoppingCart.forEach(async element => {
+    for (const element of shoppingCart) {
         const product = await apiService.fetchDataById(element.product_id);
-        products.push(product);
-    });
+        products.value.push(product);
+    }
+
+    console.log(products);
+
 
 });
 
-console.log(products);
 </script>
 
 <template>

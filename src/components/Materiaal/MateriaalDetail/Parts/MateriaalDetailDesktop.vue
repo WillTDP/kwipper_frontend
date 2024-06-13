@@ -146,9 +146,9 @@ const addToCart = async () => {
                       </div>
                     </div>
                 </div>
-                <div class="card_flag" @click="addToCart()">
-                    <button id="add-to-cart">Toevoegen aan winkelmandje</button>
-                    <a href="#" class="flag">
+                <div class="card_flag" >
+                    <button id="add-to-cart" @click="addToCart()">Toevoegen aan winkelmandje</button>
+                    <a href="#" class="flag"  @click="openFlagPopup">
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
                             <g clip-path="url(#clip0_2202_11692)">
                                 <path d="M2.42188 8.13772C2.42188 8.13772 2.94145 7.61815 4.50016 7.61815C6.05887 7.61815 7.09801 8.65729 8.65672 8.65729C10.2154 8.65729 10.735 8.13772 10.735 8.13772V1.90287C10.735 1.90287 10.2154 2.42244 8.65672 2.42244C7.09801 2.42244 6.05887 1.3833 4.50016 1.3833C2.94145 1.3833 2.42188 1.90287 2.42188 1.90287V8.13772Z" stroke="#F0F2F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

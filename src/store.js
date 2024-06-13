@@ -8,8 +8,13 @@ const store = createStore({
     user: null,
     token: localStorage.getItem('authToken') || '',
     userId: localStorage.getItem('userId') || null, // retrieve userId from localStrage
-    shopping_cart: localStorage.getItem('shopping_cart') || null
-  },
+    shopping_cart: (() => {
+      try {
+        return JSON.parse(localStorage.getItem('shopping_cart'));
+      } catch (error) {
+        return null;
+      }
+    })() || null,  },
   mutations: {
     setUser(state, user) {
       console.log('setUser mutation called with', user);
@@ -31,7 +36,7 @@ const store = createStore({
     },
     setShoppingCart(state, shopping_cart) {
       state.shopping_cart = shopping_cart;
-      localStorage.setItem('shopping_cart', shopping_cart);
+      localStorage.setItem('shopping_cart', JSON.stringify(shopping_cart));
     }
   },
   actions: {
