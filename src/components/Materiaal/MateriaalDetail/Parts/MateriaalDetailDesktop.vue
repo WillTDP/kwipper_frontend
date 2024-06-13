@@ -1,8 +1,10 @@
 <script setup>
 import { defineProps, defineEmits, ref } from 'vue';
 import Popup from './Popup.vue';
+import store from '../../../../store.js'
 import StarRating from './../../Parts/StarRating.vue';
 import { useCalendar } from 'v-calendar';
+import { addItemToCart } from '../../../../../apiService';
 
 const props = defineProps(['itemData', 'userData','showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
 const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'sendEmail','update:showFlagPopup']);
@@ -31,6 +33,38 @@ const sendMessage = () => {
 const sendEmail = (email) => {
   window.open(`mailto:${email}`);
 };
+
+const addToCart = async () => {
+  console.log("----------------");
+
+  console.log("Add To cart button is clicked");
+
+
+  const itemData = ref(props.itemData);
+  const itemID = itemData.value.data.assortment._id;
+  console.log('Item Data:', itemID);
+
+
+  const cartItem = {
+    id: itemID,
+    quantity: 1,
+  };
+  console.log('Cart Item:', cartItem);
+
+
+  const userDataID = ref(store.getters.userId);
+  console.log('User Data:', userDataID.value);
+  
+  
+  const cart = await addItemToCart(itemID, userDataID.value, 1);
+  console.log(cart);
+
+  store.commit('setShoppingCart', cart);
+
+  const cartLocalStorage = await store.getters.shopping_cart;
+  console.log('Cart Local Storage:', cartLocalStorage);
+};
+
 </script>
 
 
@@ -112,9 +146,9 @@ const sendEmail = (email) => {
                       </div>
                     </div>
                 </div>
-                <div class="card_flag">
+                <div class="card_flag" @click="addToCart()">
                     <button id="add-to-cart">Toevoegen aan winkelmandje</button>
-                    <a href="#" class="flag" @click="openFlagPopup">
+                    <a href="#" class="flag">
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
                             <g clip-path="url(#clip0_2202_11692)">
                                 <path d="M2.42188 8.13772C2.42188 8.13772 2.94145 7.61815 4.50016 7.61815C6.05887 7.61815 7.09801 8.65729 8.65672 8.65729C10.2154 8.65729 10.735 8.13772 10.735 8.13772V1.90287C10.735 1.90287 10.2154 2.42244 8.65672 2.42244C7.09801 2.42244 6.05887 1.3833 4.50016 1.3833C2.94145 1.3833 2.42188 1.90287 2.42188 1.90287V8.13772Z" stroke="#F0F2F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
