@@ -46,7 +46,7 @@ console.log(products);
                 <div class="items">
 
                 <div v-for="product in products" :key="product.id" class="item">
-                    <img :src="product.image" alt="placeholder" />
+                    <img :src="product.data.data.assortment.item.pictures" alt="placeholder" />
                     <div class="item-info">
                         <div class="name">
                             <p>{{ product.data.data.assortment.item.art_name }}</p>
@@ -66,26 +66,26 @@ console.log(products);
                 </div>
                     
                 </div>
-                <div class="but_wait">
+                <!-- <div class="but_wait">
                     <p>Wacht! Deze gebruiker verkoopt ook:</p>
                     <div class="productitem">
                         <ProductItem v-for="product in sameSellerProducts" :key="product.id" :product="product"/>
                     </div>     
-                </div>
+                </div> -->
             </div>
             <div class="overzicht">
                 <h2>Overzicht</h2>
                 <div class="artikelen">
                     <p>Artikelen</p>
                     <div v-for="product in products" :key="product.id" class="item">
-                        <div class="artikel">
+                        <div class="sumup">
                             <p>{{ product.data.data.assortment.item.art_name }}</p>
                             <p>€{{ product.data.data.assortment.item.price }}</p>  
                         </div>                      
                     </div>
                 </div>
                 <div class="total">
-                    <p>Totaal</p>
+                    <p>Totaal te betalen</p>
                     <p>€{{ products.reduce((acc, product) => acc + product.data.data.assortment.item.price, 0) }}</p>
                 </div>
                 <button class="checkout">Verder naar bestellen</button>
@@ -96,6 +96,10 @@ console.log(products);
 </template>
 
 <style scoped>
+
+    #price{
+        margin-left: 15em;
+    }
 
     .winkelmandje {
         display: flex;
@@ -204,6 +208,14 @@ console.log(products);
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .sumup{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 1em;
+
     }
 
     .total {
