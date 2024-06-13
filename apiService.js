@@ -56,7 +56,18 @@ export async function addItemToWishlist(itemId, userId) {
     return response.data.data.wishlist;
 
   } catch (error) {
-    console.error('Error adding item to cart:', error);
+    console.error('Error adding item to wishlist:', error);
+    throw error;
+  }
+}
+
+export async function removeWishlistItem(itemId, userId) {
+  try {
+    const response = await apiClient2.delete(`/api/v1/user/${itemId}/wishlist/${userId}`);
+    return response.data.data.shoppingCart;
+
+  } catch (error) {
+    console.error('Error removing item from wishlist:', error);
     throw error;
   }
 }
@@ -148,5 +159,11 @@ export default {
   },
   getUserCart(id){
     return apiClient2.get(`/api/v1/user/${id}/shopping-cart`);
-  }
+  },
+  getUserWishlist(id){
+    return apiClient2.get(`/api/v1/user/${id}/wishlist`);
+  },
+  removeItemFromCart(itemId, userId){
+    return apiClient2.delete(`/api/v1/user/${itemId}/shopping-cart/${userId}`);
+  },
 };

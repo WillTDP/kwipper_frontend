@@ -11,6 +11,7 @@ import profilepagina from './components/ProfilePage.vue'
 import verhuurder from './components/VerhuurPage.vue'
 import zoekertjespage from './components/PlaatsZoekertje.vue'
 import winkelmand from './components/Rent/Winkelmandje.vue'
+import wishlist from './components/Wishlist.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 import VCalendar from 'v-calendar';
@@ -35,6 +36,7 @@ const routes = [
         { path: '/winkelmand', component: winkelmand, meta: { requiresAuth: true } },
         { path: '/login', component: login },
         { path: '/signup', component: signup },
+        { path: '/wishlist', component: wishlist, meta: { requiresAuth: true } }
 ]
 
 const router = createRouter({
