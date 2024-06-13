@@ -4,7 +4,7 @@ import Popup from './Popup.vue';
 import store from '../../../../store.js'
 import StarRating from './../../Parts/StarRating.vue';
 import { useCalendar } from 'v-calendar';
-import { addItemToCart } from '../../../../../apiService';
+import { addItemToCart, addItemToWishlist } from '../../../../../apiService';
 
 const props = defineProps(['itemData', 'userData','showPopup', 'showFlagPopup', 'confirmationShown', 'formData']);
 const emits = defineEmits(['openPopup', 'closePopup', 'sendMessage', 'sendEmail','update:showFlagPopup']);
@@ -63,6 +63,36 @@ const addToCart = async () => {
 
   const cartLocalStorage = await store.getters.shopping_cart;
   console.log('Cart Local Storage:', cartLocalStorage);
+};
+
+const addToWishlist = async () => {
+  console.log("----------------");
+
+  console.log("Add To wishlist button is clicked");
+
+
+  const itemData = ref(props.itemData);
+  const itemID = itemData.value.data.assortment._id;
+  console.log('Item Data:', itemID);
+
+
+  const wishlistItem = {
+    id: itemID,
+  };
+  console.log('Wishlist Item:', wishlistItem);
+
+
+  const userDataID = ref(store.getters.userId);
+  console.log('User Data:', userDataID.value);
+  
+  
+  const wishlist = await addItemToWishlist(itemID, userDataID.value);
+  console.log(wishlist);
+
+  store.commit('setWishList', wishlist);
+
+  const wishlistLocalStorage = await store.getters.wish_list;
+  console.log('Wishlist Local Storage:', wishlistLocalStorage);
 };
 
 </script>
@@ -132,7 +162,7 @@ const addToCart = async () => {
                       </div>
                         
                       </div>
-                      <div class="wishlist">
+                      <div class="wishlist" @click="addToWishlist()">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="13" viewBox="0 0 16 13" fill="none">
                           <mask id="path-1-inside-1_2202_11708" fill="white">
                               <path d="M7.61013 12.4697C7.43312 12.4697 7.2561 12.4086 7.12126 12.2871L1.58953 7.3012C-0.414338 5.46079 -0.537419 2.82762 1.29912 1.17231C2.14409 0.412582 3.25389 0 4.43284 0C4.43561 0 4.43768 0 4.44045 0C5.62216 0.00186971 6.73335 0.418191 7.56726 1.17355L7.56933 1.17542C7.59252 1.19632 7.62774 1.19632 7.65093 1.17542C8.49936 0.413205 9.60847 0 10.7874 0C10.7902 0 10.7923 0 10.795 0C11.9774 0.00186971 13.0879 0.418191 13.9218 1.17293C15.7577 2.82887 15.6353 5.46141 13.6356 7.29684L8.099 12.2871C7.96416 12.4086 7.78715 12.4697 7.61013 12.4697ZM4.43284 1.24647C3.62244 1.24647 2.85976 1.53067 2.28584 2.04671C1.15806 3.0632 0.899449 4.88866 2.5728 6.42431L6.94062 10.3617C7.32108 10.7046 7.89919 10.7047 8.27968 10.3617L12.653 6.41995C14.3208 4.88804 14.0629 3.06258 12.9434 2.05356L12.9427 2.05294C12.3688 1.53378 11.6047 1.24772 10.793 1.24647C10.7909 1.24647 10.7888 1.24647 10.7874 1.24647C9.97633 1.24647 9.21433 1.53067 8.64042 2.04671L8.10245 2.53719C7.84246 2.77464 7.37849 2.77464 7.1185 2.53719L6.58607 2.05107C6.01423 1.53378 5.25085 1.24772 4.43837 1.24647C4.4363 1.24647 4.43423 1.24647 4.43284 1.24647Z"/>

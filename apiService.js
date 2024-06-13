@@ -47,6 +47,34 @@ export async function loginUser(loginData) {
   }
 }
 
+export async function addItemToWishlist(itemId, userId) {
+  try {
+
+    const response = await apiClient2.post(`/api/v1/user/${userId}/wishlist`, {
+      product_id: itemId
+    });
+    return response.data.data.wishlist;
+
+  } catch (error) {
+    console.error('Error adding item to cart:', error);
+    throw error;
+  }
+}
+
+export async function getWishlist(userId) {
+
+  try {
+
+    const response = await apiClient2.get(`/api/v1/user/$wishlist`);
+    return response.data.data.wishlist;
+
+  } catch (error) {
+    console.error('Error getting shopping cart:', error);
+    throw error;
+  }
+
+}
+
 export async function addItemToCart(itemId, userId, quantity) {
   try {
 
