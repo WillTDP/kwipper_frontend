@@ -1,15 +1,57 @@
 <script setup>
-import ProductItem from '../Materiaal/Parts/ProductItem.vue';
-import { computed } from 'vue';
-import { products } from '../../fake-data.js';
+import { ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import apiService from '../../../apiService';
 
-const sellerEmail = 'chirokuringen@gmail.com'; // replace with the actual seller's email
+const store = useStore();
+const products = ref([]);
 
-const sameSellerProducts = computed(() => {
-  return products.filter(product => product.seller.email === sellerEmail);
+const getProducts = async () => {
+    const userDataID = ref(store.getters.userId);
+    console.log('User Data:', userDataID.value);
+
+    const response = await apiService.getUserCart(userDataID.value);
+    const data = response.data.data.shoppingCart;
+
+    return data;
+};
+
+const removeProduct = async (id) => {
+    const userDataID = ref(store.getters.userId);
+    const productID = id;
+    const itemIndex = products.value.findIndex(item => item.id === id);
+
+    console.log("product id", productID);
+    console.log('User Data Id:', userDataID.value);
+
+    try {
+        const response = await apiService.removeItemFromCart(userDataID.value, productID);
+        const data = response.data.data.shoppingCart;
+        products.value.splice(itemIndex, 1);
+    } catch (error) {
+        console.log(error);
+    }
+
+    // return data;
+}
+
+onMounted(async () => {
+    const shoppingCart = await getProducts();
+    
+    for (const element of shoppingCart) {
+        const product = await apiService.fetchDataById(element.product_id);
+
+        const cartObj = {
+        product: product,
+        id: element._id,
+        amount: element.amount
+        }
+
+        products.value.push(cartObj)
+    }
+
+    console.log(products);
 });
-
-
 </script>
 
 <template>
@@ -18,79 +60,59 @@ const sameSellerProducts = computed(() => {
         <div class="segments">
             <div class="stacked_segment"> 
                 <div class="items">
-                    <div class="item">
-                        <img src="../../assets/fouragetent.png" alt="placeholder" />
+                    <div v-for="product in products" :key="product.id" class="item">
+                        <img :src="product.product.data.data.assortment.item.pictures" alt="placeholder" />
                         <div class="item-info">
                             <div class="name">
-                                <p>Productnaam</p>
-                                <button class="remove">Verwijderen</button>
-                            </div>
-                            <div class="item-amount">
-                            <select class="input-limited">
-                                <option value="0-5">1</option>
-                                <option value="5-10">2</option>
-                                <option value="10-20">3</option>
-                                <option value="20-30">4</option>
-                                <option value="30-40">5</option>
-                            </select>            
-                        </div>
-                        <p>€0,00</p>
-                        <p>x Dagen</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="../../assets/fouragetent.png" alt="placeholder" />
-                        <div class="item-info">
-                            <div class="name">
-                                <p>Productnaam</p>
-                                <button class="remove">Verwijderen</button>
+                                <p>{{ product.product.data.data.assortment.item.art_name }}</p>
+                                <button @click="removeProduct(product.id)" class="remove">Verwijderen</button>
                             </div>
                             <div class="item-amount">
                                 <select class="input-limited">
-                                <option value="0-5">1</option>
-                                <option value="5-10">2</option>
-                                <option value="10-20">3</option>
-                                <option value="20-30">4</option>
-                                <option value="30-40">5</option>
+                                    <option value="0-5">1</option>
+                                    <option value="5-10">2</option>
+                                    <option value="10-20">3</option>
+                                    <option value="20-30">4</option>
+                                    <option value="30-40">5</option>
                                 </select>            
                             </div>
-                            <p>€0,00</p>
-                            <p>x Dagen</p>
+                            <p>€{{ product.product.data.data.assortment.item.price }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="but_wait">
+                <!-- <div class="but_wait">
                     <p>Wacht! Deze gebruiker verkoopt ook:</p>
                     <div class="productitem">
                         <ProductItem v-for="product in sameSellerProducts" :key="product.id" :product="product"/>
                     </div>     
-                </div>
+                </div> -->
             </div>
             <div class="overzicht">
                 <h2>Overzicht</h2>
                 <div class="artikelen">
                     <p>Artikelen</p>
-                    <div class="artikel">
-                        <p>Productnaam</p>
-                        <p>€0,00</p>
-                    </div>
-                    <div class="artikel">
-                        <p>Productnaam</p>
-                        <p>€0,00</p>
+                    <div v-for="product in products" :key="product.id" class="item">
+                        <div class="sumup">
+                            <p>{{ product.product.data.data.assortment.item.art_name }}</p>
+                            <p>€{{ product.product.data.data.assortment.item.price }}</p>  
+                        </div>                      
                     </div>
                 </div>
                 <div class="total">
-                    <p>Totaal</p>
-                    <p>€0,00</p>
+                    <p>Totaal te betalen</p>
+                    <p>€{{ products.reduce((acc, product) => acc + product.product.data.data.assortment.item.price, 0) }}</p>
                 </div>
                 <button class="checkout">Verder naar bestellen</button>
             </div>
-
         </div>
     </div>
 </template>
 
 <style scoped>
+
+    #price{
+        margin-left: 15em;
+    }
 
     .winkelmandje {
         display: flex;
@@ -125,6 +147,7 @@ const sameSellerProducts = computed(() => {
         background-color: #f0f2f1;
         width: 100%;
         border-radius: 12px;
+
     }
 
     .item {
@@ -146,6 +169,7 @@ const sameSellerProducts = computed(() => {
         display: flex;
         flex-direction: column;
         gap: 0em;
+        margin-top: -1em;
     }
 
     .name {
@@ -192,13 +216,21 @@ const sameSellerProducts = computed(() => {
     .artikelen {
         display: flex;
         flex-direction: column;
-        gap: 1em;
+        gap: -20px;
     }
 
     .artikel {
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .sumup{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 1em;
+
     }
 
     .total {

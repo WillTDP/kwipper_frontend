@@ -92,7 +92,7 @@ const filter = (category) => {
           <p :class="{'link': true, 'selected': selectedCategory === 'tafel'}" 
             @click="selectedCategory !== 'tafel' && filter('tafel')">
             Gewone Tafel
-            <span v-if="selectedCategory === 'slaapmateriaal'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
+            <span v-if="selectedCategory === 'tafel'" @click.stop="selectedCategory = null; emit('filter', null)" class="x">x</span>
           </p>
         </div>
 
