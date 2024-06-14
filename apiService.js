@@ -18,7 +18,7 @@ const apiClient2 = axios.create({
 
 export async function createAssortment(twoAssortmentData) {
     try {
-      const response = await apiClient2.post('/api/v1/two', twoAssortmentData);
+      const response = await apiClient.post('/api/v1/two', twoAssortmentData);
       return response.data;
     } catch (error) {
       throw error;
@@ -27,7 +27,7 @@ export async function createAssortment(twoAssortmentData) {
 
 export async function createUser(UserData) {
   try {
-    const response = await apiClient2.post('/api/v1/user', UserData);
+    const response = await apiClient.post('/api/v1/user', UserData);
     return response.data;
   } catch (error) {
     throw error;
@@ -36,7 +36,7 @@ export async function createUser(UserData) {
 
 export async function loginUser(loginData) {
   try {
-      const response = await apiClient2.post('/api/v1/user/login', loginData);
+      const response = await apiClient.post('/api/v1/user/login', loginData);
       const token = response.data.token;
       localStorage.setItem('authToken', token);
       window.location.href = '/';
@@ -50,7 +50,7 @@ export async function loginUser(loginData) {
 export async function addItemToWishlist(itemId, userId) {
   try {
 
-    const response = await apiClient2.post(`/api/v1/user/${userId}/wishlist`, {
+    const response = await apiClient.post(`/api/v1/user/${userId}/wishlist`, {
       product_id: itemId
     });
     return response.data.data.wishlist;
@@ -63,7 +63,7 @@ export async function addItemToWishlist(itemId, userId) {
 
 export async function removeWishlistItem(itemId, userId) {
   try {
-    const response = await apiClient2.delete(`/api/v1/user/${itemId}/wishlist/${userId}`);
+    const response = await apiClient.delete(`/api/v1/user/${itemId}/wishlist/${userId}`);
     return response.data.data.shoppingCart;
 
   } catch (error) {
@@ -76,7 +76,7 @@ export async function getWishlist(userId) {
 
   try {
 
-    const response = await apiClient2.get(`/api/v1/user/$wishlist`);
+    const response = await apiClient.get(`/api/v1/user/$wishlist`);
     return response.data.data.wishlist;
 
   } catch (error) {
@@ -89,7 +89,7 @@ export async function getWishlist(userId) {
 export async function addItemToCart(itemId, userId, quantity) {
   try {
 
-    const response = await apiClient2.post(`/api/v1/user/${userId}/shopping-cart`, {
+    const response = await apiClient.post(`/api/v1/user/${userId}/shopping-cart`, {
       product_id: itemId,
       amount: quantity
     });
@@ -105,7 +105,7 @@ export async function getShoppingCart(userId) {
 
   try {
 
-    const response = await apiClient2.get(`/api/v1/user/$shopping-cart`);
+    const response = await apiClient.get(`/api/v1/user/$shopping-cart`);
     return response.data.data.shoppingCart;
 
   } catch (error) {
@@ -118,7 +118,7 @@ export async function getShoppingCart(userId) {
 export async function removeItemFromCart(itemId, userId) {
   
     try {
-      const response = await apiClient2.delete(`/api/v1/user/${itemId}/shopping-cart/${userId}`);
+      const response = await apiClient.delete(`/api/v1/user/${itemId}/shopping-cart/${userId}`);
       return response.data.data.shoppingCart;
   
     } catch (error) {
@@ -149,37 +149,37 @@ export default {
   // Example function to fetch data from your API
   fetchData() {
     //return apiClient.get('/api/v1/two');
-    return apiClient2.get('/api/v1/two');
+    return apiClient.get('/api/v1/two');
   },
   getItemCount() {
-    return apiClient2.get('/api/v1/two').length;
+    return apiClient.get('/api/v1/two').length;
   },
   fetchDataById(id) {
     //return apiClient.get('/api/v1/two');
      // Construct the full URL by concatenating the base URL and the ID
   const fullUrl = `/api/v1/two/${id}`;
   // Return the Axios request using the constructed full URL
-  return apiClient2.get(fullUrl);
+  return apiClient.get(fullUrl);
   },
   getUserByIdsmall(id){
-    return apiClient2.get(`/api/v1/user/${id}`);
+    return apiClient.get(`/api/v1/user/${id}`);
   },
   getUserById(id){
-    return apiClient2.get(`/api/v1/user/full/${id}`);
+    return apiClient.get(`/api/v1/user/full/${id}`);
   },
   getAssortmentbyUser(id){
-    return apiClient2.get(`/api/v1/two/user/${id}`);
+    return apiClient.get(`/api/v1/two/user/${id}`);
   },
   getUserCart(id){
-    return apiClient2.get(`/api/v1/user/${id}/shopping-cart`);
+    return apiClient.get(`/api/v1/user/${id}/shopping-cart`);
   },
   removeItemFromCart(itemId, userId){
-    return apiClient2.delete(`/api/v1/user/${itemId}/shopping-cart/${userId}`);
+    return apiClient.delete(`/api/v1/user/${itemId}/shopping-cart/${userId}`);
   },
   getUserWishlist(id){
-    return apiClient2.get(`/api/v1/user/${id}/wishlist`);
+    return apiClient.get(`/api/v1/user/${id}/wishlist`);
   },removeWishlistItem(itemId, userId){
-    return apiClient2.delete(`/api/v1/user/${itemId}/wishlist/${userId}`);
+    return apiClient.delete(`/api/v1/user/${itemId}/wishlist/${userId}`);
   },
  
 };
