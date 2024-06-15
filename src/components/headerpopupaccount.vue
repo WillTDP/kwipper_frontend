@@ -84,7 +84,7 @@ defineExpose({ handleLogout, userRoute });
             </svg>
             <p>Account</p>
         </a>
-        <router-link to="/user/:id/cart" class="link" v-if="state.mobile">
+        <router-link to="/winkelmand" class="link" v-if="state.mobile">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                 <g clip-path="url(#clip0_2607_8578)">
                     <path d="M9 22.3164C9.55228 22.3164 10 21.8687 10 21.3164C10 20.7641 9.55228 20.3164 9 20.3164C8.44772 20.3164 8 20.7641 8 21.3164C8 21.8687 8.44772 22.3164 9 22.3164Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
