@@ -7,7 +7,7 @@ import { RouterLink } from 'vue-router';
     <div class="header-popup">
         <router-link to="/" class="Home">Home</router-link>
         <router-link to="/materiaal" class="Catalogus">Catalogus</router-link>
-        <router-link to="/verhuurder" class="Verhuurder">Word verhuurder</router-link>
+        <router-link to="/zoekertje" class="Verhuurder">Word verhuurder</router-link>
     </div>
 </template>
 
