@@ -120,7 +120,7 @@ const CheckLoggedIn = () => {
               </div>
               <div class="user_info map">
                 <img class="map-pin" src="https://c.animaapp.com/rqXPDOkF/img/map-pin.svg" />
-                <p>{{ user.data.gemeente }}</p>
+                <p> {{ user.data.straatnaam}} {{ user.data.huisnummer}}, {{ user.data.postcode}}, {{ user.data.gemeente }}</p>
               </div>
               <div class="user_info" v-if="CheckLoggedIn(true)">
                 <p>Dit is jouw account</p>
