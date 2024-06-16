@@ -19,7 +19,7 @@
 
     item:{
         art_name: '',
-        user: '4',
+        user: userId,
         price: '',
         waarborg: '',
         available_from: '24 mei 2024',
@@ -96,7 +96,7 @@
         formData.value = {
             item:{
                 art_name: '',
-                user: '4',
+                user: userId,
                 price: '',
                 waarborg: '',
                 available_from: '24 mei 2024',

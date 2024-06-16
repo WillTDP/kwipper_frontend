@@ -11,7 +11,7 @@ const props = defineProps({
 <template>
     <div class="product-item" v-if="item">
       <router-link :to="'/products/' + item._id">
-        <img :src="item.item.pictures[0] ? item.item.pictures[0] : '../../../../src/assets/seniorentent.png'" alt="materiaal foto" class="product-image">        
+        <img :src="item.item.pictures[0] ? item.item.pictures[0] : '/Images/fouragetent.png'" alt="materiaal foto" class="product-image">        
         <div class="product-text">
           <h3 class="product-name">{{ item.item.art_name }}</h3>
           <p  id="price" class="product-price">Vanaf €{{ item.item.price }} per dag</p>
