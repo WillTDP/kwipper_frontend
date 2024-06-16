@@ -109,7 +109,7 @@ const addToWishlist = async () => {
                   <h1 class="title">{{ itemData.data.assortment.item.art_name }}</h1>
                   <p class="seller_name">{{  userData.data.user.jb_name}} </p>
                 </div>
-                <img :src="itemData.data.assortment.item.pictures[0]">
+                <img :src="itemData.data.assortment.item.pictures[0] ? itemData.data.assortment.item.pictures[0] : '/Images/fouragetent.png'" alt="materiaal foto">
             </div>
             </div>
             <div class="middle_detail_element">

@@ -92,7 +92,7 @@ const addToCart = async () => {
                 </svg>
               </a>
             </div>
-            <img id="image-item" :src="itemData.data.assortment.item.pictures[0]">
+            <img id="image-item" :src="itemData.data.assortment.item.pictures[0] ? itemData.data.assortment.item.pictures[0] : '/Images/fouragetent.png'" alt="materiaal foto">
           </div>
       </div>
       <div class="middle_detail_element">
