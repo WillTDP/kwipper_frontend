@@ -102,89 +102,115 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-    h1 {
-        margin-left: 5%;
-    }
+h1 {
+    margin-left: 5%;
+}
 
-    .page_container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%; 
-    }
+.page_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 90%; /* Ensure the container does not shrink excessively */
+    margin: 0 auto;
+}
 
-    .empty_wish {
-        padding: 40px;
-        
-        display: flex;
-        flex-direction: column; 
-        align-items: center;    
-        justify-content: center; 
-    }
+.empty_wish {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-    .heart {
-        width: 100px;
-        height: 100px;
-    }
+.heart {
+    width: 100px;
+    height: 100px;
+}
 
-    .browse {
-        color: white;
-        background-color: #2b5740;
-    }
+.browse {
+    color: white;
+    background-color: #2b5740;
+    padding: 10px 20px; /* Add padding for better button appearance */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer; /* Add cursor pointer for better UX */
+}
 
-    .remove {
-        background-color: #ff0000;
-        color: white;
-        border: none;
-        border-radius: 9px;
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
+.items {
+    width: 100%; /* Ensure it takes full width of the parent container */
+}
 
-    .remove:hover {
-        background-color: #1e3d2b;
-    }
+.item {
+    background-color: #f0f2f1;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    width: 80%;
+    border-radius: 9px;
+    margin-bottom: 9px;
+    position: relative; /* Ensure the button is positioned relative to the item */
+}
 
-    .items {
-        position: relative;
-    }
+.image {
+    margin-right: 20px;
+}
 
-    .item {
-        background-color: #f0f2f1;
-        display: flex;  /* Changed from grid to flex */
-        align-items: center;  /* Center items vertically */
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 10px;
-    }
+.image img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 9px;
+}
 
-    .image {
-        margin-right: 20px;  /* Space between the image and item info */
-    }
+.item-info {
+    flex: 1;
+    margin-right: 20px;
+}
 
-    .image img {
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 9px;
-    }
+.user-info {
+    display: flex;
+    align-items: center;
+}
 
-    .item-info {
-        flex: 1;
-        margin-right: 20px;
-    }
+.user-info p {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
 
-    #person {
-        margin-right: 10px;
-    }
+#person {
+    margin-right: 10px;
+}
 
-    .item-info h3 {
-        color: #2b5740;
-    }
+.item-info h3 {
+    color: #2b5740;
+    margin: 0 0 10px 0; /* Add margin for better spacing */
+}
 
-    .detail {
-        background-color: #1c98d6;
-        color: white;
-    }
+.detail {
+    background-color: #1c98d6;
+    color: white;
+    padding: 10px 15px; /* Add padding for better button appearance */
+    border: none;
+    border-radius: 9px;
+    cursor: pointer; /* Add cursor pointer for better UX */
+    margin-left: 10px; /* Space between remove and detail button */
+}
+
+.remove {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    position: absolute; /* Ensure it's relative to the item */
+    top: 10px; /* Provide some space from the top */
+    right: 10px; /* Provide some space from the right */
+    padding: 5px 10px; /* Add padding for better button appearance */
+    cursor: pointer; /* Add cursor pointer for better UX */
+}
+
+.remove:hover {
+    background-color: #cc0000; /* Slightly different hover color */
+}
 </style>
