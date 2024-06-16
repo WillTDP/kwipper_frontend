@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps, onMounted, ref } from 'vue';
 import productRating from './StarRating.vue';
-import campImage1 from '../../../assets/fouragetent.png';
+import campImage1 from '/Images/fouragetent.png';
 
 import apiService from '../../../../apiService';
 
@@ -24,7 +24,7 @@ const props = defineProps({
                 <img class="verhuurder" src="https://c.animaapp.com/rqXPDOkF/img/rectangle-260@2x.png" />
                 <p class="product-owner">{{ jb_name ? jb_name : item.user.posted_by }}</p>
                 <productRating class="product-rating" />
-                <img :src="item.item.pictures[0] ? item.item.pictures[0] : '../../../../src/assets/seniorentent.png'" alt="materiaal foto">
+                <img :src="item.item.pictures[0] ? item.item.pictures[0] : campImage1" alt="materiaal foto">
             </div>
             
             <div class="product-text-container" >
